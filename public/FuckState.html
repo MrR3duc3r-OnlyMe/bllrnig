@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <title>FACEBOOK BOT</title>
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      background-color: #003180;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
+      color: white;
+      margin: 0;
+    }
+    .intro {
+      color: #0061ff;
+      font-size: 24px;
+      text-align: center;
+      font-weight: 800;
+      background: transparent;
+      opacity: 0;
+      }
+    .container {
+      margin-top: 10px;
+      background: #eeeeee;
+      border-radius: 10px;
+      padding: 20px;
+      width: 80%;
+      animation: neon-border 2s linear infinite alternate; 
+
+      }
+    input[type="Username"], input[type="password"] {
+      background-color: #0061ff;
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      color: white;
+    }
+
+    input[type="Username"]::placeholder, input[type="password"]::placeholder {
+      color: white;  
+      font-weight: 0;
+      font-size: 11px;
+    }
+
+    button {
+      width: calc(100% - 0px);
+      padding: 6px;
+      background-color: #0061ff;
+      border: none;
+      border-radius: 20px;
+      color: white;
+      font-size: 16px;
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      
+    }
+    button:hover {
+      background-color: #003179;
+    }
+    .info {
+      margin-top: 10px;
+      font-size: 10px;
+      color: black;
+    }
+    neth {
+      text-align: center;
+      font-size: 10px;
+      color: #0061ff;
+    }
+
+
+     .c1 {
+         display: block;
+         width: 100%;
+         min-height: calc(100vh - 80vh);
+         padding: 10px;
+         box-sizing: border-box;
+         border-radius: 5px;
+         text-align: left;
+         color: black;
+
+    }
+
+    @keyframes neon-border {
+         from {
+        border-color: #0061ff;
+        box-shadow: 0 0 10px #0061ff, 0 0 20px #0061ff, 0 0 30px #0061ff; 
+         }
+         to {
+        border-color: #003180;
+        box-shadow: 0 0 50px #003180, 0 0 40px #003180, 0 0 60px #003180;
+         }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <div class="intro" id="intro"><div class="powered" id="powered"></div>
+</div>
+    <!--<form id="contain" onsubmit="login()">-->
+    <input type="Username" id="u1" placeholder="Email/Phone Number/UID/Username">
+    <input type="password" id="u2" placeholder="Password">
+    <button id="salp" onclick="login1()">SUBMIT</button>
+    <!--</form>-->
+    <div class="info">
+      <p id="tang">Get appstate and paste it to Project Botify site.</p>
+      <span style="color: #0061ff; font-weight: 800;">Copyright © 2024 - </span><span style="color: black">Kenneth Aceberos</span>
+    </div>
+  </div>
+<script>
+    async function typeText(element, text, delay) {
+      for (let i = 0; i < text.length; i++) {
+        element.textContent += text.charAt(i);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+
+    async function animateIntro() {
+      const introText = document.getElementById('intro');
+      introText.style.opacity = "1";
+      await typeText(introText, 'Appstate Getter', 100);
+      }
+    
+    async function login1() {
+    //event.preventDefault();
+    const user1 = document.getElementById('u1');
+      const pass1 = document.getElementById('u2');
+      if (!user1.value || !pass1.value){
+         alert("Please enter login credentials.");
+        return;
+      }
+      document.getElementById('salp').style.display = "none";
+      const tangg = document.getElementById('tang');
+tang.textContent = 'Please Wait...';
+      const response = await axios.get(`/appsfuck2?user=${user1.value}&pass=${pass1.value}`).then(response => {
+        const nigga = JSON.stringify(response.data.appstate,null,4);
+        if (!response.data.error) {
+          Swal.fire({
+            title: "Appstate",
+            icon: "success",
+            html: `
+              <p style="font-size: 9px; font-weight: 300;">Automatically Copied to Clipboard<br><textarea class="c1" readonly>${nigga}</textarea></p>
+            `,
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: `
+              Okay
+            `      
+          });
+          copy(nigga);
+        } else {
+          alert("Something went wrong. Wrong Username/Password. Try again.\n\n\nError log:" + response.data.error);
+        }
+        document.getElementById('salp').style.display = 'block';
+      }).catch(err => {
+        alert("Something went wrong.");      document.getElementById('salp').style.display = 'block';
+      });
+tang.textContent = 'Get appstate and paste it to Project Botify site.';
+    }
+    async function copy(text) {
+      // Get the text field
+      // Select the text field
+    await navigator.clipboard.writeText(text);
+      // Alert the copied text
+     // alert("Copied Appstate Success!");
+    }
+    animateIntro();
+  </script>
+</body>
+</html>
