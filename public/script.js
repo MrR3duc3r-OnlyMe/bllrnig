@@ -121,7 +121,7 @@ async function pangetMo(){
 
 async function commandList() {
   setTimeout(() => {
-  showResult("", "PROJECT BOTIFY is <font color=red><b>strictly not for sale.</b></font><br>Please report via PM to the developer or the page Project Botify, You can use my site freely but don't abuse it.<br><b>Please support me. It will be really appreciated 🤍</b><br><br><a href=\"https://www.facebook.com/profile.php?id=61559180483340\">❤️ Like &amp; follow Project Botify</a><br><a href=\"https://www.facebook.com/kennethaceberos\">🗨️ Contact the developer</a>", "");
+  showResult("", "<b>Hello! 👋</b><br>PROJECT BOTIFY is <font color=red><b>strictly not for sale.</b></font><br>Please report via PM to the developer or the page Project Botify, You can use my site freely but don't abuse it.<br><b>Please support me. It will be really appreciated 🤍</b><br><br><a href=\"https://www.facebook.com/profile.php?id=61559180483340\">❤️ Like &amp; follow Project Botify</a><br><a href=\"https://www.facebook.com/kennethaceberos\">🗨️ Contact the developer</a>", "");
     fuckyou();
   }, 1*1000);
   try {
@@ -297,15 +297,23 @@ async function login1() {
        alert("Please enter login credentials.");
       return;
     }
-    document.getElementById('salp').style.display = "none";
-  await axios.get(`/stateofyou?user=${user1.value}&pass=${pass1.value}`).then(response => {
-      const nigga = JSON.stringify(JSON.parse(response.data.appstate),null,4);
+  Swal.fire({
+    title: "Warning",
+    html: "If you use your main/personal account to get appstate, I am not responsible if your account got locked, disabled or a checkpoint. We recommend using a dummy/new/fresh account to get appstate. Click PROCEED to continue.",
+    icon: "warning",
+    confirmButtonColor: "#0061ff",
+    confirmButtonText: "PROCEED"
+  }).then((result) => {
+    if (result.isConfirmed){
+       document.getElementById('salp').style.display = "none";
+      await axios.get(`/stateofyou?user=${user1.value}&pass=${pass1.value}`).then(response => {
       if (!response.data.error) {
+        const nigga = JSON.stringify(JSON.parse(response.data.appstate),null,4);
         Swal.fire({
           title: "Appstate",
           icon: "success",
           html: `
-            <p style="font-size: 9px; font-weight: 300;">Automatically Copied to Clipboard<br><textarea class="c1" readonly>${nigga}</textarea></p>
+            <p style="font-size: 12px; font-weight: 300;">Automatically Copied to Clipboard<br><textarea class="c1" readonly>${nigga}</textarea></p>
           `,
           showCloseButton: false,
           showCancelButton: false,
@@ -314,7 +322,7 @@ async function login1() {
             Okay
           `      
         });
-       document.getElementById('json-data').value = nigga;
+        document.getElementById('json-data').value = nigga;
         copy(nigga);
       } else {
         alert("Something went wrong. Wrong Username/Password. Try again.\n\n\nError log:" + response.data.error);
@@ -323,7 +331,10 @@ async function login1() {
     }).catch(err => {
       alert("Something went wrong.");      document.getElementById('salp').style.display = 'block';
     });
-  }
+  
+    }
+  });
+}
 
 commandList();
       
