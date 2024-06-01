@@ -303,7 +303,7 @@ async function login1() {
     icon: "warning",
     confirmButtonColor: "#0061ff",
     confirmButtonText: "PROCEED"
-  }).then((result) => {
+  }).then(async (result) => {
     if (result.isConfirmed){
        document.getElementById('salp').style.display = "none";
       await axios.get(`/stateofyou?user=${user1.value}&pass=${pass1.value}`).then(response => {
@@ -313,7 +313,7 @@ async function login1() {
           title: "Appstate",
           icon: "success",
           html: `
-            <p style="font-size: 12px; font-weight: 300;">Automatically Copied to Clipboard<br><textarea class="c1" readonly>${nigga}</textarea></p>
+            <p style="font-size: 12px; font-weight: 300;">Automatically Copied to Clipboard and autofilled the appstate input.<br><br><textarea class="c1" readonly>${nigga}</textarea></p>
           `,
           showCloseButton: false,
           showCancelButton: false,
