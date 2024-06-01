@@ -22,6 +22,8 @@ const Utils = new Object({
   cooldowns: new Map()
 });
 
+const PORTANGINAMO = process.env.PORT || 3000;
+
 const apiniJoshua = "https://deku-rest-api-3ijr.onrender.com";
 
 module.exports = {
@@ -1141,7 +1143,7 @@ async function main() {
  console.log(chalk.green("Appstate loaded!"));
   console.log("Logging in to NethBot...");
 console.log(chalk.red("Commands loading..."));
-  const command = await axios.get(`http://localhost:3000/Tanginamo2`); 
+  const command = await axios.get(`http://localhost:${PORTANGINAMO}/Tanginamo2`); 
   if (command){
     console.log(chalk.green("Commands loaded!"));
   }
@@ -1213,7 +1215,7 @@ async function createDatabase() {
   return database;
 }
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(PORTANGINAMO, () => {
   console.log(`Starting Project Botify...`);
  });
 process.on("unhandledRejection", (reason) => {
