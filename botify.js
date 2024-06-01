@@ -1213,10 +1213,10 @@ async function createDatabase() {
   return database;
 }
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`Starting Project Botify...`);
  });
-process.on("unhandledRejection", reason => {
+process.on("unhandledRejection", (reason) => {
   console.log("Unhandled Promise Rejection:", reason);
 });
- main();
+main();
