@@ -14,6 +14,6 @@ module.exports.handleEvent = async function ({ api, event, admin, prefix }) {
     const tanginamoo = tanginaka.random();
   // const yawaa = JSON.stringify(tanginamoo);
   //  const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-      api.setMessageReaction(tanginamoo.emoji, event.messageID, () => {}, true);
+      setTimeout(() => api.setMessageReaction(tanginamoo.emoji, event.messageID, () => {}, true),2*1000);
   }
 };

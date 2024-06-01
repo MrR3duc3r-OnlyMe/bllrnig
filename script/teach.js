@@ -21,8 +21,8 @@ module.exports.run = async ({ api, event, args, prefix }) => {
             return api.sendMessage(`Usage: ${prefix}teach hi => hello`, event.threadID, event.messageID);
         }
 
-        const response = await axios.get(`https://sim-api-ctqz.onrender.com/teach?ask=${encodeURIComponent(text1)}&ans=${encodeURIComponent(text2)}`);
-        api.sendMessage(`Your ask: ${text1}\nSim respond: ${text2}\nSuccesfull teach`, event.threadID, event.messageID);
+        const response = await axios.get(`https://simsimi.fun/api/v2/?mode=teach&lang=ph&message=${encodeURIComponent(text1)}&answer=${encodeURIComponent(text2)}`);
+        api.sendMessage(`Your ask: ${text1}\nSim respond: ${text2}\nSuccesfull teach: ${response.data.success}`, event.threadID, event.messageID);
     } catch (error) {
         console.error("An error occurred:", error);
         api.sendMessage("Please provide both a question and an answer\nExample: Teach hi => hello", event.threadID, event.messageID);

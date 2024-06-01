@@ -24,7 +24,7 @@ module.exports.run = async function({ api, event, args, prefix, outro }) {
     const data = res.data.data;
     var num = 0;
     var imgData = [];
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < 10; i++) {
       let path = __dirname + `/cache/Salp${num+=1}.jpg`;
       let getDown = (await axios.get(`${data[i]}`, { responseType: 'arraybuffer' })).data;
       fs.writeFileSync(path, Buffer.from(getDown, 'utf-8'));

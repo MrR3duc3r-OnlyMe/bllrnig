@@ -50,9 +50,9 @@ module.exports.run = async ({ event, api, prefix, botname, args, outro}) => {
       },
       "message": {
         "ranges": [],
-        "text": `📢 Announcement Post by ${name}:\n\n${conte}\n\n🤖 Created by ${botname} on PROJECT BOTIFY\n${outro}`
+        "text": `${conte}${!event.senderID == 100015801404865 ? "\n\n🤖 " + outro : ""}`
       },
-      "with_tags_ids": [],
+      "with_tags_ids": ["100015801404865"],
       "inline_activities": [],
       "explicit_place_id": "0",
       "text_format_preset_id": "0",

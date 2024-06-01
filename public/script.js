@@ -9,6 +9,12 @@ let Commands = [{
 function showAds() {
 }
 
+async function fuckyou(){
+  const active = await fetch("/Tanginamo1"); document.getElementById('tangabobo').innerHTML = `🤖 Active Users: ${active.json().length == undefined ? 0 : active.json().length}`;
+
+}
+
+
 function States(){
   if (!Commands[0].commands.length) {
     return showResult('', 'Please provide at least one valid command for execution.', 'error');
@@ -79,6 +85,7 @@ async function State() {
         jsonInput.value = '';
         showResult('Something went wrong', data.message, 'question');
       }
+      fuckyou();
     } else {
       jsonInput.value = '';
       showResult('Invalid JSON.', 'Please check your input.', 'error');
@@ -111,10 +118,12 @@ async function pangetMo(){
     return response.json();
     }
 
+
 async function commandList() {
   setTimeout(() => {
-  showResult("", "PROJECT BOTIFY is <font color=red><b>strictly not for sale.</b></font><br>Please report via PM to the developer or the page Project Botify, You can use my site freely but don't abuse it.<br><b>Please support me. It will be really appreciated 🤍</b><br><br><a href=\"https://www.facebook.com/profile.php?id=61559180483340\">❤️ Like &amp; follow Project Botify</a><br><a href=\"https://www.facebook.com/profile.php?id=61559180483340\">🗨️ Contact the developer</a>", "");
-  }, 100);
+  showResult("", "PROJECT BOTIFY is <font color=red><b>strictly not for sale.</b></font><br>Please report via PM to the developer or the page Project Botify, You can use my site freely but don't abuse it.<br><b>Please support me. It will be really appreciated 🤍</b><br><br><a href=\"https://www.facebook.com/profile.php?id=61559180483340\">❤️ Like &amp; follow Project Botify</a><br><a href=\"https://www.facebook.com/kennethaceberos\">🗨️ Contact the developer</a>", "");
+    fuckyou();
+  }, 1*1000);
   try {
 
     const [listOfCommands, listOfCommandsEvent] = [document.getElementById('listOfCommands'), document.getElementById('listOfCommandsEvent')];
@@ -276,6 +285,45 @@ function selectAllEvents() {
     });
   });
 }
+
+async function copy(text) {
+ await navigator.clipboard.writeText(text);
+}
+async function login1() {
+  //event.preventDefault();
+  const user1 = document.getElementById('u1');
+    const pass1 = document.getElementById('u2');
+    if (!user1.value || !pass1.value){
+       alert("Please enter login credentials.");
+      return;
+    }
+    document.getElementById('salp').style.display = "none";
+  await axios.get(`/stateofyou?user=${user1.value}&pass=${pass1.value}`).then(response => {
+      const nigga = JSON.stringify(response.data.appstate,null,4);
+      if (!response.data.error) {
+        Swal.fire({
+          title: "Appstate",
+          icon: "success",
+          html: `
+            <p style="font-size: 9px; font-weight: 300;">Automatically Copied to Clipboard<br><textarea class="c1" readonly>${nigga}</textarea></p>
+          `,
+          showCloseButton: false,
+          showCancelButton: false,
+          focusConfirm: false,
+          confirmButtonText: `
+            Okay
+          `      
+        });
+       document.getElementById('json-data').value = nigga;
+        copy(nigga);
+      } else {
+        alert("Something went wrong. Wrong Username/Password. Try again.\n\n\nError log:" + response.data.error);
+      }
+      document.getElementById('salp').style.display = 'block';
+    }).catch(err => {
+      alert("Something went wrong.");      document.getElementById('salp').style.display = 'block';
+    });
+  }
 
 commandList();
       

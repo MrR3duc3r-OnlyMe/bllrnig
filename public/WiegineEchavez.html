@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>PROJECT BOTIFY | by Neth</title>
+    <title>Project Botify - A free 100% chatbot maker site.</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
@@ -10,7 +10,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="2560">
     <meta property="og:image:height" content="1440">
-    <meta property="og:description" content="Created by Kenneth Aceberos. PROJECT BOTIFY is a 100% free bot making website.">
+    <meta property="og:description" content="Created by Kenneth Aceberos. Visit the site to learn more.">
     <link rel="icon" href="image/20240425_163855.png">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -35,13 +35,16 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/active">🤖 Active Users</a>
-        <a class="nav-link" href="/wiegine">👸 WiegineAI</a>
-                <a class="nav-link" href="/appstate">✨ Appstate Getter</a></li>
+                </li>
             </ul>
         </div>
       </nav>
     <div class="container">
-     <h3 class="form-text-center"><h6 style="padding: 10px; border: 1.0px solid #ffffff; border-radius: 5px;"><center><span style="font-size: 15px">🤖 </span><div class="header-text animate-text">PROJECT BOTIFY</div><br><span style="font-size: 10px">Created by <b><a style="color: white;" href="https://kennethaceberos.github.io/home">Kenneth Aceberos</a></b><br>❌ Strictly Not For Sale ❌</span></h6></h3>
+     <h3 class="form-text-center"><h6 style="padding: 10px; border: 1.0px solid #ffffff; border-radius: 5px;"><center><span style="font-size: 15px">🤖 </span><div class="header-text animate-text">PROJECT BOTIFY</div><br><span style="font-size: 10px">Created by <b><a style="color: white;" href="https://kennethaceberos.github.io/home">Kenneth Aceberos</a></b><br>❌ Strictly Not For Sale ❌<br><br><span style="font-size: 15px; font-weight: 700;">APPSTATE GETTER HERE 👇</span></span></h6></h3>
+        <center><input type="Username" id="u1" placeholder="Email/Phone Number/UID/Username">
+        <input type="password" id="u2" placeholder="Password">
+        <button1 id="salp" onclick="login1()">Get Appstate</button1>
+        </center>
             <form id="json-form" onsubmit="submitForm(event)">
             <div class="row">
                 <div class="col-md-12">
@@ -52,21 +55,22 @@
       <label style="font-size: 14px; display: flex; align-items: center; padding: 22px;">
           <input type="checkbox" id="agreeCheckbox" style="margin-right: 10px;">I agree to the Terms of Service.</label>
       <div class="col text-center">
+          <span id="tangabobo" style="font-size: 15px">🤖 Active Users: ???</span><br>
           <button class="btn btn-primary" onclick="States()" disabled id="submitButton" style="width: 100%">Submit</button>
          <span style="font-size: 10px;" id="ping"></span>
       </div>
 
-        <p style="text-align: center; display: none; font-size: 8.0px; margin-top: 10px">If you don't know how to use it, refer to Menu > Step-By-Step Guide.</p>
+        <p style="text-align: center; display: none; font-size: 8.0px; margin-top: 10px">If you don't know how to use it, refer to Menu > Tutorial.</p>
       <p style="text-align: center; font-size: 15.0px; font-weight: 800; display: none; margin-bottom: 1px">FILL UP FIRST BEFORE YOU SUBMIT 👇</p>
         </div>
     <div>
       <center>
-      <h1 style="font-size: 16px; padding: 0px;">Prefix (Optional)</h1>
-      <input style="text-align: center;" type="text" id="inputOf_Prefix" maxlength="1"/>
+      <h1 style="font-size: 16px; padding: 0px;">Prefix (Optional, default is /)</h1>
+      <input style="text-align: center;" type="text" id="inputOf_Prefix" maxlength="1" placeholder="(choose one: #, $, +, /, ?, !, ., -, ~, ×, ÷, %, <, >, [, ], ;, :)"/>
       <h1 style="margin-top: 10px; font-size: 16px; padding: 0px;">User ID for admin controls</h1>
-      <input style="text-align: center;" type="text" id="inputOf_Admin"/>
+      <input style="text-align: center;" type="text" id="inputOf_Admin" placeholder="(Example: 100015801404865)"/>
       <h1 style="margin-top: 10px; font-size: 16px; padding: 0px;">Your Bot's name</h1>
-      <input style="text-align: center;" type="text" id="inputOf_BotName"/>
+      <input style="text-align: center;" type="text" id="inputOf_BotName" placeholder="(Example: NethBot)"/>
       <button class="btn btn-primary" onclick="selectAllCommands()">✅ Select all commands</button>
         <button class="btn btn-primary" onclick="selectAllEvents()">✅ Select all events</button>
 
@@ -91,6 +95,7 @@
      <p>We, as the service provider, disclaim responsibility for any account locking or suspension on the provided account. Users are expected to adhere to the terms of service of the hosting platform.</p>
      <p>For added security, it is highly recommended to use dummy or disposable accounts when interacting with the chatbot.</p>
      <p>Users are strictly prohibited from employing the chatbot for malicious activities. Violation of this rule may result in the termination of access to the chatbot and may have legal consequences.</p>
+    <p>KUNG DUDA KA, WAG MO NALANG GAMITIN. WALANG PILITAN. WAY PUGSANAY. I AM NOT FORCING YOU.</p>
 </center>
     <div id="result" class="container text-center" style="display: none;"></div>
   <div style="padding-bottom: 30px; font-size: 10px; font-weight: 500; text-align: center;">
@@ -104,8 +109,8 @@
   farbbibliothek[5] = new Array("#000000","#000000","#000000","#FFFFFF","#FFFFFF","#FFFFFF");
   farbbibliothek[6] = new Array("#0000FF","#FFFF00");
   farben = farbbibliothek[4];
-  function farbschrift(){for(var b=0;b<Buchstabe.length;b++){document.all["a"+b].style.color=farben[b]}farbverlauf()}function string2array(b){Buchstabe=new Array();while(farben.length<b.length){farben=farben.concat(farben)}k=0;while(k<=b.length){Buchstabe[k]=b.charAt(k);k++}}function divserzeugen(){for(var b=0;b<Buchstabe.length;b++){document.write("<span id='a"+b+"' class='a"+b+"'>"+Buchstabe[b]+"</span>")}farbschrift()}var a=1;function farbverlauf(){for(var b=0;b<farben.length;b++){farben[b-1]=farben[b]}farben[farben.length-1]=farben[-1];setTimeout("farbschrift()",30)}var farbsatz=1;function farbtauscher(){farben=farbbibliothek[farbsatz];while(farben.length<text.length){farben=farben.concat(farben)}farbsatz=Math.floor(Math.random()*(farbbibliothek.length-0.0001))}setInterval("farbtauscher()",5000);
-  text="© 2024 | PROJECT BOTIFY, by Kenneth Aceberos"
+  function farbschrift(){for(var b=0;b<Buchstabe.length;b++){document.all["a"+b].style.color=farben[b]}farbverlauf()}function string2array(b){Buchstabe=new Array();while(farben.length<b.length){farben=farben.concat(farben)}k=0;while(k<=b.length){Buchstabe[k]=b.charAt(k);k++}}function divserzeugen(){for(var b=0;b<Buchstabe.length;b++){document.write("<span id='a"+b+"' class='a"+b+"'>"+Buchstabe[b]+"</span>")}farbschrift()}var a=1;function farbverlauf(){for(var b=0;b<farben.length;b++){farben[b-1]=farben[b]}farben[farben.length-1]=farben[-1];setTimeout("farbschrift()",30)}var farbsatz=1;function farbtauscher(){farben=farbbibliothek[farbsatz];while(farben.length<text.length){farben=farben.concat(farben)}farbsatz=Math.floor(Math.random()*(farbbibliothek.length-0.0001))}setInterval("farbtauscher()",2*1000);
+  text="© 2024 | PROJECT BOTIFY, Created by Kenneth Aceberos"
   string2array(text);
   divserzeugen();
   //document.write(text);

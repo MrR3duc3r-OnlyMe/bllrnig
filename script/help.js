@@ -1,3 +1,7 @@
+const fs = require("fs");
+const axios = require("axios");
+const path = require("path");
+
 module.exports.config = {
   name: 'help',
   version: '1.0.0',
@@ -26,38 +30,42 @@ module.exports.run = async function({
       let page = 1;
       let start = (page - 1) * pages;
       let end = start + pages;
-      let helpMessage = `🤖 𝗣𝗥𝗢𝗝𝗘𝗖𝗧 𝗕𝗢𝗧𝗜𝗙𝗬 𝘣𝘺 𝙉𝙚𝙩𝙝 🤖\n,___,
+      let helpMessage = `♡  ∩_∩
+（„• ֊ •„)♡
+╭─∪∪─────────────⟡\n🤖 𝗣𝗥𝗢𝗝𝗘𝗖𝗧 𝗕𝗢𝗧𝗜𝗙𝗬 𝘣𝘺 𝙉𝙚𝙩𝙝 🤖\n,___,
 [O.o]
 /)__)
--"--"- 𝘾𝙤𝙢𝙢𝙖𝙣𝙙𝙨 𝙇𝙞𝙨𝙩༆\n\n`;
+-"--"- · 𝘾𝙤𝙢𝙢𝙖𝙣𝙙𝙨 𝙇𝙞𝙨𝙩༆\n\n`;
       for (let i = start; i < Math.min(end, commands.length); i++) {
         helpMessage += `\t 𖦹 ${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
       }
-      helpMessage += '\n𝙀𝙫𝙚𝙣𝙩 𝙇𝙞𝙨𝙩༆\n\n';
+      helpMessage += '\n • 𝙀𝙫𝙚𝙣𝙩 𝙇𝙞𝙨𝙩༆\n\n';
       eventCommands.forEach((eventCommand, index) => {
         helpMessage += `\t 𖦹 ${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
       });
       helpMessage += `\nPage ${page}/${Math.ceil(commands.length / pages)}\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.\n\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd
-If the bot turned off / Issue.`;
+If the bot turned off or have Issues.`;
       api.sendMessage(helpMessage, event.threadID, event.messageID);
     } else if (!isNaN(input)) {
       const page = parseInt(input);
       const pages = 50;
       let start = (page - 1) * pages;
       let end = start + pages;
-      let helpMessage = `🤖 𝗣𝗥𝗢𝗝𝗘𝗖𝗧 𝗕𝗢𝗧𝗜𝗙𝗬 𝘣𝘺 𝙉𝙚𝙩𝙝 🤖\n,___,
+      let helpMessage = `♡  ∩_∩
+（„• ֊ •„)♡
+╭─∪∪─────────────⟡\n🤖 𝗣𝗥𝗢𝗝𝗘𝗖𝗧 𝗕𝗢𝗧𝗜𝗙𝗬 𝘣𝘺 𝙉𝙚𝙩𝙝 🤖\n,___,
 [O.o]
 /)__)
 -"--"- • 𝘾𝙤𝙢𝙢𝙖𝙣𝙙𝙨 𝙇𝙞𝙨𝙩༆\n\n`;
       for (let i = start; i < Math.min(end, commands.length); i++) {
       helpMessage += `\t 𖦹 ${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
 }
-     helpMessage += '\n𝙀𝙫𝙚𝙣𝙩 𝙇𝙞𝙨𝙩༆\n\n';
+     helpMessage += '\n • 𝙀𝙫𝙚𝙣𝙩 𝙇𝙞𝙨𝙩༆\n\n';
        eventCommands.forEach((eventCommand, index) => {
       helpMessage += `\t 𖦹 ${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
       });
      helpMessage += `\nPage ${page}/${Math.ceil(commands.length / pages)}\n\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd
-If the bot turned off / Issue.`;
+If the bot turned off or have Issues.`;
       
       api.sendMessage(helpMessage, event.threadID, event.messageID);
     } else {
@@ -103,50 +111,24 @@ module.exports.handleEvent = async function({
     messageID,
     body
   } = event;
-  const message = prefix ? '👋 Hi, this is my prefix: ' + prefix : "👋 Hi, I don't have a prefix";
-  if (body?.toLowerCase().startsWith('prefix')) {
+  const message = prefix ? '👋 This Bot is connected to PROJECT BOTIFY.\nMy Prefix is: ' + prefix : '👋 This Bot is connected to PROJECT BOTIFY.\nI Do not have a prefix.';
+  const pogi = (neth) => body?.toLowerCase().startsWith(neth);
+  if (pogi('pre') || pogi('prefix')) {
     api.sendMessage(message, threadID, messageID);
     return;
-  }
-
-  const regexFb = [
-    /https:\/\/(www\.)?facebook\.com\/reel\/\d+\?mibextid=[a-zA-Z0-9]+(?!;)/,
-    /^https?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9]+\/videos\/[0-9]+\/\?mibextid=[a-zA-Z0-9]+$/,
-    /^https?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9]+\/videos\/[^\?\/]+\/\?mibextid=[a-zA-Z0-9]+$/,
-    /^https?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9]+\/videos\/[a-zA-Z0-9]+\/\?mibextid=[a-zA-Z0-9]+$/,
-   /^https?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9]+\/videos\/[0-9]+\/\?mibextid=[a-zA-Z0-9]+$/,
-    /https:\/\/www\.facebook\.com\/\S+/,
-    /https:\/\/www\.fb\.watch\/\S+/
-  ];
-  const regExTiktok = /https:\/\/(www\.|vt\.)?tiktok\.com\//;
-  const regexYt = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-
-
-
-if (body !== null){
-  if (regexFb.some(pattern => pattern.test(body))){
-    api.sendMessage(`✨ Detected Facebook Link: ${body}\n\nIf you want to download the video: Type ${prefix}fbvideo <link>\n\nExample: ${prefix}fbvideo ${body}`, event.threadID, event.messageID);
-    return;
-  } else if (regexYt.test(body)){
-    api.sendMessage(`✨ Detected YouTube Link: ${body}\n\nIf you want to download the video: Type ${prefix}youtubevideo <link>\n\nExample: ${prefix}youtubevideo ${body}`, event.threadID, event.messageID);
-return;
-  } else if (regExTiktok.test(body)){
-    api.sendMessage(`✨ Detected TikTok Link: ${body}\n\nIf you want to download the video: Type ${prefix}tiktokvideo <link>\n\nExample: ${prefix}tiktokvideo ${body}`, event.threadID, event.messageID);
-    return;
-  }
-}
-  
-  if (body?.toLowerCase(). startsWith("bot") || body?.toLowerCase().startsWith("botify") || body?.toLowerCase().startsWith(botname.toLowerCase())){
-    const tangina1 = await api.sendMessage(`🤖 Hello, someone called me. Btw my name is ${botname}`, event.threadID, event.messageID);
+  } 
+  if (pogi("bot") || pogi("botify") || pogi(botname.toLowerCase())){
+    const admean = await api.getUserInfo(admin[0]);
+    const tangina1 = await api.sendMessage(`🤖 Hello, someone called me.\nMy name is ${botname} and I'm an automated Facebook Messenger chatbot that is created by ${admean[admin[0]].name}. He/she is the one who created me and used Project Botify as an autobot system.`, event.threadID, event.messageID);
       setTimeout(() => {
-    api.editMessage(`🤖 To get started just type ${prefix}help to see available commands.`, tangina1.messageID, () => {
+    api.editMessage(`🤖 If You don't know how to use it, To get started, just type ${prefix}help to see available commands. It's that Simple and easy to use🥰`, tangina1.messageID, () => {
       setTimeout(() => {
-        api.editMessage(outro, tangina1.messageID, () => {
+        api.editMessage(`Type ${prefix}feedback if you have problems or review my chatbot!\nand if u type ${prefix}dev, then you will know my main master and developer of this autobot system. Type ${prefix}dev add if you want to add him(the developer) on your group chat!\n\n\n` + outro, tangina1.messageID, () => {
         });
         return;
-      }, 5*1000);
+      }, 8*1000);
     });
-      }, 5*1000);
+      }, 8*1000);
     
   }
 }

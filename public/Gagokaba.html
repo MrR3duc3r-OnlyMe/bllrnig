@@ -145,8 +145,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         </div>
         <div class="card-body">
         <div class="chat chat-bot">
-            <span class="user-icon">👸</span>
-            <p>Hey! I'm Wiegine. I was created by my bf Kenneth Aceberos.</p>
+            <span class="user-icon">🤖</span>
+            <p>Hey! ChatGPT here, GPT-4 Model! ask me anything!</p>
           </div>
          <!-- <div class="chat user">
             <span class="user-icon"><i class="fa fa-user"></i></span>
@@ -189,7 +189,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     inputEl.value = "";
     cardBodyEl.appendChild(messageEl(userMessage, "user"));
     setTimeout(() => {
-      const robotMessage = messageEl("⏳ WiegineAI is typing...", "chat-bot");
+      const robotMessage = messageEl("⏳ ChatGPT is typing...", "chat-bot");
       cardBodyEl.append(robotMessage);
       chatGenerator(robotMessage);
     }, 600);
@@ -200,7 +200,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     chatEl.classList.add("chat", `${className}`);
     let chatContent =
       className === "chat-bot"
-        ? `<span class="user-icon">👸</span>
+        ? `<span class="user-icon">🤖</span>
     <p class='robot'>${message}</p>`
         : ` <span class="user-icon"><i class="fa fa-user"></i></span>
     <p>${message}</p>`;

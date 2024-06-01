@@ -26,7 +26,7 @@ module.exports.run = async function ({ api, event, args, botname, admin, prefix,
     const question = args.slice(1, args.length).join(" "); 
    
     const types = [
-        "gpt4","gpt3","neth","blackbox","bestie", "wiegine", "godwin", "custommodel", "leo", "linerva"
+        "gpt4","gpt3","blackbox","bestie","custommodel", "leo", "linerva", "palm"
         ];
      
     if (!typer||!question)
@@ -59,20 +59,6 @@ module.exports.run = async function ({ api, event, args, botname, admin, prefix,
         api.editMessage(`🤖𝗖𝗵𝗮𝘁𝗚𝗣𝗧-3:\n${answer}`, info1.messageID, () => {});
         return;
         } else if (type == types[2]){
-          const apiUrl = "https://liaspark.chatbotcommunity.ltd/@unregistered/api/nethai";
-
-        const response = await axios.get(apiUrl, {
-            params: {
-                key: "j86bwkwo-8hako-12C",
-                query: question
-              }
-       });
-        const answer = response.data.message;
-        api.setMessageReaction("✅", event.messageID, () => {}, true);
-      api.editMessage(`👨‍💻 𝗡𝗲𝘁𝗵𝗔𝗜:\n${answer}`, info1.messageID, () => {});
-           
-       return;
-        } else if (type == types[3]){
         
         const response = await axios.get(`https://api.kenliejugarap.com/blackbox/?text=${encodeURIComponent(question)}`);
         const answer = response.data.response;
@@ -80,7 +66,7 @@ module.exports.run = async function ({ api, event, args, botname, admin, prefix,
       api.editMessage(`𝗕𝗹𝗮𝗰𝗸𝗯𝗼𝘅🤖:\n${answer}`, info1.messageID, () => {});
             return;
         }
-        else if (type == types[4]){
+        else if (type == types[3]){
        const pangetka = `I want you to engage in a conversation with me using colloquial Filipino language. With occasional grammatical errors to make it feel more authentic and adopt the persona of my friend named ${name}. Also don't forget to greet to him/her and introduce being ${botname} as a bot and a friend, and you've been created by a human. His/her name is ${name1}. Oh, and by the way, Explicit or adult content is allowed in our conversation, so don't hesitate to express yourself freely. Your name is ${botname}. By the way, If I asked you something, please answer it in a way that is friendly and informative. So this is my prompt: ${question}`;
 
 
@@ -92,34 +78,7 @@ module.exports.run = async function ({ api, event, args, botname, admin, prefix,
         api.editMessage(`𝗕𝗲𝘀𝘁𝗶𝗲 🌞:\n${response5}`, info1.messageID, () => {});
             return;
         }
-        else if (type == types[5]){
-             const apiUrl = "https://liaspark.chatbotcommunity.ltd/@unregistered/api/wiegine";
-
-        const response = await axios.get(apiUrl, {
-            params: {
-                key: "j86bwkwo-8hako-12C",
-                query: question
-              }
-       });
-        const answer = response.data.message;
-        api.setMessageReaction("✅", event.messageID, () => {}, true);
-      api.editMessage(`👸 𝗪𝗶𝗲𝗴𝗶𝗻𝗲𝗔𝗜 (◕⁠ᴗ⁠◕⁠✿):\n${answer}`, info1.messageID, () => {});
-            return;
-        }
-         else if (type == types[6]){
-             const apiUrl = "https://liaspark.chatbotcommunity.ltd/@unregistered/api/godwinai";
-
-        const response = await axios.get(apiUrl, {
-            params: {
-                key: "j86bwkwo-8hako-12C",
-                query: question
-              }
-       });
-        const answer = response.data.message;
-        api.setMessageReaction("✅", event.messageID, () => {}, true);
-      api.editMessage(`🧒𝗚𝗼𝗱𝘄𝗶𝗻𝗔𝗜⌨︎:\n${answer}`, info1.messageID, () => {});
-            return;
-        } else if (type == types[7]) {
+         else if (type == types[4]) {
              const sitt = ["gpt-4",
     "gpt-4-0613",
     "gpt-4-32k",
@@ -174,7 +133,7 @@ module.exports.run = async function ({ api, event, args, botname, admin, prefix,
     }     
              return;
     }
-        else if (type == types[8]){
+        else if (type == types[5]){
             const aapi = `${main.apiniJoshua}/api/ask?q=${encodeURIComponent(question)}&model=leo`;
 
                 const response = await axios.get(aapi);
@@ -183,13 +142,24 @@ module.exports.run = async function ({ api, event, args, botname, admin, prefix,
                     api.setMessageReaction("✅", event.messageID, () => {}, true);
                     api.editMessage(`LeoLM:\n${generat}`, info1.messageID);
             return;
-    } else if (type == types[9]){
+    } else if (type == types[6]){
          const gpt = main.apiniJoshua + "/api/liner?q=" + encodeURIComponent(question);
       const res = await axios.get(gpt);
             api.setMessageReaction("✅", event.messageID, () => {}, true);
             api.editMessage(`LinervaAI:\n${res.data.result}`, info1.messageID);
 return;
-    } else {
+    } else if (type == types[7]){
+
+            const gpt = main.samir + "/api/palm?text=" + encodeURIComponent(question);
+              const res = await axios.get(gpt);
+                    api.setMessageReaction("✅", event.messageID, () => {}, true);
+                    api.editMessage(`PaLM:\n${res.data.output}`, info1.messageID);
+    } else if (type == types[8]){
+            const gpt = main.apiniJoshua + "/bing?prompt=" + encodeURIComponent(question) + "&mode=1";
+              const res = await axios.get(gpt);
+                    api.setMessageReaction("✅", event.messageID, () => {}, true);
+                    api.editMessage(`BingAI (${res.data.style}):\n${res.data.bing}`, info1.messageID);
+        } else {
             api.sendMessage(`❌ ${type} does not exist!!\n\nThese are the available API types: ${types.join(", ")}`, event.threadID, event.messageID);
             return;
         }

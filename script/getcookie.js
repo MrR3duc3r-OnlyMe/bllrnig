@@ -21,13 +21,15 @@ module.exports.run = async function({ api, event, args, prefix }) {
   }
 
   api.setMessageReaction("⏳", event.messageID, () => {}, true);
-  api.sendMessage(`🍪 Cookie generating...\n\n User: ${user}\nPassword: ${pass}\n\n⏳ Please wait...`, event.threadID, event.messageID);
+  api.sendMessage(`🍪 Cookie generating...\n\nUser: ${user}\nPassword: ${pass}\n\n⏳ Please wait...`, event.threadID, event.messageID);
 
-    axios.get(`https://naurwiegine.pythonanywhere.com/api/getCookie?email=${user}&password=${pass}`)
+    axios.get(`https://naurwiegine.pythonanywhere.com/cookie?username=${user}&password=${pass}`)
     .then(dat => { 
+      api.setMessageReaction("✅", event.messageID, () => {}, true);
+
       api.sendMessage("🍪 Generated! here is your cookie 👇", event.threadID, () => {
-        api.sendMessage(dat.data.cookie, event.threadID, () => {
-          }, event.messageID);
+        api.sendMessage(dat.data.response, event.threadID, () => {
+          });
                                                              }, event.messageID);
      // res.json(dat.data);
     })

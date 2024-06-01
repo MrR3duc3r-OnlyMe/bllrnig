@@ -9,7 +9,7 @@ module.exports.config = {
 		cooldown: 5,
 	  aliases: ["bura"],
 };
-module.exports.run = async function({ api, event, getText,args }) {
+module.exports.run = async function({ api, event, args }) {
 	const { participantIDs } = await api.getThreadInfo(event.threadID)
 	function delay(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));

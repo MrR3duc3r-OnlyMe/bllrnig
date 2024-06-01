@@ -45,10 +45,13 @@ module.exports.config = {
       ]
 };
 
-module.exports.run = async function({ api, args, Users, event, Threads, utils, client, admin }) {
+module.exports.run = async function({ api, args, event, utils, admin }) {
   let {messageID, threadID, senderID} = event;
   var info = await api.getThreadInfo(threadID);
-  if (!info.adminIDs.some(item => item.id == api.getCurrentUserID())) return api.sendMessage('𝐏𝐋𝐄𝐀𝐒𝐄 𝐌𝐀𝐊𝐄 𝐌𝐄 𝐀𝐃𝐌𝐈𝐍 𝐓𝐇𝐄𝐍 𝐓𝐑𝐘', threadID, messageID);
+  if (!info.adminIDs.some(item => item.id == api.getCurrentUserID())) {
+    api.sendMessage('𝐏𝐋𝐄𝐀𝐒𝐄 𝐌𝐀𝐊𝐄 𝐌𝐄 𝐀𝐃𝐌𝐈𝐍 𝐓𝐇𝐄𝐍 𝐓𝐑𝐘', threadID, messageID);
+    return;
+  }
   var fs = require("fs-extra");
 
   if (!fs.existsSync(__dirname + `/cache/bans.json`)) {

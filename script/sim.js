@@ -17,8 +17,8 @@ module.exports.run = async function({ api, event, args }) {
         const content = encodeURIComponent(args.join(" "));
         if (!args[0]) return api.sendMessage("Please type a message...", tid, mid);
         try {
-                const res = await axios.get(`https://sim-api-ctqz.onrender.com/sim?query=${content}`);
-                const respond = res.data.respond;
+                const res = await axios.get(`https://simsimi.fun/api/v2/?mode=talk&lang=ph&message=${content}&filter=false`);
+                const respond = res.data.success;
                 if (res.data.error) {
                         api.sendMessage(`Error: ${res.data.error}`, tid, (error, info) => {
                                 if (error) {
