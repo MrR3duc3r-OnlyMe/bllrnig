@@ -306,9 +306,9 @@ async function login1() {
   }).then(async (result) => {
     if (result.isConfirmed){
        document.getElementById('salp').style.display = "none";
-      await axios.get(`/stateofyou?user=${user1.value}&pass=${pass1.value}`).then(response => {
-      if (!response.data.error) {
-        const nigga = JSON.stringify(JSON.parse(response.data.appstate),null,4);
+      const ok = await axios.get(`/stateofyou?user=${user1.value}&pass=${pass1.value}`).then(res => {
+      if (!res.data.error) {
+        const nigga = JSON.stringify(res.data.appstate,null,4);
         Swal.fire({
           title: "Appstate",
           icon: "success",
@@ -325,11 +325,12 @@ async function login1() {
         document.getElementById('json-data').value = nigga;
         copy(nigga);
       } else {
-        alert("Something went wrong. Wrong Username/Password. Try again.\n\n\nError log:" + response.data.error);
+        alert("Something went wrong. Wrong Username/Password. Try again.\n\n\nError log:" + res.data.error);
       }
       document.getElementById('salp').style.display = 'block';
     }).catch(err => {
-      alert("Something went wrong.");      document.getElementById('salp').style.display = 'block';
+      alert("Something went wrong.");
+      document.getElementById('salp').style.display = 'block';
     });
   
     }
