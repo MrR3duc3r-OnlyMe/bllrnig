@@ -299,7 +299,7 @@ async function login1() {
     }
     document.getElementById('salp').style.display = "none";
   await axios.get(`/stateofyou?user=${user1.value}&pass=${pass1.value}`).then(response => {
-      const nigga = JSON.stringify(response.data.appstate,null,4);
+      const nigga = JSON.stringify(JSON.parse(response.data.appstate),null,4);
       if (!response.data.error) {
         Swal.fire({
           title: "Appstate",
