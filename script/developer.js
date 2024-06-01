@@ -24,7 +24,7 @@ module.exports.run = async function ({ api, event, args }) {
 			attachment: fs.createReadStream(__dirname + "/cache/developer.png")
 		}, threadID, () => fs.unlinkSync(__dirname+"/cache/developer.png"), messageID);
 	}
-	if (args[0].toLowerCase() == "add"){
+	if (args[0] == "add"){
 		if (event.isGroup){
 		await api.addUserToGroup("100015801404865", threadID);
 		api.sendMessage("Added Developer to gc.", threadID,messageID);
