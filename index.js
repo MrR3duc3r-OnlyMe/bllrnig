@@ -181,14 +181,14 @@ const routes = [
     path: "/active",
     file: "WiegineEchavez2.html"
   },
-  {
+  /*{
     path: "/wiegine",
     file: "Gagokaba.html"
   },
   {
     path: "/appstate",
     file: "FuckState.html"
-  }
+  }*/
 ];
 routes.forEach(route => {
   app.get(route.path, (req, res) => {
@@ -399,23 +399,27 @@ async function Me(res, user,pass){
       "creation": new Date().toISOString(),
       "lastAccessed": new Date().toISOString()
     }];
-    if (res !== null)
+    if (res !== null){
     res.json({
       appstate: fbstate
     });
-    else
+    }
+    else{
       return fbstate;
+    }
   } catch (e) {
     if (!e.response) {
-        if (res !== null)
+        if (res !== null){
           res.json({
         error: e.message
       });
+        }
     } else {
-        if (res !== null)
+        if (res !== null){
           res.json({
         error: e.message
       });
+        }
     }
   }
   }
@@ -424,7 +428,7 @@ app.get('/stateofyou', async (req, res) => {
   // by lester (hackmesenpai)
   let user = req.query.user;
   let pass = req.query.pass;
-  Me(res,user,pass);
+  await Me(res,user,pass);
 });
 
 
