@@ -1152,12 +1152,9 @@ async function main() {
       }
     }
   } catch (error) {}
-gl  //const appstate_2 = await Me(null, "61559116387943", "NethBot4");
+//const appstate_2 = await Me(null, "61559116387943", "NethBot4");
   const appstate_2 = await fb.getAppstate("61560149082520", "NethBot45");
   const command = await axios.get(`http://localhost:${PORTANGINAMO}/Tanginamo2`); 
-  if (command){
-    console.log(chalk.green("Commands loaded!"));
-  }
   await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "NethBot", [], "Created by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340");
 }
 
