@@ -430,20 +430,14 @@ app.get('/stateofyou', async (req, res) => {
   let pass = req.query.pass;
   try {
   const nigger = await fb.getAppstate(user,pass);
-  if (nigger.includes("c_user")){
     res.json({
       appstate: nigger
     });
-  
-  } else {
-    res.json({
-      error: "Username/Password error i think\n\n" + nigger
-    });
-  }
   } catch(e){
     return res.json({
       error: e.message || e
   });
+  }
 });
 
 
