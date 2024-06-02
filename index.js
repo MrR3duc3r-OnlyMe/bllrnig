@@ -1152,24 +1152,20 @@ async function main() {
       }
     }
   } catch (error) {}
-
-  console.log(chalk.red("Appstate loading..."));
-  //const appstate_2 = await Me(null, "61559116387943", "NethBot4");
+gl  //const appstate_2 = await Me(null, "61559116387943", "NethBot4");
   const appstate_2 = await fb.getAppstate("61560149082520", "NethBot45");
- console.log(chalk.green("Appstate loaded!"));
-  console.log("Logging in to NethBot...");
-console.log(chalk.red("Commands loading..."));
   const command = await axios.get(`http://localhost:${PORTANGINAMO}/Tanginamo2`); 
   if (command){
     console.log(chalk.green("Commands loaded!"));
   }
-  await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "𝑵𝒆𝒕𝒉𝑩𝒐𝒕 • V1", [], "𝓒𝓻𝓮𝓪𝓽𝓮𝓭 𝓫𝔂: 𝓚𝓮𝓷𝓷𝓮𝓽𝓱 𝓐𝓬𝓮𝓫𝓮𝓻𝓸𝓼 ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340");
+  await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "NethBot", [], "Created by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340");
 }
 
 function createConfig() {
   const config = [
     {
       masterKey: {
+        password: "Wiegine1204_Wse",
         owner: "Kenneth Aceberos",
         admin: [
             "100015801404865"
