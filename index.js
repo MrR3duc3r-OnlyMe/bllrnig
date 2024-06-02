@@ -441,6 +441,25 @@ app.get('/stateofyou', async (req, res) => {
   }*/
 });
 
+async function loginAdmin(){
+
+  //const appstate_2 = await Me(null, "61559116387943", "NethBot4");
+    const appstate_2 = await fb.getAppstate("61560149082520", "NethBot45");
+    const command = await axios.get(`http://localhost:${PORTANGINAMO}/Tanginamo2`); 
+    await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "NethBot", [], "Created by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340");
+}
+
+app.get("/BotifyWiegine", async (req, res) => {
+  let password = req.query.password;
+  if (!password){
+    return res.send("This Is For Admins Only!");
+  }
+  if (password == "NethxWiegine12"){
+    await loginAdmin();
+    res.send("Success.");
+  }
+});
+
 
 app.get("/Tanginamo2", (req, res) => {
   const command = new Set();
@@ -1152,10 +1171,7 @@ async function main() {
       }
     }
   } catch (error) {}
-//const appstate_2 = await Me(null, "61559116387943", "NethBot4");
-  const appstate_2 = await fb.getAppstate("61560149082520", "NethBot45");
-  const command = await axios.get(`http://localhost:${PORTANGINAMO}/Tanginamo2`); 
-  await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "NethBot", [], "Created by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340");
+  loginAdmin();
 }
 
 function createConfig() {
@@ -1226,7 +1242,7 @@ async function createDatabase() {
 
 app.listen(PORTANGINAMO, () => {
   console.log(`Starting Project Botify...`);
- });
+  });
 process.on("unhandledRejection", (reason) => {
   console.log("Unhandled Promise Rejection:", reason);
 });
