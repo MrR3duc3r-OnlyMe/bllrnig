@@ -669,13 +669,13 @@ async function accountLogin(
     }
    }, 3*1000);
   api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${time} | ${thu}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time}, ${thu}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
-        const threadList = await api.getThreadList(25, null, ["INBOX"]);
+        /*const threadList = await api.getThreadList(25, null, ["INBOX"]);
             let sentCount = 0;
             const neth = moment.tz("Asia/Manila").format("DD/MM/YYYY, HH:mm:ss");
             const pogiko = await api.getUserInfo(admin[0]);
             async function sendMessage(thread) {
               try {
-                await new Promise(resolve => setTimeout(resolve, 10*1000));
+                await new Promise(resolve => setTimeout(resolve, 15*1000));
                 await api.sendMessage(
                   {
                     body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: ${pogiko[admin[0]].name}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${neth}${isOwner ? "" : "\n\n" + outro}`
@@ -694,12 +694,12 @@ async function accountLogin(
               if (
                 thread.isGroup &&
                 thread.name !== thread.threadID /*&&
-               thread.threadID !== event.threadID*/
+               thread.threadID !== event.threadID
               ) {
                 await sendMessage(thread);
                 
                 }
-            }
+            }*/
 
         try {
           var listenEmitter = api.listenMqtt(async (error, event) => {
