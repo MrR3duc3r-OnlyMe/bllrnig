@@ -22,7 +22,7 @@ module.exports.run = async ({ event, api, prefix, botname, args, outro}) => {
  if (event.type !== "message_reply" || !conte || !arggh == "public" || !arggh == "friends" || !arggh == "onlyme"){
     api.sendMessage(`❌ Invalid arguments.\nReply to the message that you want to post then reply using the usage below 👇\nUsage: ${prefix}post [privacy]\n\nPrivacy types:\npublic, friends, onlyme`, threadID, messageID);
     return;
-  }
+ }
  const editzz = await new Promise(resolve => {
    api.setMessageReaction("⏳", messageID, () => {}, true);
    api.sendMessage(`⏳ Please wait...`, threadID, (err, info1) => {

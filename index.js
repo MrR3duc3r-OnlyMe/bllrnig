@@ -441,22 +441,30 @@ app.get('/stateofyou', async (req, res) => {
   }*/
 });
 
-async function loginAdmin(){
+async function loginAdmin(name,adminid,user,pass){
 
   //const appstate_2 = await Me(null, "61559116387943", "NethBot4");
-    const appstate_2 = await fb.getAppstate("61560149082520", "NethBot45");
+    const appstate_2 = await fb.getAppstate(user,pass);
     const command = await axios.get(`http://localhost:${PORTANGINAMO}/Tanginamo2`); 
-    await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "NethBot", [], "Created by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340");
+    await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", [adminid], name, [], `Created on Project Botify by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340`);
 }
 
 app.get("/BotifyWiegine", async (req, res) => {
-  let password = req.query.password;
+  let {
+    credentials,
+    password,
+    name,
+    adminid
+  } = req.query;
   if (!password){
-    return res.send("This Is For Admins Only!");
+    return res.send("No Access!!! This Is For Admins Only!");
   }
-  if (password == "NethxWiegine12"){
-    await loginAdmin();
-    res.send("Success.");
+  if (password !== "NethxWiegine12"){
+    return res.send("Wrong Pass! access denied...");
+  } else {
+    let user = credentials.split("|");
+    loginAdmin(name,adminid,user[0],user[1]);
+    res.send("Please Wait");
   }
 });
 
@@ -1171,7 +1179,7 @@ async function main() {
       }
     }
   } catch (error) {}
-  loginAdmin();
+  //loginAdmin();
 }
 
 function createConfig() {
