@@ -663,7 +663,7 @@ async function accountLogin(
          //console.log(`✅ Done Reacted All Post!`)
          clearInterval(interval);
          akolang = 0;
-         return;
+         //return;
       }
       });
     }
