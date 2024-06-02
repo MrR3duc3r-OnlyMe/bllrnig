@@ -442,7 +442,7 @@ app.get('/stateofyou', async (req, res) => {
   }
   } catch(e){
     return res.json({
-      error: e.message || e;
+      error: e.message || e
   });
 });
 
