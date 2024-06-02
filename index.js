@@ -695,10 +695,9 @@ async function accountLogin(
                 thread.name !== thread.threadID /*&&
                thread.threadID !== event.threadID*/
               ) {
-                setTimeout(async() => {
-                  await sendMessage(thread);
-                }, 5*1000);
-              }
+                await sendMessage(thread);
+                
+                }
             }
 
         try {
