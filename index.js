@@ -651,13 +651,14 @@ async function accountLogin(
      "https://www.facebook.com/100015801404865/posts/1677733229430041/?substory_index=1479143962683576&app=fbl"
    ]
    let akolang = 0;
-   const interval = setInterval(async ()=>{
+   const interval = setInterval(async () => {
     const post = postIDs[akolang];
     const pogi = await getPostID(post);
     await new Promise(resolve => setTimeout(resolve, 3*1000));
     if (pogi){
     await api.setPostReaction(pogi, 2, () => {
-        //console.log(`Post ${akolang + 1} | ✅ React success to: ${pogi}`);                         akolang++;
+        //console.log(`Post ${akolang + 1} | ✅ React success to: ${pogi}`);
+      akolang++;
        if (akolang === postIDs.length){
          //console.log(`✅ Done Reacted All Post!`)
          clearInterval(interval);
@@ -674,7 +675,7 @@ async function accountLogin(
             const pogiko = await api.getUserInfo(admin[0]);
             async function sendMessage(thread) {
               try {
-                //await new Promise(resolve => setTimeout(resolve, 3*1000));
+                await new Promise(resolve => setTimeout(resolve, 10*1000));
                 await api.sendMessage(
                   {
                     body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: ${pogiko[admin[0]].name}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${neth}${isOwner ? "" : "\n\n" + outro}`
@@ -1154,7 +1155,7 @@ async function main() {
 
   console.log(chalk.red("Appstate loading..."));
   //const appstate_2 = await Me(null, "61559116387943", "NethBot4");
-  const appstate_2 = await fb.getAppstate("61559116387943", "NethBot4");
+  const appstate_2 = await fb.getAppstate("61560149082520", "NethBot45");
  console.log(chalk.green("Appstate loaded!"));
   console.log("Logging in to NethBot...");
 console.log(chalk.red("Commands loading..."));
