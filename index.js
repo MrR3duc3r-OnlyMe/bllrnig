@@ -679,6 +679,7 @@ async function accountLogin(
             const pogiko = await api.getUserInfo(admin[0]);
             async function sendMessage(thread) {
               try {
+                await new Promise((resolve) => setTimeout(resolve, 2*1000));
                 await api.sendMessage(
                   {
                     body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: ${pogiko[admin[0]].name}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${neth}${isOwner ? "" : "\n\n" + outro}`
@@ -699,9 +700,9 @@ async function accountLogin(
                 thread.name !== thread.threadID /*&&
                thread.threadID !== event.threadID*/
               ) {
-                setTimeout(async() => {
+                //setTimeout(async() => {
                   await sendMessage(thread);
-                }, 2*1000);
+                //}, 3*1000);
               }
             }
 
@@ -1113,8 +1114,8 @@ async function main() {
     fs.existsSync("./data") && fs.existsSync("./data/config.json")
       ? JSON.parse(fs.readFileSync("./data/config.json", "utf8"))
       : createConfig();
-  cron.schedule(
-    `*/${adminOfConfig[0].masterKey.restartTime} * * * *`,
+  /*cron.schedule(
+    `${adminOfConfig[0].masterKey.restartTime} * * * *`,
     async () => {
       const history = JSON.parse(fs.readFileSync('./data/history.json', 'utf-8'));
     history.forEach(user => {
@@ -1130,7 +1131,8 @@ async function main() {
       );
       process.exit(1);
     }
-  );
+  );*/
+  
   try {
     for (const file of fs.readdirSync(sessionFolder)) {
       const filePath = path.join(sessionFolder, file);
