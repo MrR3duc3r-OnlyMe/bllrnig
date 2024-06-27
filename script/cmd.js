@@ -1,7 +1,7 @@
 module.exports.config = {
   name: "cmd",
   version: "1",
-  role: 2,
+  role: 3,
   credits: "neth",
   description: "Test cmd",
   hasPrefix: true,
@@ -21,12 +21,8 @@ module.exports.run = async function({ api, event, args }) {
         return;
         }*/
     try {
-      const runner = await eval(input);
-     api.sendMessage(
-        `${JSON.stringify(runner, null, 2)}`,
-        event.threadID, event.messageID
-      );
-    } catch (error) {
+      await eval(input);
+     } catch (error) {
       api.sendMessage(
         `${error.message}`,
         event.threadID, event.messageID

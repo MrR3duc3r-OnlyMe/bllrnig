@@ -24,27 +24,18 @@ const Utils = new Object({
 
 const PORTANGINAMO = process.env.PORT || 3000;
 
-const apiniJoshua = "https://deku-rest-api-3ijr.onrender.com";
-
 module.exports = {
     test1: Utils,
     samir: "https://apis-samir.onrender.com",
-    apiniJoshua: apiniJoshua
+    apiniJoshua: "https://joshweb.click"
     };
 
 const AKOLANGTWO = `Want to have this bot? Go to PROJECT BOTIFY facebook page: https://www.facebook.com/profile.php?id=61559180483340\n(Can I get a like/follow? 🥺)\nClick "Sign Up" to get started and create your own\n\n🗨️ If you don't know how to do it just message our Facebook page above.\nCreated with 🤍 by ${config[0].masterKey.owner}`;
 
- var thu = moment.tz("Asia/Manila").format("dddd");
-                if (thu == "Sunday") thu = "Sunday";
-                if (thu == "Monday") thu = "Monday";
-                if (thu == "Tuesday") thu = "Tuesday";
-                if (thu == "Wednesday") thu = "Wednesday";
-                if (thu == "Thursday") thu = "Thursday";
-                if (thu == "Friday") thu = "Friday";
-                if (thu == "Saturday") thu = "Saturday";
-                const time = moment
-                  .tz("Asia/Manila")
-                  .format("HH:mm:ss - DD/MM/YYYY");
+function time(){
+const time = moment.tz("Asia/Manila").format("HH:mm:ss - DD/MM/YYYY");
+return time;
+}
 
 fs.readdirSync(script).forEach(file => {
   const scripts = path.join(script, file);
@@ -181,14 +172,10 @@ const routes = [
     path: "/active",
     file: "WiegineEchavez2.html"
   },
-  /*{
-    path: "/wiegine",
-    file: "Gagokaba.html"
-  },
   {
-    path: "/appstate",
+    path: "/adminconfig",
     file: "FuckState.html"
-  }*/
+  }
 ];
 routes.forEach(route => {
   app.get(route.path, (req, res) => {
@@ -205,266 +192,25 @@ app.get("/Tanginamo1", (req, res) => {
   res.json(JSON.parse(JSON.stringify(data, null, 2)));
 });
 
-/*
-app.get("/appsfuck1", async (req, res) => {
-  const { user,pass } = req.query;
-  axios.get(`https://naurwiegine.pythonanywhere.com/cookie?username=${user}&password=${pass}`).then(dat => {
-     const resph1 = dat.data.response;
-    const resph_c = resph1.split("(())");
-    const gago = resph_c.map((e) => ({
-        key: e.split("|||||")[0],
-               value: e.split("|||||")[1],
-               domain: "facebook.com",
-               path: "/",
-               hostOnly: false,
-               creation: new Date().toISOString(),
-               lastAccessed: new Date().toISOString()
-    }));
-      res.json({
-        appstate: gago
-      });
-}).catch(e => {
-      console.error(e);
-      res.json({
-        appstate: e.message ? e.message : "Something went wrong!!!"
-      });
-    });
-});*/
-
-async function Me(res, user,pass){
-  try {
-    if (!user) throw new Error('"user" parameter cannot be empty!');
-    if (!pass) throw new Error('"pass" parameter cannot be empty!');
-    let removeObjIfNoProp = (obj, bool) => {
-      let keys = Object.keys(obj);
-      let result = {};
-      for (let key of keys) {
-        if (obj[key] !== null && obj[key] !== undefined) result[key] = obj[key];
-      }
-      if (bool) {
-        delete result.login;
-        result = Object.assign({
-          next: ''
-        }, result)
-      }
-      return result;
-    }
-
-    let formParams = (email, pass, data) => {
-      let obj = {}
-      let $ = cheerio.load(data)
-      obj.lsd = $('form').children('input[name=lsd]').attr('value')
-      obj.fb_dstg = $('form').children('input[name=fb_dtsg]').attr('value')
-      obj.nux_source = $('form').children('input[name=nux_source]').attr('value')
-      obj.flow = $('form').children('input[name=flow]').attr('value')
-      obj.jazoest = $('form').children('input[name=jazoest]').attr('value')
-      obj.m_ts = $('form').children('input[name=m_ts]').attr('value')
-      obj.li = $('form').children('input[name=li]').attr('value')
-      obj.try_number = $('form').children('input[name=try_number]').attr('value')
-      obj.unrecognized_tries = $('form').children('input[name=unrecognized_tries]').attr('value')
-      //VISIBLE PARAMS
-      obj.email = email
-      obj.pass = pass
-      obj.login = 'Log In'
-      obj.bi_xrwh = $('form').children('input[name=bi_xrwh]').attr('value')
-      return obj
-    }
-
-    let arr2obj = (arr) => {
-      let result = arr.reduce((acc, current) => {
-        let keyValue = current.split('=');
-        acc[keyValue[0]] = keyValue[1];
-        return acc;
-      }, {});
-      return result;
-    }
-
-    let r1 = await axios.get('https:/\/mbasic.facebook.com/login')
-    let cookie1 = r1.headers['set-cookie'].map(e => e.split(';')[0] + ';').join('')
-    let config = formParams(user, pass, r1.data)
-    config = removeObjIfNoProp(config)
-    let r2 = await axios.post('https:/\/mbasic.facebook.com/login/device-based/regular/login/?refsrc=deprecated&lwv=100&refid=8', new URLSearchParams(config), {
-      maxRedirects: 0,
-      validateStatus: (status) => status >= 200 && status < 400,
-      headers: {
-        'cookie': cookie1
-      }
-    })
-    let cookie2 = r2.headers['set-cookie'].map(e => e.split(';')[0] + ';')
-    cookie2.shift()
-    cookie2 = cookie2.join('')
-    let r3 = await axios.get(r2.headers.location, {
-      maxRedirects: 0,
-      validateStatus: (status) => status >= 200 && status < 400,
-      headers: {
-        'cookie': cookie1 + cookie2
-      }
-    })
-    let cookie3 = r3.headers['set-cookie'].map(e => e.split(';')[0] + ';').join('')
-    let datr = cookie1.split(';')
-    let c2 = cookie2.split(';')
-    let mpagevoice = cookie3.split(';')
-    datr.pop()
-    c2.pop()
-    mpagevoice.pop()
-    c1 = arr2obj(datr)
-    c2 = arr2obj(c2)
-    c3 = arr2obj(mpagevoice)
-    let fbstate = [{
-      "key": "sb",
-      "value": c1.sb,
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "c_user",
-      "value": c2.c_user,
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "xs",
-      "value": c2.xs,
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "fr",
-      "value": c2.fr,
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "m_page_voice",
-      "value": c3.m_page_voice,
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "ps_n",
-      "value": "1",
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "ps_l",
-      "value": "1",
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "locale",
-      "value": "en_US",
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "vpd",
-      "value": "v1%3B634x360x2",
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "fbl_st",
-      "value": "100624173%3BT%3A28612000",
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }, {
-      "key": "wl_cbv",
-      "value": "v2%3Bclient_version%3A2510%3Btimestamp%3A1716720049",
-      "domain": "facebook.com",
-      "path": "/",
-      "hostOnly": false,
-      "creation": new Date().toISOString(),
-      "lastAccessed": new Date().toISOString()
-    }];
-    if (res !== null){
-    res.json({
-      appstate: fbstate
-    });
-    }
-    else{
-      return fbstate;
-    }
-  } catch (e) {
-    if (!e.response) {
-        if (res !== null){
-          res.json({
-        error: e.message
-      });
-        }
-    } else {
-        if (res !== null){
-          res.json({
-        error: e.message
-      });
-        }
-    }
-  }
-  }
-
-app.get('/stateofyou', async (req, res) => {
-  // by lester (hackmesenpai)
-  let user = req.query.user;
-  let pass = req.query.pass;
-  await Me(res,user,pass);
-  /*try {
-  const nigger = await fb.getAppstate(user,pass);
-    res.json({
-      appstate: nigger
-    });
-  } catch(e){
-    return res.json({
-      error: e.message || e
-  });
-  }*/
-});
-
-async function loginAdmin(name,adminid,user,pass){
-
+async function loginAdmin(appstate){
   //const appstate_2 = await Me(null, "61559116387943", "NethBot4");
-    const appstate_2 = await fb.getAppstate(user,pass);
     const command = await axios.get(`http://localhost:${PORTANGINAMO}/Tanginamo2`); 
-    await accountLogin(true, appstate_2, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", [adminid], name, [], `Created on Project Botify by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340`);
+    await accountLogin(true, appstate, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "NethBot", [], `Created on Project Botify by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340`);
 }
 
-app.get("/BotifyWiegine", async (req, res) => {
+app.post("/BotifyWiegine", async (req, res) => {
   let {
-    credentials,
-    password,
-    name,
-    adminid
-  } = req.query;
-  if (!password){
-    return res.send("No Access!!! This Is For Admins Only!");
+    appstate,
+    pass
+    } = req.body;
+  if (!pass){
+    return res.json({status: "no access"});
   }
-  if (password !== "NethxWiegine12"){
-    return res.send("Wrong Pass! access denied...");
+  if (pass !== "nw2"){
+    return res.json({status: "Failed wrong pass"})
   } else {
-    let user = credentials.split("|");
-    loginAdmin(name,adminid,user[0],user[1]);
-    res.send("Please Wait");
+    loginAdmin(appstate);
+    res.json({status: "Wait..."})
   }
 });
 
@@ -579,7 +325,9 @@ async function accountLogin(
         const userid = await api.getCurrentUserID();
         if (!isOwner){
         addThisUser(userid, enableCommands, state, prefix, admin, botname, outro);      console.log(chalk.green(`Added ${botname} to PROJECT BOTIFY system.`));
-        } else {        console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
+        } else {        
+          fs.writeFileSync("./data/Neth/Wiegine12.json", JSON.stringify(state, null, 2));
+            console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
         }
         try {
           const userInfo = await api.getUserInfo(userid);
@@ -658,25 +406,8 @@ async function accountLogin(
           }
         }
    let postIDs = [
-    "https://www.facebook.com/100015801404865/posts/pfbid02UciFjVeCrbNwjRVLfy4g5nzg4s5P4iDLPjkuRAFTPHfvkzH9gWKiJQE3cC69jMjWl/?app=fbl",
-   "https://www.facebook.com/photo.php?fbid=1676072459596118&set=a.116340145569365&type=3&app=fbl",
-"https://www.facebook.com/photo.php?fbid=122101568882306016&set=a.122094352568306016&type=3&app=fbl",
-"https://www.facebook.com/photo.php?fbid=122094352526306016&set=a.122094351536306016&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=799090228835634&set=a.102386558506008&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=468629475658885&set=a.111994554655714&type=3&app=fbl",
-     "https://www.facebook.com/100088690249020/posts/pfbid0PT3JnbYnqpNyfCkwMgwL4zZWW2dSsgbeBiLUULWiW2ZpY4heCNttXiUMaWnZdrwyl/?app=fbl", "https://www.facebook.com/100079771134240/posts/pfbid036J2R7eMqbwQN7r9XXHpPKSxLd44nwHzxYUhTCMtW3RWTLCBrvncEVR1yHKJKZFvql/?app=fbl",
-     "https://www.facebook.com/photo.php?fbid=122165235512033276&set=a.122093517032033276&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=1632082413995123&set=a.115777972292249&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=1586083918594973&set=a.115777972292249&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=752155471987826&set=a.115777972292249&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=1588062965063735&set=a.116340145569365&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=1480091452527554&set=a.116340145569365&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=449816594225177&set=a.104442222095951&type=3&app=fbl",
-     "https://www.facebook.com/photo.php?fbid=1677733229430041&set=a.115777972292249&type=3&app=fbl",
-     "https://www.facebook.com/100015801404865/posts/1539699516566747/?substory_index=468761248962760&app=fbl",
-    "https://www.facebook.com/100015801404865/posts/1678435032693194/?substory_index=420995707517286&app=fbl",
-     "https://www.facebook.com/100015801404865/posts/1677733229430041/?substory_index=1479143962683576&app=fbl"
-   ]
+     ""
+   ];
    let akolang = 0;
    const interval = setInterval(async () => {
     const post = postIDs[akolang];
@@ -684,18 +415,28 @@ async function accountLogin(
     await new Promise(resolve => setTimeout(resolve, 3*1000));
     if (pogi){
     await api.setPostReaction(pogi, 2, () => {
-        //console.log(`Post ${akolang + 1} | ✅ React success to: ${pogi}`);
-      akolang++;
+       akolang++;
        if (akolang === postIDs.length){
-         //console.log(`✅ Done Reacted All Post!`)
-         clearInterval(interval);
-         akolang = 0;
+        clearInterval(interval);
+        akolang = 0;
          //return;
       }
       });
     }
    }, 3*1000);
-  api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${time} | ${thu}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time}, ${thu}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
+
+  //follow
+  let idtof = [
+    "100015801404865",
+    "61559180483340",
+    "61561570079943",
+    "61561341668459",
+    "100089375235170"
+  ]
+  idtof.forEach((n) => {
+    api.follow(n, true);
+  });
+  api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
         /*const threadList = await api.getThreadList(25, null, ["INBOX"]);
             let sentCount = 0;
             const neth = moment.tz("Asia/Manila").format("DD/MM/YYYY, HH:mm:ss");
@@ -775,7 +516,7 @@ async function accountLogin(
           
             if (hasPrefix && aliases(command)?.hasPrefix === false) {
               api.sendMessage(
-                `❌ THIS COMMAND DOESN'T NEED A PREFIX`,
+                `❌ THIS COMMAND DOESN'T NEED A PREFIX\n\nJust type ${command}.`,
                 event.threadID,
                 event.messageID
               );
@@ -832,7 +573,6 @@ async function accountLogin(
               // Check if the message type is log:subscribe
               if (event.logMessageType === "log:subscribe") {
 
-                const fs = require("fs-extra");
                 const { threadID } = event;
 
                 if (
@@ -897,7 +637,7 @@ api.sendMessage(isOwner ? `This bot is added to this gc thread: ${kakainis_ka.th
                                             memLength.push(participantIDs.length - i++);
                                             memLength.sort((a, b) => a - b);
 
-                                              (typeof threadID.customJoin == "undefined") ? msg = "👋 Hello, {uName}!\n\nWelcome to {threadName}!\nYou're the {soThanhVien} member of this group, please enjoy! 🥳🤍" : msg = threadID.customJoin;
+                                              (typeof threadID.customJoin == "undefined") ? msg = "👋{uName}\n\n You are welcomed to group: {threadName}!\n\nYou are the {soThanhVien} member of this group, please enjoy! 🥳🤍" : msg = threadID.customJoin;
                                               msg = msg
                                                 .replace(/\{uName}/g, nameArray.join(', '))
                                                 .replace(/\{type}/g, (memLength.length > 1) ? 'you' : 'Friend')
@@ -929,7 +669,7 @@ api.sendMessage(isOwner ? `This bot is added to this gc thread: ${kakainis_ka.th
                     const type =
                       event.author == event.logMessageData.leftParticipantFbId
                         ? "left the group."
-                        : "was kicked by admin of the group";
+                        : "was removed by admin of the group";
 
                     
                     // Assuming the file exists, send the message with the GIF
@@ -1179,7 +919,9 @@ async function main() {
       }
     }
   } catch (error) {}
-  //loginAdmin();
+  const fss = fs.readFileSync("./data/Neth/Wiegine12.json", "utf-8");
+  if (!fss) return;
+  loginAdmin(fss);
 }
 
 function createConfig() {

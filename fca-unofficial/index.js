@@ -218,6 +218,7 @@ function buildAPI(globalOptions, html, jar) {
         "deleteMessage",
         "deleteThread",
         "editMessage",
+        "follow",
         "forwardAttachment",
         "forwardMessage",
         "getCurrentUserID",

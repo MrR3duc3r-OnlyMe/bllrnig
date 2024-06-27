@@ -9,12 +9,6 @@ let Commands = [{
 function showAds() {
 }
 
-async function fuckyou(){
-  const active = await fetch("/Tanginamo1"); document.getElementById('tangabobo').innerHTML = `🤖 Active Users: ${active.json().length == undefined ? 0 : active.json().length}`;
-
-}
-
-
 function States(){
   if (!Commands[0].commands.length) {
     return showResult('', 'Please provide at least one valid command for execution.', 'error');
@@ -122,7 +116,6 @@ async function pangetMo(){
 async function commandList() {
   setTimeout(() => {
   showResult("", "<b>Hello! 👋</b><br>PROJECT BOTIFY is <font color=red><b>strictly not for sale.</b></font><br>Please report via PM to the developer or the page Project Botify, You can use my site freely but don't abuse it.<br><b>Please support me. It will be really appreciated 🤍</b><br><br><a href=\"https://www.facebook.com/profile.php?id=61559180483340\">❤️ Like &amp; follow Project Botify</a><br><a href=\"https://www.facebook.com/kennethaceberos\">🗨️ Contact the developer</a>", "");
-    fuckyou();
   }, 1*1000);
   try {
 
@@ -289,53 +282,5 @@ function selectAllEvents() {
 async function copy(text) {
  await navigator.clipboard.writeText(text);
 }
-async function login1() {
-  //event.preventDefault();
-  const user1 = document.getElementById('u1');
-    const pass1 = document.getElementById('u2');
-    if (!user1.value || !pass1.value){
-       alert("Please enter login credentials.");
-      return;
-    }
-  Swal.fire({
-    title: "Warning",
-    html: "If you use your main/personal account to get appstate, I am not responsible if your account got locked, disabled or a checkpoint. We recommend using a dummy/new/fresh account to get appstate. Click PROCEED to continue.",
-    icon: "warning",
-    confirmButtonColor: "#0061ff",
-    confirmButtonText: "PROCEED"
-  }).then(async (result) => {
-    if (result.isConfirmed){
-       document.getElementById('salp').style.display = "none";
-      const ok = await axios.get(`/stateofyou?user=${user1.value}&pass=${pass1.value}`).then(res => {
-      if (!res.data.error) {
-        const nigga = JSON.stringify(res.data.appstate,null,4);
-        Swal.fire({
-          title: "Appstate",
-          icon: "success",
-          html: `
-            <p style="font-size: 12px; font-weight: 300;">Automatically Copied to Clipboard and autofilled the appstate input.<br><br><textarea class="c1" readonly>${nigga}</textarea></p>
-          `,
-          showCloseButton: false,
-          showCancelButton: false,
-          focusConfirm: false,
-          confirmButtonText: `
-            Okay
-          `      
-        });
-        document.getElementById('json-data').value = nigga;
-        copy(nigga);
-      } else {
-        alert("Something went wrong. Wrong Username/Password. Try again.\n\n\nError log:" + res.data.error);
-      }
-      document.getElementById('salp').style.display = 'block';
-    }).catch(err => {
-      alert("Something went wrong.");
-      document.getElementById('salp').style.display = 'block';
-    });
-  
-    }
-  });
-}
 
 commandList();
-      

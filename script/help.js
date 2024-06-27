@@ -32,15 +32,12 @@ module.exports.run = async function({
       let end = start + pages;
       let helpMessage = `♡  ∩_∩
 （„• ֊ •„)♡
-╭─∪∪─────────────⟡\n🤖 𝗣𝗥𝗢𝗝𝗘𝗖𝗧 𝗕𝗢𝗧𝗜𝗙𝗬 𝘣𝘺 𝙉𝙚𝙩𝙝 🤖\n,___,
-[O.o]
-/)__)
--"--"- · 𝘾𝙤𝙢𝙢𝙖𝙣𝙙𝙨 𝙇𝙞𝙨𝙩༆\n\n`;
+╭─∪∪─────────────⟡\n🤖 COMMANDS LIST 🤖\n\n`;
       for (let i = start; i < Math.min(end, commands.length); i++) {
         helpMessage += `\t 𖦹 ${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
       }
-      helpMessage += '\n • 𝙀𝙫𝙚𝙣𝙩 𝙇𝙞𝙨𝙩༆\n\n';
-      eventCommands.forEach((eventCommand, index) => {
+      helpMessage += '\n🤖 EVENT LIST 🤖\n\n';
+     eventCommands.forEach((eventCommand, index) => {
         helpMessage += `\t 𖦹 ${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
       });
       helpMessage += `\nPage ${page}/${Math.ceil(commands.length / pages)}\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.\n\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd
@@ -49,19 +46,13 @@ If the bot turned off or have Issues.`;
     } else if (!isNaN(input)) {
       const page = parseInt(input);
       const pages = 50;
-      let start = (page - 1) * pages;
-      let end = start + pages;
       let helpMessage = `♡  ∩_∩
-（„• ֊ •„)♡
-╭─∪∪─────────────⟡\n🤖 𝗣𝗥𝗢𝗝𝗘𝗖𝗧 𝗕𝗢𝗧𝗜𝗙𝗬 𝘣𝘺 𝙉𝙚𝙩𝙝 🤖\n,___,
-[O.o]
-/)__)
--"--"- • 𝘾𝙤𝙢𝙢𝙖𝙣𝙙𝙨 𝙇𝙞𝙨𝙩༆\n\n`;
-      for (let i = start; i < Math.min(end, commands.length); i++) {
-      helpMessage += `\t 𖦹 ${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
-}
-     helpMessage += '\n • 𝙀𝙫𝙚𝙣𝙩 𝙇𝙞𝙨𝙩༆\n\n';
-       eventCommands.forEach((eventCommand, index) => {
+      （„• ֊ •„)♡
+      ╭─∪∪─────────────⟡\n🤖 COMMANDS LIST 🤖\n\n`;
+            for (let i = start; i < Math.min(end, commands.length); i++) {
+              helpMessage += `\t 𖦹 ${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
+            }
+            helpMessage += '\n🤖 EVENT LIST 🤖\n\n'; eventCommands.forEach((eventCommand, index) => {
       helpMessage += `\t 𖦹 ${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
       });
      helpMessage += `\nPage ${page}/${Math.ceil(commands.length / pages)}\n\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd
