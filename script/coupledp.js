@@ -24,8 +24,6 @@ module.exports.run = async function ({ api, event }) {
     try {
       
       api.setMessageReaction("⏳", event.messageID, () => {}, true);
-      api.sendMessage("Please wait...", event.threadID, event.messageID);
-
         const apiUrl = `${main.apiniJoshua}/cdp`;
 
       const pogiko = await axios.get(apiUrl);

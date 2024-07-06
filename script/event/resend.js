@@ -1,7 +1,7 @@
 module.exports.config = {
     name: "resend",
     version: "1.0.0",
-    
+    description: "Can resend an unsent message from a user."
 };
 var msgData = {} 
 

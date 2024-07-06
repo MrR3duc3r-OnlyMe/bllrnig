@@ -12,6 +12,16 @@ module.exports.config = {
   usage: "Help [page] or [command]",
   credits: 'Develeoper',
 };
+
+function formatFont(text) { 
+  const fontMapping = {
+    a: "𝚊", b: "𝚋", c: "𝚌", d: "𝚍", e: "𝚎", f: "𝚏", g: "𝚐", h: "𝚑", i: "𝚒", j: "𝚓", k: "𝚔", l: "𝚕", m: "𝚖",
+    n: "𝚗", o: "𝚘", p: "𝚙", q: "𝚚", r: "𝚛", s: "𝚜", t: "𝚝", u: "𝚞", v: "𝚟", w: "𝚠", x: "𝚡", y: "𝚢", z: "𝚣",
+    A: "𝙰", B: "𝙱", C: "𝙲", D: "𝙳", E: "𝙴", F: "𝙵", G: "𝙶", H: "𝙷", I: "𝙸", J: "𝙹", K: "𝙺", L: "𝙻", M: "𝙼",
+    N: "𝙽", O: "𝙾", P: "𝙿", Q: "𝚀", R: "𝚁", S: "𝚂", T: "𝚃", U: "𝚄", V: "𝚅", W: "𝚆", X: "𝚇", Y: "𝚈", Z: "𝚉"
+  };
+  return text.split("").map(char => fontMapping[char] || char).join("");
+}
 module.exports.run = async function({
   api,
   event,
@@ -25,40 +35,49 @@ module.exports.run = async function({
   try {
     const eventCommands = enableCommands[1].handleEvent;
     const commands = enableCommands[0].commands;
-    if (!input) {
-      const pages = 50;
-      let page = 1;
-      let start = (page - 1) * pages;
-      let end = start + pages;
-      let helpMessage = `♡  ∩_∩
-（„• ֊ •„)♡
-╭─∪∪─────────────⟡\n🤖 COMMANDS LIST 🤖\n\n`;
-      for (let i = start; i < Math.min(end, commands.length); i++) {
-        helpMessage += `\t 𖦹 ${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
-      }
-      helpMessage += '\n🤖 EVENT LIST 🤖\n\n';
-     eventCommands.forEach((eventCommand, index) => {
-        helpMessage += `\t 𖦹 ${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
-      });
-      helpMessage += `\nPage ${page}/${Math.ceil(commands.length / pages)}\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.\n\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd
-If the bot turned off or have Issues.`;
-      api.sendMessage(helpMessage, event.threadID, event.messageID);
-    } else if (!isNaN(input)) {
+    const gagokaba = (name) => {
+      return [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(name))?.[1]
+    };
+    const helpm = async(input, paged) => {
       const page = parseInt(input);
-      const pages = 50;
-      let helpMessage = `♡  ∩_∩
-      （„• ֊ •„)♡
-      ╭─∪∪─────────────⟡\n🤖 COMMANDS LIST 🤖\n\n`;
-            for (let i = start; i < Math.min(end, commands.length); i++) {
-              helpMessage += `\t 𖦹 ${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
+            const pages = 10;
+            let start = (page - 1) * pages;
+            let end = start + pages;
+            let helpMessage = `♡  ∩_∩\n（„• ֊ •„)♡\n╭─∪∪─────────────⟡\nCommands:\n`;
+            const wiegine = (strings) => {
+            const tanginamo = gagokaba(strings);
+            if (!tanginamo)
+            return;
+              const {
+                name,
+                version,
+                role,
+                aliases = [],
+                description,
+                usage,
+                credits,
+                cooldown,
+                hasPrefix
+              } = tanginamo;
+            return `「${hasPrefix ? prefix : ""}${formatFont(name ? name : aliases.join("/"))} 」${description ? ` — ${description}` : ""}`;
             }
-            helpMessage += '\n🤖 EVENT LIST 🤖\n\n'; eventCommands.forEach((eventCommand, index) => {
-      helpMessage += `\t 𖦹 ${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
-      });
-     helpMessage += `\nPage ${page}/${Math.ceil(commands.length / pages)}\n\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd
-If the bot turned off or have Issues.`;
+                  for (let i = start; i < Math.min(end, commands.length); i++) {
+                    
+                    helpMessage += `\t 𖦹 ${i + 1}. ${wiegine(commands[i])}\n`;
+                  }
+                  helpMessage += '\nHandle Events:\n'; eventCommands.forEach((eventCommand, index) => {
+            helpMessage += `\t 𖦹 ${index + 1}. ${wiegine(eventCommand)}\n`;
+            });
+           helpMessage += `\nPage ${paged ? "1" : page}${"\nTotal of:\n" + `${commands.length} Commands\n${eventCommands.length} Handle Events`}${paged ? `\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.` : ``}\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd, if the bot turned off or have Issues.`;
+      return helpMessage;
+    }
+
+    
+    if (!input) {
+      api.sendMessage(await helpm("1", true), event.threadID, event.messageID);
+    } else if (!isNaN(input)) {
       
-      api.sendMessage(helpMessage, event.threadID, event.messageID);
+      api.sendMessage(await helpm(input, false), event.threadID, event.messageID);
     } else {
       const command = [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(input?.toLowerCase()))?.[1];
       if (command) {

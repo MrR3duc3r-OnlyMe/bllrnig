@@ -1,6 +1,7 @@
 module.exports.config = {
   name: "antiout",
-  version: "1.0.0"
+  version: "1.0.0",
+  description: "Can re-add member if someone leaves in a group chat."
 };
 module.exports.handleEvent = async ({
   event,

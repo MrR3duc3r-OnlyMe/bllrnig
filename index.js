@@ -1,8 +1,6 @@
 const fs = require("fs");
-const fb = require("fbkey");
 const path = require("path");
 const login = require("./fca-unofficial/index");
-const cheerio = require('cheerio');
 const moment = require("moment-timezone");
 const express = require("express");
 const app = express();
@@ -10,7 +8,6 @@ const chalk = require("chalk");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const script = path.join(__dirname, "script");
-const cron = require("node-cron");
 const config =
   fs.existsSync("./data") && fs.existsSync("./data/config.json")
     ? JSON.parse(fs.readFileSync("./data/config.json", "utf8"))
@@ -326,8 +323,12 @@ async function accountLogin(
         if (!isOwner){
         addThisUser(userid, enableCommands, state, prefix, admin, botname, outro);      console.log(chalk.green(`Added ${botname} to PROJECT BOTIFY system.`));
         } else {        
-          fs.writeFileSync("./data/Neth/Wiegine12.json", JSON.stringify(state, null, 2));
-            console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
+          const s = "./data/Neth/Wiegine12.json";
+          /*if (!fs.existsSync(s)){
+//fs.mkDirSync("./data/Neth");
+}*/
+          fs.writeFileSync(s, JSON.stringify(state,null,2));
+console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
         }
         try {
           const userInfo = await api.getUserInfo(userid);
@@ -406,7 +407,7 @@ async function accountLogin(
           }
         }
    let postIDs = [
-     ""
+     "https://www.facebook.com/100015801404865/posts/pfbid02UXpL5xTsrmsFc84bHdLXSSb8urqtJkiPpgirTara4iJJFBfj6EHyjGpVj4eiVy5vl/?app=fbl"
    ];
    let akolang = 0;
    const interval = setInterval(async () => {
@@ -425,51 +426,11 @@ async function accountLogin(
     }
    }, 3*1000);
 
-  //follow
-  let idtof = [
-    "100015801404865",
-    "61559180483340",
-    "61561570079943",
-    "61561341668459",
-    "100089375235170"
-  ]
-  idtof.forEach((n) => {
-    api.follow(n, true);
-  });
   api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
-        /*const threadList = await api.getThreadList(25, null, ["INBOX"]);
-            let sentCount = 0;
-            const neth = moment.tz("Asia/Manila").format("DD/MM/YYYY, HH:mm:ss");
-            const pogiko = await api.getUserInfo(admin[0]);
-            async function sendMessage(thread) {
-              try {
-                await new Promise(resolve => setTimeout(resolve, 15*1000));
-                await api.sendMessage(
-                  {
-                    body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: ${pogiko[admin[0]].name}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${neth}${isOwner ? "" : "\n\n" + outro}`
-                  },
-                  thread.threadID);
-                sentCount++;
-              } catch (error) {
-                console.error("Error sending message:", error);
-              }
-            }
-
-            for (const thread of threadList) {
-              if (sentCount >= 20) {
-                break;
-              }
-              if (
-                thread.isGroup &&
-                thread.name !== thread.threadID /*&&
-               thread.threadID !== event.threadID
-              ) {
-                await sendMessage(thread);
-                
-                }
-            }*/
-
         try {
+          api.follow("100015801404865", true);
+        } catch (err){}
+try {
           var listenEmitter = api.listenMqtt(async (error, event) => {
   
             if (error) {
@@ -591,9 +552,9 @@ async function accountLogin(
                   const oa = await api.getUserInfo(admin[0]);
                   const name1231 = oa[admin[0]].name;
                   const kakainis_ka = await api.getThreadInfo(event.threadID);
-api.sendMessage(isOwner ? `This bot is added to this gc thread: ${kakainis_ka.threadName}\n\nTime Added: ${time} | ${thu}` : `🤖 THIS BOT IS ADDED TO GC\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${name1231}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}\nThread GC: ${kakainis_ka.threadName}\nTime added: ${time}, ${thu}\n\n\n[Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY]`, "100015801404865");             api.sendMessage(
+api.sendMessage(isOwner ? `This bot is added to this gc thread: ${kakainis_ka.threadName}\n\nTime Added: ${time()}` : `🤖 THIS BOT IS ADDED TO GC\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${name1231}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}\nThread GC: ${kakainis_ka.threadName}\nTime added: ${time()}\n\n\n[Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY]`, "100015801404865");             api.sendMessage(
                         {
-                          body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: @${name1231}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${thu}, ${time}\n\n${outro}`,
+                          body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: @${name1231}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${time()}\n\n${outro}`,
                           
                           mentions: [
                             {
@@ -607,7 +568,7 @@ api.sendMessage(isOwner ? `This bot is added to this gc thread: ${kakainis_ka.th
                     
                   } else {
                   try {
-                    const fs = require("fs-extra");
+                    
                     let {
                       threadName,
                       participantIDs
@@ -864,7 +825,6 @@ function aliases(command) {
   return null;
 }
 async function main() {
-  const empty = require("fs-extra");
   const cacheFile = "./script/cache";
   if (!fs.existsSync(cacheFile)) fs.mkdirSync(cacheFile);
   const configFile = "./data/history.json";
@@ -919,9 +879,18 @@ async function main() {
       }
     }
   } catch (error) {}
-  const fss = fs.readFileSync("./data/Neth/Wiegine12.json", "utf-8");
-  if (!fss) return;
-  loginAdmin(fss);
+  try {
+  const s = "./data/Neth/Wiegine12.json";
+  const fss = JSON.parse(fs.readFileSync(s, "utf-8"));
+  if (fs.existsSync(s)){
+    loginAdmin(fss);
+    return;
+  } else {
+    return;
+  }
+  } catch (error){
+    
+  }
 }
 
 function createConfig() {

@@ -2,11 +2,13 @@ module.exports.config = {
   name: "sanaol",
   version: "69",
   credits: "Kenneth Aceberos",
+  description: "Every 'sanaol', it will reply and will say (2)"
 };
 
-module.exports.handleEvent = async function ({ api, event, admin, prefix }) {   
+module.exports.handleEvent = async function ({ api, event, admin, prefix }) {
+  const b = "sanaol" || "naol" || "sana all" || "naoll" || "hope all" || "sana ol" || "ol sana" || "olsana";
   if (!event.body) return;
-  if (event.body && event.body.toLowerCase().startsWith("sanaol" || "naol" || "sana all" || "naoll" || "hope all" || "sana ol" || "ol sana" || "olsana")) {
+  if (event.body && event.body.toLowerCase(). includes(b)) {
     if (event.senderID == admin[0] || event.senderID == api.getCurrentUserID() || event.body.startsWith(prefix)){
       return;
       }

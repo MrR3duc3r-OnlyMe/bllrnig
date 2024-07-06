@@ -4,6 +4,7 @@ module.exports.config = {
   name: "randomReact",
   version: "69",
   credits: "Kenneth Aceberos",
+  description: "Random emoji reacts to user's message."
 };
 
 module.exports.handleEvent = async function ({ api, event, admin, prefix }) {   

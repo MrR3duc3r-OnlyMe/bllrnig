@@ -1,10 +1,10 @@
 const axios = require('axios');
 
 module.exports.config = {
-  name: "createacct",
+  name: "createfb",
   role: 0,
   credits: "Neth",
-  description: "Create Fb Acct | Useful for Spamshare/React/Follow",
+  description: "Create Fb Acct | Untested!",
   hasPrefix: true,
   cooldown: 10*60*1000,
   usages: "{p}createacct",
