@@ -19,7 +19,7 @@ const Utils = new Object({
   cooldowns: new Map()
 });
 
-const PORTANGINAMO = process.env.PORT || 3000;
+const PORTANGINAMO = process.env.PORT || 25611;
 
 module.exports = {
     test1: Utils,
@@ -960,7 +960,8 @@ async function createDatabase() {
 }
 
 app.listen(PORTANGINAMO, () => {
-  console.log(`Starting Project Botify...`);
+  console.log(`IM BACK!!!!!!`)
+  console.log(`Starting Project Botify on port ${PORTANGINAMO}`);
   });
 process.on("unhandledRejection", (reason) => {
   console.log("Unhandled Promise Rejection:", reason);
