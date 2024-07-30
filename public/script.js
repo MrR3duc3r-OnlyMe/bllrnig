@@ -256,8 +256,8 @@ function toggleCheckbox() {
           array.splice(removeCommand, 1);
         }
       }
-      select2.style.display = checkbox.checked ? "none" : "block";
-      select3.style.display = checkbox.checked ? "none" : "block";
+      select2.style.display = (checkbox.checked || array.length !==0) ? "none" : "block";
+      select3.style.display = (checkbox.checked || array.length !==0) ? "none" : "block";
     }
     
   });
@@ -352,8 +352,8 @@ function selectAllEvents() {
 }
 
 function selectAll() {
-  selectAllCommands();
-  selectAllEvents();
+  selectAllCommands(true);
+  selectAllEvents(true);
 }
 
 async function copy(text) {
