@@ -63,7 +63,8 @@ async function ProjectBotify() {
       });
     });
   };
-  await execute1(`git clone`, [GIT, __dirname]);
+  await execute(`git reset HEAD`)
+  await execute1(`git pull`, [GIT, __dirname+"/temp"]);
   await execute(`npm install`);
   console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
   await execute1(`node`, [SCRIPT_PATH]);
