@@ -63,12 +63,10 @@ module.exports = {
 
     function revertFont(text) {
       const reverseFontMapping = Object.fromEntries(Object.entries(fontMapping).map(([key, value]) => [value, key]));
-      return text.split("").map(char => reverseFontMapping[char] || char).join("");
+      return text ? text.split("").map(char => reverseFontMapping[char] || char).join("") : `👍`;
     }
     if (event.reaction === "👍") {
-      setTimeout(() => api.editMessage(revertFont(event.body), event.messageID, () => {
-      return;
-      }), 500);
+      setTimeout(() => api.editMessage(revertFont(event.body), event.messageID, () => {}), 500);
     }
 
   }
