@@ -36,13 +36,12 @@ async function ProjectBotify(){
 await execute(`git pull ${GIT}`);
 await execute(`npm install`);
 console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
-await execute(`node ${SCRIPT_PATH}`)
-/*await spawn("node", [SCRIPT_PATH], {
+await new Promise(async(resolve) => {
+  const main = await spawn("node", [SCRIPT_PATH], {
   cwd: __dirname,
   stdio: "inherit",
   shell: true
-});*/
-/*
+});
 main.on("close", (exitCode) => {
   if (exitCode === 0) {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
@@ -53,7 +52,9 @@ main.on("close", (exitCode) => {
   } else {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
   }
-});*/
+});
+resolve();
+});
 return;
 }
 ProjectBotify();
