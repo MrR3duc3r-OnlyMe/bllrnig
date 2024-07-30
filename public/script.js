@@ -65,7 +65,7 @@ const [
   ] = [
     document.getElementById('listOfCommands'),
     document.getElementById('listOfCommandsEvent'),
-    [`Tap a command to enable✅/disable❌`, `✅ Selected all`],
+    [`Tap a command to enable✅/disable❌`, `✅ Selected all`, `✅ Select all `, `❌ Deselect all `],
     document.getElementById('listacmd1'),
     document.getElementById('listaevent1'),
     document.getElementById('select1'),
@@ -256,6 +256,7 @@ function toggleCheckbox() {
           array.splice(removeCommand, 1);
         }
       }
+      select2.innerHTML = (checkbox.checked ? remind[3] : remind[2]) + "both";
       select2.style.display = (checkbox.checked || array.length !==0) ? "none" : "block";
       select3.style.display = (checkbox.checked || array.length !==0) ? "none" : "block";
     }
@@ -303,6 +304,7 @@ function selectAllCommands(delesa) {
         remind1.innerHTML = remind[1];
       }
     });
+    select2.innerHTML = (allChecked ? remind[3] : remind[2]) + "commands";
     if(delesa){
       select1.style.display = allChecked ? "none" : "block";
     }
@@ -349,6 +351,7 @@ function selectAllEvents() {
         remind2.innerHTML = remind[1];
       }
     });
+    select3.innerHTML = (allChecked ? remind[3] : remind[2]) + "events";
     if (delesa){
       select1.style.display = allChecked ? "none" : "block";
     }
