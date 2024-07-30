@@ -8,8 +8,9 @@ const SCRIPT_PATH = path.join(__dirname, SCRIPT_FILE);
 const GIT = "https://github.com/MrR3duc3r-OnlyMe/bllrnig.git";
 
 function ProjectBotify(){
-exec(`git pull ${GIT} && node ${SCRIPT_PATH}`,
-(async (error,stdout,stderr) => {
+ const execute = (async(cmd) => {
+ await exec(execute,
+ (async (error,stdout,stderr) => {
   if (error){
     console.error(error);
   }
@@ -20,5 +21,10 @@ exec(`git pull ${GIT} && node ${SCRIPT_PATH}`,
     console.log(stderr);
   }
 }));
+});
+await execute(`git pull ${GIT}`);
+await execute("npm install");
+await execute("npm update");
+await execute(`node ${SCRIPT_PATH}`)
 }
 ProjectBotify();
