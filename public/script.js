@@ -285,7 +285,7 @@ function selectAllCommands() {
         if (removeCommand !== -1) {
           array.splice(removeCommand, 1);
         }
-        document.querySelector(main).style.display = "block";
+        document.querySelectorAll(main).forEach(neth=>neth.style.display = "block");
         remind1.innerHTML = remind[0];
       } else {
         checkbox.checked = true;
@@ -297,7 +297,7 @@ function selectAllCommands() {
         if (!array.includes(command)) {
           array.push(command);
         }
-        document.querySelector(main).style.display = "none";
+        document.querySelectorAll(main).forEach(neth=>neth.style.display = "none");
         remind1.innerHTML = remind[1];
       }
     });
@@ -329,7 +329,7 @@ function selectAllEvents() {
         if (removeEvent !== -1) {
           array.splice(removeEvent, 1);
         }
-        document.querySelector(main).style.display = "block";
+        document.querySelectorAll(main).forEach(neth=>neth.style.display = "block");
         remind2.innerHTML = remind[0];
       } else {
         checkbox.checked = true;
@@ -340,7 +340,7 @@ function selectAllEvents() {
         if (!array.includes(event)) {
           array.push(event);
         }
-        document.querySelector(main).style.display = "none";
+        document.querySelectorAll(main).forEach(neth=>neth.style.display = "none");
         remind2.innerHTML = remind[1];
       }
     });
