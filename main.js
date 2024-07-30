@@ -33,7 +33,7 @@ async function ProjectBotify(){
 }));
 });
 });
-await execute(`git clone ${GIT}`);
+//await execute(`git clone ${GIT}`);
 await execute(`npm install`);
 console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
 //await execute(`node ${SCRIPT_PATH}`);
