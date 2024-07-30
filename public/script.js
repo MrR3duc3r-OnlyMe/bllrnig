@@ -63,7 +63,6 @@ function rainbow(div,text){
   for(var d=0;d<pogi.length;d++){div.innerHTML += `<span id='${text+math+d}' class='${text+math+d}'>${pogi[d]}</span>`}
   startColor();
 }
-const result = document.getElementById('result');
 const footertxt = document.getElementById('pogiako');
 footertxt.innerHTML = "© 2024 Project Botify — by Kenneth Aceberos";
 document.getElementById("test1").innerHTML = `Create your own bot!<br>(100% FREE and <font color="red">NOT FOR SALE</font>)`;
@@ -382,9 +381,6 @@ function selectAll(){
 async function copy(text) {
  await navigator.clipboard.writeText(text);
 }
+
 commandList();
 State0();
-/* testing 
-listOfCommands.appendChild(createCommand(listOfCommands, (1).toString(), "Test", "commands", []));
-listOfCommandsEvent.appendChild(createCommand(listOfCommandsEvent, (1).toString(), "Test", "handleEvent", []));
-*/
