@@ -36,7 +36,7 @@ async function ProjectBotify(){
 await execute(`git pull ${GIT}`);
 await execute(`npm install`);
 console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
-await execute(`node ${SCRIPT_FILE}`);
+await execute(`node ${SCRIPT_PATH}`);
 /*const main = spawn("node", [SCRIPT_PATH], {
   cwd: __dirname,
   shell: true
