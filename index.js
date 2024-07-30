@@ -14,9 +14,9 @@ async function ProjectBotify(){
  const execute = (async(cmd) => {
  await new Promise(async(resolve, reject) => {
  const buang = await exec(cmd, {
-   shell: true,
-   stdio: 'inherit',
-   cwd: __dirname
+   cwd: __dirname,
+   stdio: "inherit",
+   shell: true
  },
  (async (error,stdout,stderr) => {
   if (error){
@@ -36,9 +36,10 @@ async function ProjectBotify(){
 await execute(`git pull ${GIT}`);
 await execute(`npm install`);
 console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
-await execute(`node ${SCRIPT_PATH}`);
-/*const main = spawn("node", [SCRIPT_PATH], {
+//await execute(`node ${SCRIPT_PATH}`);
+const main = spawn("node", [SCRIPT_PATH], {
   cwd: __dirname,
+  stdio: "inherit",
   shell: true
 });
 main.on("close", (exitCode) => {
@@ -51,7 +52,7 @@ main.on("close", (exitCode) => {
   } else {
     console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
   }
-});*/
+});
 return;
 }
 ProjectBotify();
