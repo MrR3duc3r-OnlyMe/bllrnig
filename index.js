@@ -27,24 +27,21 @@ async function ProjectBotify(){
   if (stderr){
    console.error(`${chalk.red("ERROR")} • ${stderr}`);
   }
+  resolve();
+  return;
 }));
-});
-boang.on("exit", (code) => {
-console.log(`${chalk.yellow("INFO")} • ${code}`);
-resolve();
 });
 });
 await execute(`git pull ${GIT}`);
 await execute(`npm install`);
 console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
-await execute(`node ${SCRIPT_FILE}`);
-/*await new Promise(async(resolve) => {
-  const main = await spawn("node", [SCRIPT_FILE], {
+//await execute(`node ${SCRIPT_FILE}`);
+await new Promise(async(resolve) => {
+await spawn("node", [SCRIPT_PATH], {
   cwd: __dirname,
-  stdio: "inherit",
   shell: true
 });
-main.on("close", (exitCode) => {
+/*main.on("close", (exitCode) => {
   if (exitCode === 0) {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
   } else if (exitCode === 1) {
@@ -54,9 +51,9 @@ main.on("close", (exitCode) => {
   } else {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
   }
-});
-resolve();
 });*/
+resolve();
+});
 return;
 }
 ProjectBotify();
