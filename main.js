@@ -63,7 +63,7 @@ async function ProjectBotify() {
       });
     });
   };
-  await execute(`git reset HEAD`)
+  await execute1(`git reset`, [`HEAD`]);
   await execute1(`git pull`, [GIT]);
   await execute(`npm install`);
   console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
