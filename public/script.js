@@ -256,11 +256,14 @@ function toggleCheckbox() {
           array.splice(removeCommand, 1);
         }
       }
+      select2.style.display = checkbox.checked ? "none" : "block";
+      select3.style.display = checkbox.checked ? "none" : "block";
     }
+    
   });
 }
 
-function selectAllCommands() {
+function selectAllCommands(delesa) {
   const box = [{
     main: ".form-check-commands",
     input: '.form-check-input.commands',
@@ -293,7 +296,6 @@ function selectAllCommands() {
         labelText.innerHTML = labelText.innerHTML.replace('❌', '✅');
         const wiegine = labelText.textContent.replace("✅", "").replace("❌", "");
         const command = wiegine.replace(/^\d+\.\s/, '').split(" ")[0];
-
         if (!array.includes(command)) {
           array.push(command);
         }
@@ -301,6 +303,7 @@ function selectAllCommands() {
         remind1.innerHTML = remind[1];
       }
     });
+    if(delesa)select1.style.display = allChecked ? "none" : "block";
   });
 }
 
@@ -344,6 +347,7 @@ function selectAllEvents() {
         remind2.innerHTML = remind[1];
       }
     });
+    if(delesa)select1.style.display = allChecked ? "none" : "block";
   });
 }
 
