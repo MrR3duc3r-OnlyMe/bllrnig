@@ -36,23 +36,20 @@ await execute(`git pull ${GIT}`);
 await execute(`npm install`);
 console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
 //await execute(`node ${SCRIPT_FILE}`);
-await new Promise(async(resolve) => {
-await spawn("node", [SCRIPT_PATH], {
+const main = spawn("node", [SCRIPT_PATH], {
   cwd: __dirname,
   shell: true
 });
-/*main.on("close", (exitCode) => {
+main.on("close", (exitCode) => {
   if (exitCode === 0) {
-    console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
+    console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
   } else if (exitCode === 1) {
-    console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
+    console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
     //console.log(`===== ${chalk.green("RESTARTING...")} =====`);
     //ProjectBotify();
   } else {
-    console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
+    console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
   }
-});*/
-resolve();
 });
 return;
 }
