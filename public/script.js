@@ -303,7 +303,9 @@ function selectAllCommands(delesa) {
         remind1.innerHTML = remind[1];
       }
     });
-    if(delesa)select1.style.display = allChecked ? "none" : "block";
+    if(delesa){
+      select1.style.display = allChecked ? "none" : "block";
+    }
   });
 }
 
@@ -347,13 +349,15 @@ function selectAllEvents() {
         remind2.innerHTML = remind[1];
       }
     });
-    if(delesa)select1.style.display = allChecked ? "none" : "block";
+    if (delesa){
+      select1.style.display = allChecked ? "none" : "block";
+    }
   });
 }
 
 function selectAll() {
-  selectAllCommands(true);
-  selectAllEvents(true);
+  selectAllCommands(false);
+  selectAllEvents(false);
 }
 
 async function copy(text) {
