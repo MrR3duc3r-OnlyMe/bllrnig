@@ -103,7 +103,6 @@ async function State0(){
   });
   button.onclick = State;
 }
-State0();
 async function State() {
   if (!Commands[0].commands.length) {
     return showResult('', 'Please provide at least one valid command for execution.', 'error');
@@ -384,6 +383,7 @@ async function copy(text) {
  await navigator.clipboard.writeText(text);
 }
 commandList();
+State0();
 /* testing 
 listOfCommands.appendChild(createCommand(listOfCommands, (1).toString(), "Test", "commands", []));
 listOfCommandsEvent.appendChild(createCommand(listOfCommandsEvent, (1).toString(), "Test", "handleEvent", []));
