@@ -2,23 +2,21 @@
 <html lang="en">
    <head>
       <title>Active Sessions</title>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="style.css">
-      <meta property="og:image" content="image/20240425_165854.png">
-      <meta property="og:image:type" content="image/png">
-      <meta property="og:image:width" content="2560">
-      <meta property="og:image:height" content="1440">
-      <meta property="og:description" content="Created by Kenneth Aceberos (Neth). PROJECT BOTIFY is a 100% free bot making website.">
-      <link rel="icon" href="image/20240425_163855.png">
    </head>
    <body>
-      <div class="container">
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <div style="font-weight: 0; padding: 20px;">
         <center>
-            <h3 class="form-text-center"><h6 style="padding: 10px; border: 1.0px solid #ffffff; border-radius: 5px;"><center><div class="header-text animate-text">ACTIVE SESSIONS</div><br><span style="font-size: 6px">Lists of logged in <b>Bots</b></span></h6></h3>
+         <p class="form-text-center"><center>ACTIVE SESSIONS | <span style="font-weight: 0; font-size: 6px">Lists of logged in <b>Bots</b></span></p>
          <div class="row" id="user_online"></div>
+         <p style="font-size: 6px">Project Botify by Kenneth Aceberos</p>
          </center>
         </div>
       <style>
@@ -32,15 +30,6 @@
          width: 100%;
          text-align: center;
          overflow: auto;
-         animation: glow 3s infinite alternate; 
-         }
-         @keyframes glow {
-         from {
-         border-color: #000; 
-         }
-         to {
-         border-color: #fff; 
-         }
          }
          .user-card img {
          max-width: 100%;
@@ -76,8 +65,10 @@
       <script>
          async function listOfAi() {
              const userOnline = document.getElementById("user_online");
+             userOnline.className = "bgn-isa";
+             userOnline.style.borderRadius = "10px";
              try {
-                 const response = await fetch("/Tanginamo1");
+                 const response = await fetch("/active_user");
                  const data = await response.json();
                  userOnline.innerHTML = '';
                  data.forEach(user => {
@@ -116,7 +107,7 @@
                  });
              } catch (error) {
                  console.error(error);
-                 userOnline.innerHTML = `<div class="alert alert-danger" role="alert">An error occurred while fetching data.</div>`;
+                 userOnline.innerHTML = `<br><center><div class="alert alert-danger" role="alert">An error occurred while fetching data.</div></center>`;
              }
          }
          

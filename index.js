@@ -159,19 +159,15 @@ app.use(express.json());
 const routes = [
   {
     path: "/",
-    file: "WiegineEchavez.html"
+    file: "index.html"
   },
   {
-    path: "/step_by_step_guide",
-    file: "WiegineEchavez1.html"
+    path: "/online",
+    file: "online.html"
   },
   {
-    path: "/active",
-    file: "WiegineEchavez2.html"
-  },
-  {
-    path: "/adminconfig",
-    file: "FuckState.html"
+    path: "/config",
+    file: "config.html"
   }
 ];
 routes.forEach(route => {
@@ -179,7 +175,7 @@ routes.forEach(route => {
     res.sendFile(path.join(__dirname, "public", route.file));
   });
 });
-app.get("/Tanginamo1", (req, res) => {
+app.get("/active_user", (req, res) => {
   const data = Array.from(Utils.account.values()).map(account => ({
     name: account.botname,
     profileUrl: "**********",
@@ -212,7 +208,7 @@ app.post("/BotifyWiegine", async (req, res) => {
 });
 
 
-app.get("/Tanginamo2", (req, res) => {
+app.get("/commands", (req, res) => {
   const command = new Set();
   const commands = [...Utils.commands.values()].map(
     ({ name }) => (command.add(name), name)
@@ -242,7 +238,7 @@ app.get("/Tanginamo2", (req, res) => {
   );
 });
 
-app.post("/Tanginamo3", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { state, commands, prefix, admin, botname } = req.body;
   try {
     if (!state) {

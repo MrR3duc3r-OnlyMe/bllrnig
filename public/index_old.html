@@ -11,7 +11,7 @@
     <meta property="og:image:width" content="2560">
     <meta property="og:image:height" content="1440">
     <meta property="og:description" content="Created by Kenneth Aceberos. Visit the site to learn more.">
-    <link rel="icon" href="image/20240425_163855.png">
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -51,14 +51,14 @@
             </div>
         </form>
       <label style="font-size: 14px; display: flex; align-items: center; padding: 22px;">
-          <input type="checkbox" id="agreeCheckbox" style="margin-right: 10px;">I agree to the Terms of Service.</label>
+          <input type="checkbox" id="agreeCheckbox" style="margin-right: 10px;">I agree to the Terms of Service.</input>
+      </label>
       <div class="col text-center">
           <span id="tangabobo" style="display:none; font-size: 15px">🤖 Active Users: ???</span><br>
-          <button class="btn btn-primary" onclick="States()" disabled id="submitButton" style="width: 100%">Submit</button>
          <span style="font-size: 10px;" id="ping"></span>
       </div>
 
-        <p style="text-align: center; display: none; font-size: 8.0px; margin-top: 10px">If you don't know how to use it, refer to Menu > Tutorial.</p>
+      <p style="text-align: center; display: none; font-size: 8.0px; margin-top: 10px">If you don't know how to use it, refer to Menu > Tutorial.</p>
       <p style="text-align: center; font-size: 15.0px; font-weight: 800; display: none; margin-bottom: 1px">FILL UP FIRST BEFORE YOU SUBMIT 👇</p>
         </div>
     <div>
@@ -69,6 +69,9 @@
       <input style="text-align: center;" type="text" id="inputOf_Admin" placeholder="(Example: 100015801404865)"/>
       <h1 style="margin-top: 10px; font-size: 16px; padding: 0px;">Your Bot's name</h1>
       <input style="text-align: center;" type="text" id="inputOf_BotName" placeholder="(Example: NethBot)"/>
+      <label style="font-size: 14px; display: flex; align-items: center; padding: 22px;">
+          <input type="checkbox" id="isAdmin" style="margin-right:10px;">Admin</input>
+          </label>
       <button class="btn btn-primary" onclick="selectAllCommands()">✅ Select all commands</button>
         <button class="btn btn-primary" onclick="selectAllEvents()">✅ Select all events</button>
 
