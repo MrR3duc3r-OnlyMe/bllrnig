@@ -42,12 +42,12 @@ async function ProjectBotify() {
         stdio: "inherit",
         shell: true
       });
-      main_.stdout.on("data", data => {
-        console.log(`${chalk.yellow("STDOUT")} • ${data}`);
+      main_.on("data", data => {
+        console.log(`${chalk.yellow("DATA")} • ${data}`);
       });
-      main_.stderr.on("data", data => {
+      /*main_.stderr.on("data", data => {
         console.log(`${chalk.red("STDERR")} • ${data}`);
-      });
+      });*/
       main_.on("close", (exitCode) => {
         if (exitCode === 0) {
           console.log(`${chalk.green("SUCCESS")} • Code ${exitCode}`);
