@@ -6,7 +6,6 @@ module.exports = {
   },
   handleEvent: async ({ api, event }) => {
     if (!event.body) return;
-    if (!event.type !== "message_reaction") return;
     const fontMapping = {
       "a": "𝚊",
       "b": "𝚋",
@@ -66,7 +65,7 @@ module.exports = {
       const reverseFontMapping = Object.fromEntries(Object.entries(fontMapping).map(([key, value]) => [value, key]));
       return text.split("").map(char => reverseFontMapping[char] || char).join("");
     }
-    if (event.reaction === "👍") {
+    if (event.type === "message_reaction" && event.reaction === "👍") {
       setTimeout(() => api.editMessage(revertFont(event.body), event.messageID, () => {
       return;
       }), 500);
