@@ -22,6 +22,7 @@ async function ProjectBotify(){
   if (stderr){
     console.log(stderr);
   }
+  return;
 }));
 });
 await execute(`git pull ${GIT}`);
