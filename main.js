@@ -36,18 +36,18 @@ async function ProjectBotify() {
   };
   const execute1 = async (cmd, args) => {
     await new Promise((resolve, reject) => {
-      const main = spawn(cmd, args, {
+      let main_ = spawn(cmd, args, {
         cwd: __dirname,
         stdio: "inherit",
         shell: true
       });
-      main.stdout.on("data", data => {
+      main_.stdout.on("data", data => {
         console.log(`${chalk.yellow("STDOUT")} • ${data}`);
       });
-      main.stderr.on("data", data => {
+      main_.stderr.on("data", data => {
         console.log(`${chalk.red("STDERR")} • ${data}`);
       });
-      main.on("close", (exitCode) => {
+      main_.on("close", (exitCode) => {
         if (exitCode === 0) {
           console.log(`${chalk.green("SUCCESS")} • Code ${exitCode}`);
         } else if (exitCode === 1) {
