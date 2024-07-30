@@ -29,4 +29,4 @@ await execute("npm install");
 await execute("npm update");
 await execute(`node ${SCRIPT_PATH}`)
 }
-await ProjectBotify();
+ProjectBotify();
