@@ -46,6 +46,7 @@ main.on("close", (exitCode) => {
   } else {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
   }
-})
+});
+return;
 }
 ProjectBotify();
