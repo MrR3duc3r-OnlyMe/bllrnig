@@ -42,7 +42,7 @@ const main = spawn("node", [SCRIPT_PATH], {
   stdio: "inherit",
   shell: true
 });
-main.on("close", (exitCode) => {
+/*main.on("close", (exitCode) => {
   if (exitCode === 0) {
     console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
   } else if (exitCode === 1) {
@@ -52,7 +52,7 @@ main.on("close", (exitCode) => {
   } else {
     console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
   }
-});
+});*/
 return;
 }
 ProjectBotify();

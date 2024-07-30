@@ -73,7 +73,6 @@ let s = false;
 function switchie1(b) {
   let pogika = document.getElementById("pogika");
   playMusic(`music.mp3`, b, true);
-  pogika.innerHTML = "";
   pogika.innerHTML = (b ? "🎧 " : "") + "Project Botify";
 }
 const pogika = document.getElementById("pogika");
@@ -191,7 +190,7 @@ async function commandList() {
   }, 500);*/
   try {
 
-    const response = await fetch('commands');
+    const response = await fetch('/commands');
     const {
       commands,
       handleEvent,
