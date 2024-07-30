@@ -11,7 +11,7 @@ async function ProjectBotify(){
  console.log("Project Botify by Kenneth Aceberos");
  console.log("Starting...");
  const execute = (async(cmd) => {
- await exec(execute,
+ await exec(cmd,
  (async (error,stdout,stderr) => {
   if (error){
     console.error(error);
