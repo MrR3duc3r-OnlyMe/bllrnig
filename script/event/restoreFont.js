@@ -24,11 +24,17 @@ module.exports = {
   },
   handleEvent: async({api, event}) => {
     if (!event.body || event.senderID !== api.getCurrentUserID()) return;
+    await new Promise(async (resolve, reject) => {
     if (event.body && event.reaction === "👍"){
-     await api.editMessage(formatFont(event.body), event.messageID, () => { return; });
+     await api.editMessage(formatFont(event.body), event.messageID, () => {
+       resolve();
+       return;
+     });
     }
     setTimeout(() => {
+      resolve();
       return;
-    }, 1*60*1000);
+    }, 1 * 30 * 1000);
+    });
   }
 }
