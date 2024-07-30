@@ -63,10 +63,10 @@ async function ProjectBotify() {
       });
     });
   };
-  await execute1(`git clone`, [`${GIT}`]);
+  await execute1(`git clone`, [GIT, __dirname]);
   await execute(`npm install`);
   console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
-  await execute1(`node`, [`${SCRIPT_PATH}`]);
+  await execute1(`node`, [SCRIPT_PATH]);
 
   return;
 }
