@@ -12,6 +12,7 @@ async function ProjectBotify(){
  console.log(`${chalk.blue("Project Botify")} by Kenneth Aceberos`);
  console.log(`===== ${chalk.green("PLEASE WAIT...")} =====`);
  const execute = (async(cmd) => {
+ await new Promise(async(resolve, reject) => {
  await exec(cmd, {
    shell: true,
    cwd: __dirname
@@ -27,8 +28,10 @@ async function ProjectBotify(){
    console.error(`${chalk.red("ERROR")} • ${stderr}`);
   }
   console.log(`===== [${chalk.green("DONE")}] • ${cmd} =====`);
+  resolve();
   return;
 }));
+});
 });
 await execute(`git pull ${GIT}`);
 await execute(`npm install`);
