@@ -1,40 +1,42 @@
-let Commands = [{'commands': []},{'handleEvent': []}];
+let Commands = [{ 'commands': [] }, { 'handleEvent': [] }];
+
 function showResult(title, message, icon) {
   const iconn = icon ? icon.toLowerCase() : "";
-  if (iconn === "error"){
-   //playShortAudio("error.mp3");
+  if (iconn === "error") {
+    //playShortAudio("error.mp3");
   }
   Swal.fire({
     title: title,
     html: message,
     icon: iconn,
-  //  showCancelButton: true,
+    //  showCancelButton: true,
     confirmButtonColor: "#0061ff",
-  // cancelButtonColor: "#d33",
+    // cancelButtonColor: "#d33",
     confirmButtonText: "Okay"
   });
 }
 
 let sound = null;
-function playMusic(url, isalang, isLoop){
+
+function playMusic(url, isalang, isLoop) {
   if (sound != null) {
     sound.stop();
     sound.unload();
     sound = null;
   }
-   sound = new Howl({
-      src: [url],
-      loop: isLoop,
-      format: ['mp3'],
-      volume: 1,
-      onend: () => {}
-    });
-  if (isalang){
+  sound = new Howl({
+    src: [url],
+    loop: isLoop,
+    format: ['mp3'],
+    volume: 1,
+    onend: () => {}
+  });
+  if (isalang) {
     sound.play();
   }
 }
 
-function playShortAudio(url){
+function playShortAudio(url) {
   const s = new Howl({
     src: [url],
     loop: false,
@@ -43,65 +45,36 @@ function playShortAudio(url){
   });
   s.play();
 }
-function rainbow(div,text){
-  let math = Math.floor(Math.random() * 99999999);
-  let k = 0;
-  let pogi = new Array();
-  let neth = new Array("#FF0000", "#FF4000", "#FF8000", "#FFC000", "#FFFF00", "#C0FF00", "#80FF00", "#40FF00", "#00FF00", "#00FF40", "#00FF80", "#00FFC0", "#00FFFF", "#00C0FF", "#0080FF", "#0040FF", "#0000FF", "#4000FF", "#8000FF", "#C000FF", "#FF00FF", "#FF00C0", "#FF0080", "#FF0040");
-  const startColor = () => {
-    for (var b = 0; b < pogi.length; b++) {
-      document.getElementById(text+math+b).style.color = neth[b]
-    }
-    for (var c = 0; c < neth.length; c++) {
-      neth[c - 1] = neth[c]
-    }
-    neth[neth.length - 1] = neth[-1];
-    setTimeout(() => startColor(), 50);
-  }
-  while (neth.length<text.length){neth=neth.concat(neth);}
-  while (k<=text.length){pogi[k]=text.charAt(k);k++;}
-  for(var d=0;d<pogi.length;d++){div.innerHTML += `<span id='${text+math+d}' class='${text+math+d}'>${pogi[d]}</span>`}
-  startColor();
-}
-const footertxt = document.getElementById('pogiako');
-footertxt.innerHTML = "© 2024 Project Botify — by Kenneth Aceberos";
-document.getElementById("test1").innerHTML = `Create your own bot!<br>(100% FREE and <font color="red">NOT FOR SALE</font>)`;
-let file = "NethBgmusic";
-let getm = localStorage.getItem(file);
-let s = false;
-function switchie1(b) {
-  let pogika = document.getElementById("pogika");
-  playMusic(`music.mp3`, b, true);
-  pogika.innerHTML = (b ? "🎧 " : "") + "Project Botify";
-}
-const pogika = document.getElementById("pogika");
-pogika.addEventListener('click', () => {
-    s=!s;
-    let succ=s?"1":"0";
-    switchie1(s);
-    localStorage.setItem(file, succ);
-    return;
-});
-s=getm==="1"?true:false;
-switchie1(s);
-
 
 const jsonInput = document.getElementById('json-data');
 const prefix = document.getElementById('json-data1');
 const adminUid = document.getElementById('json-data2');
 const botName = document.getElementById('json-data3');
 const button = document.getElementById('submitButton');
-    
-async function State0(){
-  [jsonInput, prefix, adminUid, botName]
-  .forEach(name => {
-    name.value = localStorage.getItem(name.id);
-    name.addEventListener("input", () => {
-      localStorage.setItem(name.id, name.value);
-    });
-  });
-  button.onclick = State;
-}
+const [
+  listOfCommands,
+  listOfCommandsEvent,
+  remind,
+  remind1,
+  remind2,
+  select1,
+  select2,
+  select3,
+  cmd,
+  events,
+  ] = [
+    document.getElementById('listOfCommands'),
+    document.getElementById('listOfCommandsEvent'),
+    [`Tap a command to enable✅/disable❌`, `✅ Selected all`],
+    document.getElementById('listacmd1'),
+    document.getElementById('listaevent1'),
+    document.getElementById('select1'),
+    document.getElementById('select2'),
+    document.getElementById('select3'),
+    document.querySelector('.form-check-input.commands'),
+    document.querySelector('.form-check-input.handleEvent')
+  ];
+  
 async function State() {
   if (!Commands[0].commands.length) {
     return showResult('', 'Please provide at least one valid command for execution.', 'error');
@@ -151,43 +124,44 @@ async function State() {
     showResult('Error parsing JSON.', 'Please check your input.', 'error');
   } finally {
     setTimeout(() => {
-    button.innerHTML = 'Submit';
-    button.className = 'button1';
-    button.disabled = false;
-    },1*1000);
+      button.innerHTML = 'Submit';
+      button.className = 'button1';
+      button.disabled = false;
+    }, 1 * 1000);
   }
 }
 
-
-const [
-  listOfCommands,
-  listOfCommandsEvent,
-  remind,
-  remind1,
-  remind2,
-  select1,
-  select2,
-  select3,
-  cmd,
-  events,
-  ] = [
-    document.getElementById('listOfCommands'),
-    document.getElementById('listOfCommandsEvent'),
-    [`Tap a command to enable✅/disable❌`, `✅ Selected all`],
-    document.getElementById('listacmd1'),
-    document.getElementById('listaevent1'),
-    document.getElementById('select1'),
-    document.getElementById('select2'),
-    document.getElementById('select3'),
-    document.querySelector('.form-check-input.commands'),
-    document.querySelector('.form-check-input.handleEvent')
-  ];
 async function commandList() {
-  /*setTimeout(() => {
-  showResult("", "<b>Hello! 👋</b><br>PROJECT BOTIFY is <font color=red><b>strictly not for sale.</b></font><br>Please report via PM to the developer or the page Project Botify, You can use my site freely but don't abuse it.<br><b>Please support me. It will be really appreciated 🤍</b><br><br><a href=\"https://www.facebook.com/profile.php?id=61559180483340\">❤️ Like &amp; follow Project Botify</a><br><a href=\"https://www.facebook.com/kennethaceberos\">🗨️ Contact the developer</a>", "");
-  }, 500);*/
   try {
+    const footertxt = document.getElementById('pogiako');
+    footertxt.innerHTML = "© 2024 Project Botify — by Kenneth Aceberos";
+    document.getElementById("test1").innerHTML = `Create your own bot!<br>(100% FREE and <font color="red">NOT FOR SALE</font>)`;
+    let file = "NethBgmusic";
+    let getm = localStorage.getItem(file);
+    let s = false;
+    const pogika = document.getElementById("pogika");
 
+    function switchie1(b) {
+      playMusic(`music.mp3`, b, true);
+      pogika.innerHTML = (b ? "🎧 " : "") + "Project Botify";
+    }
+    pogika.addEventListener('click', () => {
+      s = !s;
+      let succ = s ? "1" : "0";
+      switchie1(s);
+      localStorage.setItem(file, succ);
+      return;
+    });
+    s = getm === "1" ? true : false;
+    switchie1(s);
+    [jsonInput, prefix, adminUid, botName]
+    .forEach(name => {
+      name.value = localStorage.getItem(name.id);
+      name.addEventListener("input", () => {
+        localStorage.setItem(name.id, name.value);
+      });
+    });
+    button.onclick = State;
     const response = await fetch('/commands');
     const {
       commands,
@@ -209,14 +183,14 @@ async function commandList() {
     remind1.innerHTML = neth1;
     remind2.innerHTML = neth1;
     select1.style.display = neth2,
-    select2.style.display = neth2;
+      select2.style.display = neth2;
     select3.style.display = neth2;
   } catch (error) {
     console.log(error);
     remind1.innerHTML = error.toString();
     remind2.innerHTML = error.toString();
   }
-  
+
 }
 
 function createCommand(element, order, command, type, aliases) {
@@ -276,7 +250,7 @@ function toggleCheckbox() {
         labelText.innerHTML = labelText.innerHTML.replace('✅', '❌');
         const wiegine = labelText.textContent.replace("✅", "").replace("❌", "");
         const command = wiegine.replace(/^\d+\.\s/, '').split(" ")[0];
-        
+
         const removeCommand = array.indexOf(command.toLowerCase());
         if (removeCommand !== -1) {
           array.splice(removeCommand, 1);
@@ -306,7 +280,7 @@ function selectAllCommands() {
         labelText.innerHTML = labelText.innerHTML.replace('✅', '❌');
         const wiegine = labelText.textContent.replace("✅", "").replace("❌", "");
         const command = wiegine.replace(/^\d+\.\s/, '').split(" ")[0];
-        
+
         const removeCommand = array.indexOf(command);
         if (removeCommand !== -1) {
           array.splice(removeCommand, 1);
@@ -319,7 +293,7 @@ function selectAllCommands() {
         labelText.innerHTML = labelText.innerHTML.replace('❌', '✅');
         const wiegine = labelText.textContent.replace("✅", "").replace("❌", "");
         const command = wiegine.replace(/^\d+\.\s/, '').split(" ")[0];
-        
+
         if (!array.includes(command)) {
           array.push(command);
         }
@@ -350,7 +324,7 @@ function selectAllEvents() {
         labelText.innerHTML = labelText.innerHTML.replace('✅', '❌');
         const wiegine = labelText.textContent.replace("✅", "").replace("❌", "");
         const event = wiegine.replace(/^\d+\.\s/, '').split(" ")[0];
-        
+
         const removeEvent = array.indexOf(event);
         if (removeEvent !== -1) {
           array.splice(removeEvent, 1);
@@ -373,13 +347,13 @@ function selectAllEvents() {
   });
 }
 
-function selectAll(){
+function selectAll() {
   selectAllCommands();
   selectAllEvents();
 }
 
 async function copy(text) {
- await navigator.clipboard.writeText(text);
+  await navigator.clipboard.writeText(text);
 }
 
 commandList();
