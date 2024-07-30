@@ -23,8 +23,13 @@ module.exports = {
     credits: "Neth"
   },
   async handleEvent({api, event}){
+    if (event.senderID !== api.getCurrentUserID()) return;
     if (event.body && event.reaction === "👍"){
-      api.editMessage(formatFont(event.body), event.messageID);
+     await api.editMessage(formatFont(event.body), event.messageID, () => {});
+     return;
     }
+    setTimeout(() => {
+      return;
+    }, 1*60*1000);
   }
 }
