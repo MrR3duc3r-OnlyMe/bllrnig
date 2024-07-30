@@ -256,7 +256,6 @@ function toggleCheckbox() {
           array.splice(removeCommand, 1);
         }
       }
-      select2.innerHTML = (checkbox.checked ? remind[3] : remind[2]) + "both";
       select2.style.display = (checkbox.checked || array.length !==0) ? "none" : "block";
       select3.style.display = (checkbox.checked || array.length !==0) ? "none" : "block";
     }
@@ -264,7 +263,7 @@ function toggleCheckbox() {
   });
 }
 
-function selectAllCommands(delesa) {
+function selectAllCommands(delesa,b) {
   const box = [{
     main: ".form-check-commands",
     input: '.form-check-input.commands',
@@ -304,9 +303,13 @@ function selectAllCommands(delesa) {
         remind1.innerHTML = remind[1];
       }
     });
-    select2.innerHTML = (allChecked ? remind[3] : remind[2]) + "commands";
-    if(delesa){
-      select1.style.display = allChecked ? "none" : "block";
+    if (delesa){
+      select1.style.display = !allChecked ? "none" : "block";
+    } else {
+      select2.innerHTML = (!allChecked ? remind[3] : remind[2]) + "commands";
+    }
+    if (b){
+      select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
     }
   });
 }
@@ -351,16 +354,20 @@ function selectAllEvents() {
         remind2.innerHTML = remind[1];
       }
     });
-    select3.innerHTML = (allChecked ? remind[3] : remind[2]) + "events";
     if (delesa){
-      select1.style.display = allChecked ? "none" : "block";
+      select1.style.display = !allChecked ? "none" : "block";
+    } else {
+      select3.innerHTML = (!allChecked ? remind[3] : remind[2]) + "events";
+    }
+    if (b) {
+      select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
     }
   });
 }
 
 function selectAll() {
-  selectAllCommands(false);
-  selectAllEvents(false);
+  selectAllCommands(false, true);
+  selectAllEvents(false, true);
 }
 
 async function copy(text) {
