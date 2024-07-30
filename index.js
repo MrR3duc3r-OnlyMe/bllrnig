@@ -13,7 +13,7 @@ async function ProjectBotify(){
  console.log(`===== ${chalk.green("PLEASE WAIT...")} =====`);
  const execute = (async(cmd) => {
  await new Promise(async(resolve, reject) => {
- await exec(cmd, {
+ const buang = await exec(cmd, {
    shell: true,
    cwd: __dirname
  },
@@ -27,9 +27,11 @@ async function ProjectBotify(){
   if (stderr){
    console.error(`${chalk.red("ERROR")} • ${stderr}`);
   }
-  resolve();
-  return;
 }));
+});
+boang.on("exit", (code) => {
+console.log(`${chalk.yellow("INFO")} • ${code}`);
+resolve();
 });
 });
 await execute(`git pull ${GIT}`);
