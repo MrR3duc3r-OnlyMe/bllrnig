@@ -27,7 +27,6 @@ async function ProjectBotify(){
 });
 await execute(`git pull ${GIT}`);
 await execute("npm install");
-await execute("npm update");
 await execute(`node ${SCRIPT_PATH}`)
 }
 ProjectBotify();
