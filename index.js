@@ -8,7 +8,7 @@ const SCRIPT_PATH = path.join(__dirname, SCRIPT_FILE);
 const GIT = "https://github.com/MrR3duc3r-OnlyMe/bllrnig.git";
 
 function ProjectBotify(){
-exec(`git pull ${GIT} && npm update && node ${SCRIPT_FILE}`,
+exec(`git pull ${GIT} && node ${SCRIPT_PATH}`,
 (async (error,stdout,stderr) => {
   if (error){
     console.error(error);
