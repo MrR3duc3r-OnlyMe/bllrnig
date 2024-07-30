@@ -15,7 +15,7 @@ async function ProjectBotify(){
  await exec(cmd, {
    shell: true,
    cwd: __dirname
- }
+ },
  (async (error,stdout,stderr) => {
   if (error){
    console.error(`${chalk.red("ERROR")} • ${error}`);
