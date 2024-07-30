@@ -310,11 +310,12 @@ function selectAllCommands(delesa,b) {
     }
     if (b){
       select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
+      select2.style.display = !allChecked ? "none" : "block";
     }
   });
 }
 
-function selectAllEvents() {
+function selectAllEvents(delesa,b) {
   const box = [{
     main: ".form-check-handleEvent",
     input: '.form-check-input.handleEvent',
@@ -361,6 +362,7 @@ function selectAllEvents() {
     }
     if (b) {
       select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
+      select3.style.display = !allChecked ? "none" : "block";
     }
   });
 }
