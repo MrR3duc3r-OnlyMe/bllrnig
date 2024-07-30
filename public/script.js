@@ -305,13 +305,12 @@ function selectAllCommands(delesa,b) {
     });
     if (delesa){
       select1.style.display = !allChecked ? "none" : "block";
-    } else {
-      select2.innerHTML = (!allChecked ? remind[3] : remind[2]) + "commands";
     }
     if (b){
       select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
       select2.style.display = !allChecked ? "none" : "block";
     }
+    select2.innerHTML = (!allChecked ? remind[3] : remind[2]) + "commands";
   });
 }
 
@@ -357,13 +356,12 @@ function selectAllEvents(delesa,b) {
     });
     if (delesa){
       select1.style.display = !allChecked ? "none" : "block";
-    } else {
-      select3.innerHTML = (!allChecked ? remind[3] : remind[2]) + "events";
     }
     if (b) {
       select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
       select3.style.display = !allChecked ? "none" : "block";
     }
+    select3.innerHTML = (!allChecked ? remind[3] : remind[2]) + "events";
   });
 }
 
