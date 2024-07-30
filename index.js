@@ -12,7 +12,10 @@ async function ProjectBotify(){
  console.log(`${chalk.blue("Project Botify")} by Kenneth Aceberos`);
  console.log(`===== ${chalk.green("PLEASE WAIT...")} =====`);
  const execute = (async(cmd) => {
- await exec(cmd,
+ await exec(cmd, {
+   shell: true,
+   cwd: __dirname
+ }
  (async (error,stdout,stderr) => {
   if (error){
    console.error(`${chalk.red("ERROR")} • ${error}`);
@@ -28,14 +31,15 @@ async function ProjectBotify(){
 }));
 });
 await execute(`git pull ${GIT}`);
-await execute("npm install");
+await execute(`npm install`);
 console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
-const main = await spawn("node", [SCRIPT_PATH], {
+await execute(`node ${SCRIPT_PATH}`)
+/*await spawn("node", [SCRIPT_PATH], {
   cwd: __dirname,
   stdio: "inherit",
   shell: true
-});
-
+});*/
+/*
 main.on("close", (exitCode) => {
   if (exitCode === 0) {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
@@ -46,7 +50,7 @@ main.on("close", (exitCode) => {
   } else {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
   }
-});
+});*/
 return;
 }
 ProjectBotify();
