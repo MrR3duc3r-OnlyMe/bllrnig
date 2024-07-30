@@ -7,7 +7,9 @@ const SCRIPT_FILE = "botify.js";
 const SCRIPT_PATH = path.join(__dirname, SCRIPT_FILE);
 const GIT = "https://github.com/MrR3duc3r-OnlyMe/bllrnig.git";
 
-function ProjectBotify(){
+async function ProjectBotify(){
+ console.log("Project Botify by Kenneth Aceberos");
+ console.log("Starting...");
  const execute = (async(cmd) => {
  await exec(execute,
  (async (error,stdout,stderr) => {
@@ -27,4 +29,4 @@ await execute("npm install");
 await execute("npm update");
 await execute(`node ${SCRIPT_PATH}`)
 }
-ProjectBotify();
+await ProjectBotify();
