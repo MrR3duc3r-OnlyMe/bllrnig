@@ -9,19 +9,19 @@ const SCRIPT_PATH = path.join(__dirname, SCRIPT_FILE);
 const GIT = "https://github.com/MrR3duc3r-OnlyMe/bllrnig.git";
 
 async function ProjectBotify(){
- console.log(chalk.blue("Project Botify") + "by Kenneth Aceberos");
+ console.log(`${chalk.blue("Project Botify")} by Kenneth Aceberos`);
  console.log(`===== ${chalk.green("PLEASE WAIT...")} =====`);
  const execute = (async(cmd) => {
  await exec(cmd,
  (async (error,stdout,stderr) => {
   if (error){
-   console.error(chalk.red("ERROR") + " • " + error);
+   console.error(`${chalk.red("ERROR")} • ${error}`);
   }
   if (stdout){
-   console.log(chalk.green("SUCCESS") + " • " + error);
+   console.error(`${chalk.green("SUCCESS")} • ${stdout}`);
   }
   if (stderr){
-   console.error(chalk.red("ERROR") + " • " + stderr);
+   console.error(`${chalk.red("ERROR")} • ${stderr}`);
   }
   console.log(`===== [${chalk.green("DONE")}] • ${cmd} =====`);
   return;
@@ -41,8 +41,8 @@ main.on("close", (exitCode) => {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
   } else if (exitCode === 1) {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
-    console.log(`===== ${chalk.green("RESTARTING...")} =====`);
-    ProjectBotify();
+    //console.log(`===== ${chalk.green("RESTARTING...")} =====`);
+    //ProjectBotify();
   } else {
     console.error(`${chalk.red("ERROR")} • Code ${exitCode}`);
   }
