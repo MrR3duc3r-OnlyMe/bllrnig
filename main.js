@@ -64,7 +64,9 @@ async function ProjectBotify() {
     });
   };
   await execute1(`git init`);
+  await execute1(`git remote`, [`rm`, `origin`]);
   await execute1(`git remote`, [`add`, `origin`, GIT]);
+  await execute1(`git reset`);
   await execute1(`git fetch`);
   await execute1(`git checkout`, [`-t`, `origin/main`, `-f`]);
   await execute1(`npm install`);
