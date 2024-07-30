@@ -65,8 +65,8 @@ async function ProjectBotify() {
   };
   await execute1(`git init`);
   await execute1(`git remote`, [`add`, `origin`, GIT]);
-  await execute1(`git pull`, [`origin`, `main`]);
-  await execute1(`git branch`, [`--set-upstream-to=origin/main`, `main`])
+  await execute1(`git fetch`);
+  await execute1(`git checkout`, [`-t`, `origin/main`, `-f`]);
   await execute1(`npm install`);
   console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
   await execute1(`node`, [SCRIPT_PATH]);
