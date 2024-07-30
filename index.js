@@ -27,7 +27,6 @@ async function ProjectBotify(){
   if (stderr){
    console.error(`${chalk.red("ERROR")} • ${stderr}`);
   }
-  console.log(`===== [${chalk.green("DONE")}] • ${cmd} =====`);
   resolve();
   return;
 }));
@@ -36,8 +35,9 @@ async function ProjectBotify(){
 await execute(`git pull ${GIT}`);
 await execute(`npm install`);
 console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
-await new Promise(async(resolve) => {
-  const main = await spawn("node", [SCRIPT_PATH], {
+await execute(`node ${SCRIPT_FILE}`);
+/*await new Promise(async(resolve) => {
+  const main = await spawn("node", [SCRIPT_FILE], {
   cwd: __dirname,
   stdio: "inherit",
   shell: true
@@ -54,7 +54,7 @@ main.on("close", (exitCode) => {
   }
 });
 resolve();
-});
+});*/
 return;
 }
 ProjectBotify();
