@@ -177,13 +177,13 @@ async function commandList() {
         i === 0 ? listOfCommands.appendChild(container) : listOfCommandsEvent.appendChild(container);
       });
     });
-    const isNoCommand = allCmd.length !== 0;
+    const isNoCommand = allCmd.length === 0;
     const neth1 = isNoCommand ? "No commands were added." : remind[0];
     const neth2 = isNoCommand ? "none" : "block";
     remind1.innerHTML = neth1;
     remind2.innerHTML = neth1;
     select1.style.display = neth2,
-      select2.style.display = neth2;
+    select2.style.display = neth2;
     select3.style.display = neth2;
   } catch (error) {
     console.log(error);
