@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,10 +17,17 @@
   <title>Project Botify</title>
 </head>
 <body>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+             
   <div>
-    <nav style="align-items: center;" class="ws navbar navbar-expand-lg navbar-dark">
+    <nav style="align-items: center;" class="ws navbar navbar-expand-lg navbar-dark" style="">
       <a class="navbar-brand" href="#">
-        <span style="font-size: 15px; margin-left: 5px;" align="center" id="pogika"></span>
+        <p class="h11" style="font-weight: 500; font-size: 15px; margin-left: 5px; margin:0;padding:0;" align="center" id="pogika"></p>
       </a>
       <button class="navbar-toggler button1" style="margin: 0; width: auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -45,7 +51,7 @@
     </nav>
     <div style="padding:20px" class="wrapper-container">
       <div style="text-align:center" class="form-wrapper">
-        <h1 style="font-size: 15px" id="test1"></h1>
+        <h1 class="pogz" style="font-size: 15px" id="test1"></h1>
          <div class="row">
           <div class="col-md-12">
             <textarea id="json-data" class="centered-textarea" style="margin-top: 10px; min-height: 150px;border-radius: 0px;border-top-left-radius: 10px;border-top-right-radius: 10px;" placeholder="Appstate"></textarea>
@@ -86,11 +92,6 @@
       <span id="pogiako" style="margin:0;padding:0;font-size: 10px; letter-spacing: 1px; font-weight: 0; text-align: center;"></span>
     </footer>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -9,13 +9,9 @@ module.exports = function (defaultFuncs, api, ctx) {
       callback = read;
       read = true;
     }
-    if (read == undefined) {
-      read = true;
-    }
+    if (read == undefined) read = true;
 
-    if (!callback) {
-      callback = () => { };
-    }
+    if (!callback) callback = () => { };
 
     var form = {};
 
@@ -32,15 +28,12 @@ module.exports = function (defaultFuncs, api, ctx) {
       try {
         resData = await (
           defaultFuncs
-            .post(
-              "https://www.facebook.com/ajax/mercury/change_read_status.php",
-              ctx.jar,
-              form
-            )
+            .post("https://www.facebook.com/ajax/mercury/change_read_status.php", ctx.jar, form)
             .then(utils.saveCookies(ctx.jar))
             .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
         );
-      } catch (e) {
+      }
+      catch (e) {
         callback(e);
         return e;
       }
@@ -48,16 +41,15 @@ module.exports = function (defaultFuncs, api, ctx) {
       if (resData.error) {
         let err = resData.error;
         log.error("markAsRead", err);
-        if (utils.getType(err) == "Object" && err.error === "Not logged in.") {
-          ctx.loggedIn = false;
-        }
+        if (utils.getType(err) == "Object" && err.error === "Not logged in.") ctx.loggedIn = false;
         callback(err);
         return err;
       }
 
       callback();
       return null;
-    } else {
+    }
+    else {
       try {
         if (ctx.mqttClient) {
           let err = await new Promise(r => ctx.mqttClient.publish("/mark_thread", JSON.stringify({
@@ -66,12 +58,10 @@ module.exports = function (defaultFuncs, api, ctx) {
             state: read
           }), { qos: 1, retain: false }, r));
           if (err) throw err;
-        } else {
-          throw {
-            error: "You can only use this function after you start listening."
-          };
         }
-      } catch (e) {
+        else throw { error: "You can only use this function after you start listening." };
+      }
+      catch (e) {
         callback(e);
         return e;
       }

@@ -2,21 +2,19 @@
 
 var utils = require("../utils");
 
-module.exports = function(defaultFuncs, api, ctx) {
+module.exports = function (defaultFuncs, api, ctx) {
   return function searchForThread(name, callback) {
-    var resolveFunc = function(){};
-    var rejectFunc = function(){};
+    var resolveFunc = function () { };
+    var rejectFunc = function () { };
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
     });
 
     if (!callback) {
-      callback = function (err, friendList) {
-        if (err) {
-          return rejectFunc(err);
-        }
-        resolveFunc(friendList);
+      callback = function (err, data) {
+        if (err) return rejectFunc(err);
+        resolveFunc(data);
       };
     }
 
@@ -29,19 +27,11 @@ module.exports = function(defaultFuncs, api, ctx) {
     };
 
     defaultFuncs
-      .post(
-        "https://www.facebook.com/ajax/mercury/search_threads.php",
-        ctx.jar,
-        tmpForm
-      )
+      .post("https://www.facebook.com/ajax/mercury/search_threads.php", ctx.jar, tmpForm)
       .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
-      .then(function(resData) {
-        if (resData.error) {
-          throw resData;
-        }
-        if (!resData.payload.mercury_payload.threads) {
-          return callback({ error: "Could not find thread `" + name + "`." });
-        }
+      .then(function (resData) {
+        if (resData.error) throw resData;
+        if (!resData.payload.mercury_payload.threads) return callback({ error: "Could not find thread `" + name + "`." });
         return callback(
           null,
           resData.payload.mercury_payload.threads.map(utils.formatThread)

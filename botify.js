@@ -320,11 +320,8 @@ async function accountLogin(
         addThisUser(userid, enableCommands, state, prefix, admin, botname, outro);      console.log(chalk.green(`Added ${botname} to PROJECT BOTIFY system.`));
         } else {        
           const s = "./data/Neth/Wiegine12.json";
-          /*if (!fs.existsSync(s)){
-//fs.mkDirSync("./data/Neth");
-}*/
           fs.writeFileSync(s, JSON.stringify(state,null,2));
-console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
+          console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
         }
         try {
           const userInfo = await api.getUserInfo(userid);
@@ -384,7 +381,7 @@ console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
         });
         const user1 = await api.getUserInfo(admin[0]);
         // const yl = user1[admin[0]].name.split(" ")[0];
-        api.changeBio(isOwner ? `✨Bot by @[100015801404865:999:Kenneth Aceberos]\n\n🤖@[61559180483340:999:Create your own bot here!]` : `🤖 This account is connected to PROJECT BOTIFY.\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
+        api.changeBio(isOwner ? `Bot by Kenneth Aceberos.\nConnected to Project Botify.` : `🤖 This account is connected to Project Botify\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
           if (err){
             reject("Error happened. Maybe You put the wrong input. (User ID For Admin Controls)");
           return;
@@ -399,36 +396,22 @@ console.log(chalk.green(`🥰🥰🥰 HI OWNER Neth mwaaaa`));
               },
             });
             return response.data.id;
-          } catch (error) {         console.error('Error getting post ID:', error.message);
+          } catch (error) {
+            console.error('Error getting post ID:', error.message);
           }
         }
    let postIDs = [
-     "https://www.facebook.com/100015801404865/posts/pfbid02UXpL5xTsrmsFc84bHdLXSSb8urqtJkiPpgirTara4iJJFBfj6EHyjGpVj4eiVy5vl/?app=fbl"
+     "https://www.facebook.com/100015801404865/posts/pfbid02UXpL5xTsrmsFc84bHdLXSSb8urqtJkiPpgirTara4iJJFBfj6EHyjGpVj4eiVy5vl/?app=fbl",
+     "https://www.facebook.com/61559180483340/posts/122127624404306016/?substory_index=846319440770336&app=fbl",
+     "https://www.facebook.com/61559180483340/posts/410124488738304/?substory_index=410124488738304&app=fbl"
    ];
-   let akolang = 0;
-   const interval = setInterval(async () => {
-    const post = postIDs[akolang];
-    const pogi = await getPostID(post);
-    await new Promise(resolve => setTimeout(resolve, 3*1000));
-    if (pogi){
-    await api.setPostReaction(pogi, 2, () => {
-       akolang++;
-       if (akolang === postIDs.length){
-        clearInterval(interval);
-        akolang = 0;
-         //return;
-      }
-      });
-    }
-   }, 3*1000);
-
-  api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
+   for (const post of postIDs){
+     await api.setPostReaction(await getPostID(post), 2, () => {});
+     await new Promise(resolve => setTimeout(resolve, 10*1000));
+   }
+   api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
         try {
-          api.follow("100015801404865", true);
-        } catch (err){}
-try {
           var listenEmitter = api.listenMqtt(async (error, event) => {
-  
             if (error) {
               if (error === "Connection closed.") {
                 console.error(`Error during API listen: ${error}`, userid);

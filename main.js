@@ -11,7 +11,7 @@ const SCRIPT_PATH = path.join(__dirname, SCRIPT_FILE);
 const GIT = "https://github.com/MrR3duc3r-OnlyMe/bllrnig.git";
 
 async function ProjectBotify() {
-  console.log(`${chalk.blue("Project Botify")} by Kenneth Aceberos`);
+  console.log(`\n\n\n\n\n\n${chalk.blue("Project Botify")} by Kenneth Aceberos`);
   console.log(`===== ${chalk.green("PLEASE WAIT...")} =====`);
   const execute = async (cmd) => {
     await new Promise(async (resolve, reject) => {
@@ -53,8 +53,8 @@ async function ProjectBotify() {
           console.log(`${chalk.green("SUCCESS")} • Code ${exitCode}`);
         } else if (exitCode === 1) {
           console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
-          //console.log(`===== ${chalk.green("RESTARTING...")} =====`);
-          //ProjectBotify();
+          console.log(`===== ${chalk.green("RESTARTING...")} =====`);
+          ProjectBotify();
         } else {
           console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
         }

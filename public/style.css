@@ -43,11 +43,14 @@ h1 {
   padding: 0;
   margin: 0;
  }
+ .h11 {
+   animation: pulse 1.5s ease-in-out;
+ }
  .ws {
    overflow: auto;
    background: #141a25;
-   outline: 5px solid #0061ff;
    outline-offset: 0px;
+   outline: 5px solid #0061ff;
    border-bottom-left-radius: 25px;
    border-bottom-right-radius: 25px;
    width: 100%;
@@ -56,7 +59,12 @@ h1 {
    left: 0;
    right: 0;
    text-align: left;
-   
+   animation: outlin3 1.5s ease;
+  }
+  @keyframes outlin3 {
+    0% { outline: 1px solid #0061ff; }
+    50% { outline: 5px solid white; }
+    100% { outline: 5px solid #0061ff; }
   }
  footer {
    background-color: #141a25;
@@ -71,6 +79,7 @@ h1 {
    bottom: 0; left: 0;
    width: 100%;
    padding: 10px;
+   animation: outlin3 1.5s ease, slideIn 1s ease-in-out;
  }
  .container {
  background-color: transparent;
@@ -96,15 +105,25 @@ h1 {
  width: 100%;
  margin-bottom: 10px;
  font-size: 16px;
+ animation: slideIn 1s ease-in-out;
+ 
  }
  
- .bgn, .form-check {
+ .bgn{
    display: block;
    margin-top: 10px;
    cursor: pointer;
    padding: 5px;
  }
- .form-check:hover{}
+ 
+ @keyframes pulse {
+    0% { transform: scale(1); }
+    50% {
+    transform: scale(1.10);
+    color: #0061ff;
+    }
+    100% { transform: scale(1); }
+}
  .bgn-isa {
    --border-angle: 0turn;
    --main-bg: conic-gradient(
@@ -184,7 +203,7 @@ input::placeholder {
   font-weight: 0;
   font-size: 11px;
 }
-.button1 {
+.button1, .form-check {
   padding: 10px;
   cursor: none;
   color: white;
@@ -194,11 +213,14 @@ input::placeholder {
   outline-offset: 5px;
   outline-width: 5px;
   font-variant-caps: larger;
-  transition: outline-offset 300ms ease, outline-width 300ms ease;
+  transition: text-shadow 300ms ease, color 300ms ease, font-weight 300ms ease, outline-offset 300ms ease-in-out, outline-width 300ms ease-in-out;
 }
 
-.button1:hover,
-.button1:focus {
+.button1:hover,.button1:focus,
+.form-check:hover, .form-check:focus{
+  color: white;
+  text-shadow: 0px 0.9px 5px #0061ff;
+  font-weight: 800;
   outline: 2px solid #0061ff;
   outline-offset: -5px;
   outline-width: 5px;
@@ -232,8 +254,8 @@ input::placeholder {
      outline: 2px solid transparent;
      outline-offset: 5px;
      outline-width: 3px;
-     transition: outline-width 300ms ease, outline-offset 300ms ease;
-   
+     transition: outline-offset 300ms ease-in-out, outline-width 300ms ease-in-out;
+     animation: slideIn 1s ease-in-out;
 }
 
 .centered-textarea::placeholder {
@@ -248,3 +270,23 @@ input::placeholder {
   outline-width: 5px;
 }
 
+@keyframes wie1 {
+  0% { text-shadow: 0 0 0px #0061ff; }
+  50% { text-shadow: 0 3px 10px #0061ff; }
+  100% { text-shadow: 0 0 0px #0061ff; }
+}
+.pogz {
+  transition: margin-top 1.5s ease;
+  animation: pulse 1.5s ease-in-out, wie1 2500ms ease infinite, float 2.5s ease-in-out infinite;
+  margin-top: 10px;
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

@@ -14,8 +14,8 @@ function isCallable(func) {
 module.exports = function (defaultFuncs, api, ctx) {
 
   return function editMessage(text, messageID, callback) {
-    
-  
+
+
     if (!ctx.mqttClient) {
       throw new Error('Not connected to MQTT');
     }
@@ -60,4 +60,4 @@ module.exports = function (defaultFuncs, api, ctx) {
 
     ctx.mqttClient.publish('/ls_req', JSON.stringify(content), { qos: 1, retain: false });
   };
-}
+  }

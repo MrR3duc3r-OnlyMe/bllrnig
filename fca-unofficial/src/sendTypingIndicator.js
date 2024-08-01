@@ -22,10 +22,7 @@ module.exports = function (defaultFuncs, api, ctx) {
         .post("https://www.facebook.com/ajax/messaging/typ.php", ctx.jar, form)
         .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
         .then(function (resData) {
-          if (resData.error) {
-            throw resData;
-          }
-
+          if (resData.error) throw resData;
           return callback();
         })
         .catch(function (err) {
@@ -35,32 +32,22 @@ module.exports = function (defaultFuncs, api, ctx) {
           }
           return callback(err);
         });
-    } else {
+    }
+    else {
       api.getUserInfo(threadID, function (err, res) {
-        if (err) {
-          return callback(err);
-        }
-
+        if (err) return callback(err);
         // If id is single person chat
-        if (Object.keys(res).length > 0) {
-          form.to = threadID;
-        }
-
+        if (Object.keys(res).length > 0) form.to = threadID;
         defaultFuncs
           .post("https://www.facebook.com/ajax/messaging/typ.php", ctx.jar, form)
           .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
           .then(function (resData) {
-            if (resData.error) {
-              throw resData;
-            }
-
+            if (resData.error) throw resData;
             return callback();
           })
           .catch(function (err) {
             log.error("sendTypingIndicator", err);
-            if (utils.getType(err) == "Object" && err.error === "Not logged in.") {
-              ctx.loggedIn = false;
-            }
+            if (utils.getType(err) == "Object" && err.error === "Not logged in.") ctx.loggedIn = false;
             return callback(err);
           });
       });
@@ -72,12 +59,7 @@ module.exports = function (defaultFuncs, api, ctx) {
       utils.getType(callback) !== "Function" &&
       utils.getType(callback) !== "AsyncFunction"
     ) {
-      if (callback) {
-        log.warn(
-          "sendTypingIndicator",
-          "callback is not a function - ignoring."
-        );
-      }
+      if (callback) log.warn("sendTypingIndicator", "callback is not a function - ignoring.");
       callback = () => { };
     }
 
@@ -88,12 +70,7 @@ module.exports = function (defaultFuncs, api, ctx) {
         utils.getType(cb) !== "Function" &&
         utils.getType(cb) !== "AsyncFunction"
       ) {
-        if (cb) {
-          log.warn(
-            "sendTypingIndicator",
-            "callback is not a function - ignoring."
-          );
-        }
+        if (cb) log.warn("sendTypingIndicator", "callback is not a function - ignoring.");
         cb = () => { };
       }
 
