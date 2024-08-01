@@ -265,7 +265,7 @@ function toggleCheckbox() {
   });
 }
 
-function selectAllCommands(delesa,b) {
+function selectAllCommands(delesa,b,c) {
   const box = [{
     main: ".form-check-commands",
     input: '.form-check-input.commands',
@@ -309,10 +309,8 @@ function selectAllCommands(delesa,b) {
       select1.style.display = !allChecked ? "none" : "block";
     }
     if (b){
-      if (!select_3){
       select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
       select2.style.display = !allChecked ? "none" : "block";
-      }
     }
     select2.innerHTML = (!allChecked ? remind[3] : remind[2]) + "commands";
     select_2 = allChecked;
@@ -363,10 +361,8 @@ function selectAllEvents(delesa,b) {
       select1.style.display = !allChecked ? "none" : "block";
     }
     if (b) {
-      if (!select_2){
       select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
       select3.style.display = !allChecked ? "none" : "block";
-      }
     }
     select3.innerHTML = (!allChecked ? remind[3] : remind[2]) + "events";
     select_3 = allChecked;
