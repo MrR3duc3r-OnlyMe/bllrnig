@@ -221,6 +221,7 @@ function createCommand(element, order, command, type, aliases) {
   return container;
 }
 
+let select_1 = false, select_2 = false, select_3 = false;
 function toggleCheckbox() {
   const box = [{
     input: '.form-check-input.commands',
@@ -258,6 +259,7 @@ function toggleCheckbox() {
       }
       select2.style.display = (checkbox.checked || array.length !==0) ? "none" : "block";
       select3.style.display = (checkbox.checked || array.length !==0) ? "none" : "block";
+      select_1 = checkbox.checked;
     }
     
   });
@@ -307,10 +309,13 @@ function selectAllCommands(delesa,b) {
       select1.style.display = !allChecked ? "none" : "block";
     }
     if (b){
+      if (!select_3){
       select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
       select2.style.display = !allChecked ? "none" : "block";
+      }
     }
     select2.innerHTML = (!allChecked ? remind[3] : remind[2]) + "commands";
+    select_2 = allChecked;
   });
 }
 
@@ -358,10 +363,13 @@ function selectAllEvents(delesa,b) {
       select1.style.display = !allChecked ? "none" : "block";
     }
     if (b) {
+      if (!select_2){
       select1.innerHTML = (!allChecked ? remind[3] : remind[2]) + "both";
       select3.style.display = !allChecked ? "none" : "block";
+      }
     }
     select3.innerHTML = (!allChecked ? remind[3] : remind[2]) + "events";
+    select_3 = allChecked;
   });
 }
 
