@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
   <meta property="og:image" content="image/20240425_165854.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="2560">
   <meta property="og:image:height" content="1440">
   <meta property="og:description" content="Created by Kenneth Aceberos (Neth). PROJECT BOTIFY is a 100% free bot making website.">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="image/20240425_163855.png">
   <title>Project Botify</title>
 </head>
 <body>
   <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
@@ -36,15 +34,9 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul style="opacity: 0.7" class="navbar-nav">
           <li class="nav-item active">
-            <a style="display: none;" class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/online">Active Sessions</a>
-            <a style="" class="nav-link" href="https://nethprofile.pages.dev">Developer Info</a>
-          </li>
-          <li style="display: none;" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More Projects</a>
-            <div style="font-weight: 800; margin: 0;" class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="https://www.facebook.com/profile.php?id=61562218612857">🔗😁 DISCOVER here At NethProjects</a>
-            </div>
+            <a class="nav-link" href="/online">♻ Active Sessions</a>
+            <a class="nav-link" href="/config">🔧 Mainbot Config (owner only)</a>
+            <a class="nav-link" href="https://nethprofile.pages.dev">ℹ Dev Info</a>
           </li>
         </ul>
       </div>
@@ -64,11 +56,11 @@
               <button id="select3" style="display: none;" class="button1" onclick="selectAllEvents(true, false)">✅ Select all events</button>
               <div class="container" id="listOfCommands">
                 <h1 id="listacmd" style="font-size: 16px; padding: 0px;">Commands</h1>
-                <h1 id="listacmd1" style="font-size: 9px; padding: 0px;"></h1>
+                <h1 id="listacmd1" style="font-size: 9px; padding: 0px;">Loading...</h1>
               </div>
               <div class="container" id="listOfCommandsEvent">
                 <h1 id="listaevent" style="font-size: 16px; padding: 0px;">Events</h1>
-                <h1 id="listaevent1" style="font-size: 9px; padding: 0px;"></h1>
+                <h1 id="listaevent1" style="font-size: 9px; padding: 0px;">Loading...</h1>
               </div>
             </div>
            </div>
@@ -85,6 +77,7 @@
     <p>We, as the service provider, disclaim responsibility for any account locking or suspension on the provided account. Users are expected to adhere to the terms of service of the hosting platform.</p>
     <p>For added security, it is highly recommended to use dummy or disposable accounts when interacting with the chatbot.</p>
     <p>Users are strictly prohibited from employing the chatbot for malicious activities. Violation of this rule may result in the termination of access to the chatbot and may have legal consequences.</p>
+    <p>To prevent server from getting down, don't use it for illegal activity!!!!</p>
     <p>KUNG DUDA KA, WAG MO NALANG GAMITIN. WALANG PILITAN. WAY PUGSANAY. I AM NOT FORCING YOU.</p>
     <br><br><br>
     <footer>

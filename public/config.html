@@ -4,106 +4,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="style.css">
   <title>Main Bot Config</title>
-  <style>
-    body {
-      font-family: Poppins, sans-serif;
-      background-color: #003180;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      height: 100vh;
-      color: white;
-      margin: 0;
-    }
-    .container {
-      margin-top: 10px;
-      background: #eeeeee;
-      border-radius: 10px;
-      padding: 20px;
-      width: 80%;
-      animation: neon-border 2s linear infinite alternate; 
-
-      }
-    input[type="appstate"],input[type="name"],input[type="adminid"], input[type="password"] {
-      background-color: #0061ff;
-      width: calc(100% - 22px);
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      outline: none;
-      color: white;
-    }
-
-    input[type="appstate"]::placeholder, input[type="name"]::placeholder,input[type="adminid"]::placeholder, input[type="password"]::placeholder {
-      color: white;  
-      font-weight: 0;
-      font-size: 11px;
-    }
-
-    button {
-      width: calc(100% - 0px);
-      padding: 6px;
-      background-color: #0061ff;
-      border: none;
-      border-radius: 20px;
-      color: white;
-      font-size: 16px;
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      
-    }
-    button:hover {
-      background-color: #003179;
-    }
-    .info {
-      margin-top: 10px;
-      font-size: 10px;
-      color: black;
-    }
-    neth {
-      text-align: center;
-      font-size: 10px;
-      color: #0061ff;
-    }
-
-
-     .c1 {
-         display: block;
-         width: 100%;
-         min-height: calc(100vh - 80vh);
-         padding: 10px;
-         box-sizing: border-box;
-         border-radius: 5px;
-         text-align: left;
-         color: black;
-
-    }
-
-    @keyframes neon-border {
-         from {
-        border-color: #0061ff;
-        box-shadow: 0 0 10px #0061ff, 0 0 20px #0061ff, 0 0 30px #0061ff; 
-         }
-         to {
-        border-color: #003180;
-        box-shadow: 0 0 50px #003180, 0 0 40px #003180, 0 0 60px #003180;
-         }
-  </style>
-</head>
-<body>
-  <div class="container" id="container">
+  <head>
+<body style="padding:20px">
+  <h1 align="center" style="padding:20px">THIS IS FOR OWNER ONLY.</h1>
+  <div class="bgn-isa" style="padding:20px" id="container">
     <!--<form id="contain" onsubmit="login()">-->
-    <input type="appstate" id="apst" placeholder="Appstate">
-    <input type="password" id="u2" placeholder="Access Key">
-    <button id="salp" onclick="login1()">SUBMIT</button>
+    <input type="text" id="apst" class="centered-textarea" style="margin-bottom: 10px" placeholder="Appstate">
+    <input type="password" id="u2" class="centered-textarea" style="margin-bottom: 10px" placeholder="Access Key">
+    <button id="salp" class="button1" onclick="login1()">SUBMIT</button>
     <!--</form>-->
     </div>
 <script>
