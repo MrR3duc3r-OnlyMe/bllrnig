@@ -70,8 +70,8 @@ async function ProjectBotify() {
   await execute1(`git fetch`);
   await execute1(`git checkout`, [`-t`, `origin/main`, `-f`]);
   */
-  //await execute1(`git pull`, [GIT]);
-  //await execute1(`npm install`);
+  await execute1(`git pull`, [GIT]);
+  await execute1(`npm install`);
   console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
   await execute1(`node`, [SCRIPT_PATH]);
 
