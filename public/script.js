@@ -80,7 +80,7 @@ async function State() {
   if (!Commands[0].commands.length) {
     return showResult('', 'Please provide at least one valid command for execution.', 'error');
   }
-  if (prefix.value.length < 4) {
+  if (botName.value.length < 4) {
     return showResult('', 'Bot name must be 4 characters minimum.', 'error');
   }
   if (adminUid.value.length == 0) {
