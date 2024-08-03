@@ -34,12 +34,13 @@
       const response = await fetch('/BotifyWiegine', {
         method: 'POST',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           appstate: JSON.parse(ap1.value),
           pass: pass1.value
-        }),
+        })
       });
       const data = await response.json();
         Swal.fire({

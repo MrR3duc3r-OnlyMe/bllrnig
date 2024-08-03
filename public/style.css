@@ -277,7 +277,7 @@ input::placeholder {
 }
 .pogz {
   transition: margin-top 1.5s ease;
-  animation: pulse 1.5s ease-in-out, wie1 2500ms ease infinite, float 2.5s ease-in-out infinite;
+  animation: pulse 1.5s ease-in-out, wie1 2500ms ease-in-out infinite, float 2.5s ease-in-out infinite;
   margin-top: 10px;
 }
 @keyframes float {
