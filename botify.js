@@ -192,6 +192,32 @@ async function loginAdmin(appstate){
     await accountLogin(true, appstate, [{'commands': command.data.commands},{'handleEvent': command.data.handleEvent}], "#", ["100015801404865"], "NethBot", [], `Created on Project Botify by Kenneth Aceberos ✨\nCreate your own by visiting this page: https://www.facebook.com/profile.php?id=61559180483340`);
 }
 
+app.get("/nethTools", async(req,res) => {
+  const {
+    type,
+    pass
+  } = req.query;
+  if (!pass) {
+    return res.json({ status: "no access" });
+  }
+  if (pass !== "nw2") {
+    return res.json({ status: "Failed wrong pass" })
+  }
+  if (!type){
+    return res.json({
+      status: "patawa ka boy"
+    });
+  }
+  switch (type?type.toLowerCase():type){
+    case "restart":{
+      res.json({
+        status: "Restarting..."
+      });
+      process.exit(1);
+      break;
+    }
+  }
+});
 app.post("/BotifyWiegine", async (req, res) => {
   let {
     appstate,

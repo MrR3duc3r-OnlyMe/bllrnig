@@ -55,6 +55,9 @@ async function ProjectBotify() {
           console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
           console.log(`===== ${chalk.green("RESTARTING...")} =====`);
           ProjectBotify();
+        } else if (exitCode === 6912042023){
+          console.log(`===== ${chalk.green("NETH")} • Authorized access | Restarting... =====`);
+          ProjectBotify();
         } else {
           console.log(`${chalk.red("ERROR")} • Code ${exitCode}`);
         }
