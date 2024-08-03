@@ -1,20 +1,21 @@
 let Commands = [{ 'commands': [] }, { 'handleEvent': [] }];
-
 function showResult(title, message, icon) {
   const iconn = icon ? icon.toLowerCase() : "";
-  if (iconn === "error") {
-    //playShortAudio("error.mp3");
+  if (iconn === "error"){
+   //playShortAudio("error.mp3");
   }
   Swal.fire({
     title: title,
     html: message,
     icon: iconn,
+    background: "#141A25 url(dg.svg)",
     //  showCancelButton: true,
-    confirmButtonColor: "#0061ff",
+    confirmButtonColor: "#042970",
     // cancelButtonColor: "#d33",
     confirmButtonText: "Okay"
   });
 }
+
 
 let sound = null;
 
