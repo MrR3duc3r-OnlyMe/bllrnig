@@ -19,7 +19,7 @@ const Utils = new Object({
   cooldowns: new Map()
 });
 
-const PORTANGINAMO = process.env.PORT || 25611;
+const PORTANGINAMO = process.env.PORT || 25812;
 
 module.exports = {
     test1: Utils,
