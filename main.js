@@ -11,7 +11,7 @@ const SCRIPT_PATH = path.join(__dirname, SCRIPT_FILE);
 const GIT = "https://github.com/MrR3duc3r-OnlyMe/bllrnig.git";
 
 async function ProjectBotify() {
-  console.log(`\n\n\n\n\n\n${chalk.blue("Project Botify")} by Kenneth Aceberos`);
+  console.log(`${chalk.blue("Project Botify")} by Kenneth Aceberos`);
   console.log(`===== ${chalk.green("PLEASE WAIT...")} =====`);
   const execute = async (cmd) => {
     await new Promise(async (resolve, reject) => {
@@ -70,8 +70,8 @@ async function ProjectBotify() {
   await execute1(`git fetch`);
   await execute1(`git checkout`, [`-t`, `origin/main`, `-f`]);
   */
-  await execute1(`git pull`, [GIT]);
-  await execute1(`npm install`);
+  //await execute1(`git pull`, [GIT]);
+  //await execute1(`npm install`);
   console.log(`===== ${chalk.green("EXECUTE COMPLETE!")} =====`);
   await execute1(`node`, [SCRIPT_PATH]);
 
