@@ -1,5 +1,5 @@
 const config = {
-  name: "detectPrefix",
+  name: "detectprefix",
   version: "1.0",
   role: 2,
   credits: "Kenneth Aceberos",

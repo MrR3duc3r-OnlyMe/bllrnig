@@ -1,6 +1,6 @@
 const tanginaka = require('node-emoji');
 const config = {
-  name: "randomReact",
+  name: "randomreact",
   version: "1.0",
   role: 2,
   credits: "Kenneth Aceberos",

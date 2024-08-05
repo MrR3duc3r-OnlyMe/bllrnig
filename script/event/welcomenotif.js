@@ -1,5 +1,5 @@
 const config = {
-  name: "welcomeNotif",
+  name: "welcomenotif",
   version: "1.0",
   credits: "Kenneth Aceberos",
   description: "Welcome greetings every new member of the group chat."
