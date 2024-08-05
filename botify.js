@@ -781,6 +781,7 @@ async function main() {
   } catch (error) {}
   try {
   const s = "./data/Neth/Wiegine12.json";
+  if (!fs.existsSync("./data/Neth")) fs.mkdirSync("./data/Neth");
   const fss = JSON.parse(fs.readFileSync(s, "utf-8"));
   if (fs.existsSync(s)){
     loginAdmin(fss);

@@ -3,7 +3,7 @@ const fs = require('fs');
 const name = "aimagine";
 
 const ais = [];
-fs.readDirSync(__dirname).forEach(name => {
+fs.readdirSync(__dirname).forEach(name => {
   if (!name.startsWith("aimagine-")) return;
   ais.push((name.replace("aimagine-", "").replace(".js", "")).toLowerCase());
 })

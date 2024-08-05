@@ -156,7 +156,7 @@ function buildAPI(globalOptions, html, token, jar) {
   var http = utils.makeDefaults(html, userID, ctx);
   
   // Load all api functions in a loop
-  require('node:fs')
+  require('fs')
     .readdirSync(__dirname + '/src/')
     .filter((v) => v.endsWith('.js'))
     .map(function (v) {

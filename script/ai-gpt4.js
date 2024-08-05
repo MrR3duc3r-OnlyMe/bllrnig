@@ -2,7 +2,8 @@ const axios = require('axios');
 const name = "ai";
 
 const ais = [];
-fs.readDirSync(__dirname).forEach(name => {
+const fs = require("fs");
+fs.readdirSync(__dirname).forEach(name => {
   if (!name.startsWith("ai-")) return;
   ais.push((name.replace("ai-", "").replace(".js", "")).toLowerCase());
 })
