@@ -57,7 +57,7 @@ module.exports.run = async function({
             helpMessage += `> ${i + 1}. ${wiegine(commands[i])}\n`;
             }
             if (paged){
-            helpMessage = `━━ ${Utils.formatFont("Events")} ━━\n`;
+            helpMessage += `\n\n━━ ${Utils.formatFont("Events")} ━━\n`;
             eventCommands.forEach((eventCommand, index) => {
             helpMessage += `> ${index + 1}. ${wiegine(eventCommand)}\n`;
             });
