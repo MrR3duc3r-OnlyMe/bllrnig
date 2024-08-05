@@ -493,16 +493,16 @@ async function accountLogin(
               aliases(
                 (event.body || "")
                   ?.trim()
-                  .toLowerCase()
-                  .split(/ +/)
+                  /*.toLowerCase()
+                  */.split(/ +/)
                   .shift()
               )?.hasPrefix == false
                 ? ""
                 : prefix;
             let [command, ...args] = (event.body || "")
               .trim()
-              .toLowerCase()
-              .startsWith(hasPrefix?.toLowerCase())
+              /*.toLowerCase()
+              */.startsWith(hasPrefix?.toLowerCase())
               ? (event.body || "")
                   .trim()
                   .substring(hasPrefix?.length)
@@ -644,10 +644,10 @@ async function accountLogin(
               case "message_reaction":
                 if (
                   enableCommands[0].commands.includes(
-                    aliases(command?.toLowerCase())?.name
+                    aliases(command)?.name
                   )
                 ) {
-                  await (aliases(command?.toLowerCase())?.run || (() => {}))({
+                  await (aliases(command)?.run || (() => {}))({
                     api,
                     event,
                     args,
@@ -717,7 +717,7 @@ async function addThisUser(
 }
 
 function aliases(command) {
-  const pogi = Array.from([...Utils.commands.entries(), ...Utils.handleEvent.entries()]);
+  const pogi = Array.from([Utils.commands.entries()]);
   const aliases = pogi.find(([commands]) =>
     commands.includes(command)
   );
