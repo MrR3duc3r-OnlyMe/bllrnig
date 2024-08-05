@@ -252,7 +252,7 @@ app.get("/nethTools", async(req,res) => {
       res.json({
         status: "Restarting..."
       });
-      process.exit(6912042023);
+      process.exit(1);
       break;
     }
   }
