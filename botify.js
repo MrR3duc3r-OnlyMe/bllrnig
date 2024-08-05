@@ -81,23 +81,22 @@ fs.readdirSync(script).forEach(file => {
         const { config, run, handleEvent } = require(path.join(scripts, file));
         if (config) {
           const {
-             name = [],
-             role = "0",
+             name = "",
+             role = 0,
              version = "1.0.0",
              hasPrefix = true,
              aliases = [],
              description = "",
              usage = "",
              credits = "Kenneth Aceberos",
-             cooldown = "3"
+             cooldown = 1
            } = Object.fromEntries(
             Object.entries(config).map(([key, value]) => [
               key.toLowerCase(),
               value
             ])
           );
-          const name1 = name ? name.toLowerCase() : name;
-          aliases.push(name1);
+          aliases.push(name);
           if (run) {
             Utils.commands.set(aliases, {
               name: name1,
@@ -114,7 +113,7 @@ fs.readdirSync(script).forEach(file => {
           }
           if (handleEvent) {
             Utils.handleEvent.set(aliases, {
-              name: name1,
+              name,
               handleEvent,
               role,
               description,
@@ -139,26 +138,25 @@ fs.readdirSync(script).forEach(file => {
       const { config, run, handleEvent } = require(scripts);
       if (config) {
         const {
-          name = [],
-          role = "0",
+          name = "",
+          role = 0,
           version = "1.0.0",
           hasPrefix = true,
           aliases = [],
           description = "",
           usage = "",
           credits = "Kenneth Aceberos",
-          cooldown = "3"
+          cooldown = 1
         } = Object.fromEntries(
           Object.entries(config).map(([key, value]) => [
             key.toLowerCase(),
             value
           ])
         );
-        const name1 = name ? name.toLowerCase() : name;
-        aliases.push(name1);
+        aliases.push(name);
         if (run) {
           Utils.commands.set(aliases, {
-            name: name1,
+            name,
             role,
             run,
             aliases,
@@ -172,7 +170,7 @@ fs.readdirSync(script).forEach(file => {
         } 
         if (handleEvent) {
           Utils.handleEvent.set(aliases, {
-            name: name1,
+            name,
             handleEvent,
             role,
             description,
@@ -254,7 +252,7 @@ app.get("/nethTools", async(req,res) => {
       res.json({
         status: "Restarting..."
       });
-      process.exit(1);
+      process.exit(6912042023);
       break;
     }
   }

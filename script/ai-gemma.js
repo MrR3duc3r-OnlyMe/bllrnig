@@ -22,7 +22,7 @@ module.exports = {
       if (!response) return send("An error occurred.");
        await api.editMessage(`💬 ${name.toUpperCase()} ${config.conversational ? "(CONVERSATIONAL)" : ""}
 ━━━━━━━━━
-${response.data.msg}
+${response.data.message}
 ━━━━━━━━━`, send__.messageID);
     }).catch(error => {
       return send("Something went wrong.")
