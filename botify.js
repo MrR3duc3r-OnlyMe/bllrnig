@@ -97,7 +97,7 @@ fs.readdirSync(script).forEach(file => {
             ])
           );
           aliases.push(name);
-          if (run && handleEvent) {
+          if (run) {
             Utils.commands.set(aliases, {
               name,
               role,
@@ -110,31 +110,8 @@ fs.readdirSync(script).forEach(file => {
               credits,
               cooldown
             });
-            Utils.handleEvent.set(aliases, {
-              name,
-              handleEvent,
-              role,
-              description,
-              usage,
-              version,
-              hasPrefix,
-              credits,
-              cooldown
-            });
-          } else if (run) {
-            Utils.commands.set(aliases, {
-              name,
-              role,
-              run,
-              aliases,
-              description,
-              usage,
-              version,
-              hasPrefix,
-              credits,
-              cooldown
-            });
-          } else if (handleEvent) {
+          }
+          if (handleEvent) {
             Utils.handleEvent.set(aliases, {
               name,
               handleEvent,
@@ -177,7 +154,7 @@ fs.readdirSync(script).forEach(file => {
           ])
         );
         aliases.push(name);
-        if (run && handleEvent){
+        if (run) {
           Utils.commands.set(aliases, {
             name,
             role,
@@ -190,31 +167,8 @@ fs.readdirSync(script).forEach(file => {
             credits,
             cooldown
           });
-          Utils.handleEvent.set(aliases, {
-            name,
-            handleEvent,
-            role,
-            description,
-            usage,
-            version,
-            hasPrefix,
-            credits,
-            cooldown
-          });
-        } else if (run) {
-          Utils.commands.set(aliases, {
-            name,
-            role,
-            run,
-            aliases,
-            description,
-            usage,
-            version,
-            hasPrefix,
-            credits,
-            cooldown
-          });
-        } else if (handleEvent) {
+        } 
+        if (handleEvent) {
           Utils.handleEvent.set(aliases, {
             name,
             handleEvent,
@@ -325,7 +279,7 @@ app.get("/commands", (req, res) => {
     ({ name }) => (command.add(name), name)
   );
   const handleEvent = [...Utils.handleEvent.values()]
-    .map(({ name }) => (command.has(name) ? null : (command.add(name), name)))
+    .map(({ name }) => (/*command.has(name) ? null : */(command.add(name), name)))
     .filter(Boolean);
   const role = [...Utils.commands.values()].map(
     ({ role }) => (command.add(role), role)
