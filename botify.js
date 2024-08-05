@@ -12,7 +12,7 @@ const config =
   fs.existsSync("./data") && fs.existsSync("./data/config.json")
     ? JSON.parse(fs.readFileSync("./data/config.json", "utf8"))
     : createConfig();
-const PORTANGINAMO = process.env.PORT || 8109;
+const PORTANGINAMO = process.env.PORT || (JSON.parse(fs.readFileSync("./ports.json")).port);
 const AKOLANGTWO = `Want to have this bot?
 Create yours at Project Botify!
 You may check this facebook page: https://www.facebook.com/profile.php?id=61559180483340
@@ -862,10 +862,10 @@ async function createDatabase() {
 }
 
 app.listen(PORTANGINAMO, () => {
-  console.log(`IM BACK!!!!!!`)
-  console.log(`Starting Project Botify on port ${PORTANGINAMO}`);
+  console.log(chalk.green(`Project Botify Started 🤖`));
+  console.log(chalk.blue(`Running: http://localhost:${PORTANGINAMO}`));
   });
-process.on("unhandledRejection", (reason) => {
-  console.log("Unhandled Promise Rejection:", reason);
+process.on("unhandledRejection", reason => {
+  console.log(chalk.red(`Error: ${reason}`));
 });
 main();
