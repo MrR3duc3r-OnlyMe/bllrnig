@@ -382,7 +382,7 @@ async function accountLogin(
         }
         try {
           const userInfo = await api.getUserInfo(userid);
-          if (
+          /*if (
             !userInfo ||
             !userInfo[userid]?.name ||
             !userInfo[userid]?.profileUrl ||
@@ -390,7 +390,7 @@ async function accountLogin(
           )
             throw new Error(
               "Unable to locate the account; it appears to be in a suspended or locked state."
-            );
+            );*/
           const { profileUrl, thumbSrc } = userInfo[userid];
           if (!isOwner){
           let time =
