@@ -4,41 +4,29 @@ module.exports.config = {
   role: 0,
   hasPrefix: true,
   credits: "Neth",
-  description: "Waifu image. With NSFW on/off(admin only)",
-  usages: "{p}waifu [turn on/off nsfw]",
+  description: "Waifu image. With NSFW",
+  usages: "{p}waifu",
   cooldown: 0
 };
 
-let nsfw = false;
-
-module.exports.run = async ({ api, event, args, admin }) => {
+module.exports.run = async ({ api, event, args, admin, Utils }) => {
   const axios = require('axios');
   const fs = require('fs-extra');
-  const main = require(__dirname.replace("/script", "") + '/index');
   try { 
   const {
   threadID,
   messageID
   } = event;
-  const query = args.join(" ");
-    if (query && query.toLowerCase() === 'nsfw') {
-        if (admin[0] == event.senderID){
-        nsfw = nsfw;
-        const statusMsg = nsfw ? 'NSFW mode is now ON.' : 'NSFW mode is now OFF.';
-        api.sendMessage(statusMsg, threadID, messageID);
-        } else {
-        api.sendMessage("Only admins can access this command", threadID, messageID);
-        }
-        return;
-      } else { api.sendMessage('Finding waifu images...', threadID, messageID);
-    }
+  const nsfw = Utils.threads.get(`${threadID}_nsfw`);
+   api.sendMessage('Finding waifu images...', threadID, messageID);
+    
   const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
   const path = __dirname + '/cache/' + `${timestamp}_Ughhhhhh.png`;
 
   api.setMessageReaction("⏳", event.messageID, () => {}, true);
     const fuck = nsfw ? 'neko1' : 'neko';
 
-  const url = (await axios.get(`${main.apiniJoshua}/${fuck}`, {
+  const url = (await axios.get(`${Utils.api_josh}/${fuck}`, {
   responseType: 'arraybuffer'
   })).data;
   fs.writeFileSync(path, Buffer.from(url, "utf-8"));

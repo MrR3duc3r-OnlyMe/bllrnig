@@ -20,7 +20,8 @@ module.exports.config = {
 module.exports.run = async ({
   api,
   event,
-  args
+  args,
+  Utils
 }) => {
   const {
     threadID,
@@ -29,7 +30,7 @@ module.exports.run = async ({
   const threadList = await api.getThreadList(25, null, ["INBOX"]);
       let sentCount = 0;
       const custom = args.join(" ");
-      const neth = moment.tz("Asia/Manila").format("DD/MM/YYYY, HH:mm:ss");
+      const neth = Utils.utils.time();
       async function sendMessage(thread) {
         try {
           await api.sendMessage(

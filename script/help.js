@@ -7,21 +7,12 @@ module.exports.config = {
   version: '1.0.0',
   role: 0,
   hasPrefix: true,
-  aliases: ['hello bot'],
+  aliases: ['cmd'],
   description: "Beginner's guide",
   usage: "Help [page] or [command]",
   credits: 'Develeoper',
 };
 
-function formatFont(text) { 
-  const fontMapping = {
-    a: "𝚊", b: "𝚋", c: "𝚌", d: "𝚍", e: "𝚎", f: "𝚏", g: "𝚐", h: "𝚑", i: "𝚒", j: "𝚓", k: "𝚔", l: "𝚕", m: "𝚖",
-    n: "𝚗", o: "𝚘", p: "𝚙", q: "𝚚", r: "𝚛", s: "𝚜", t: "𝚝", u: "𝚞", v: "𝚟", w: "𝚠", x: "𝚡", y: "𝚢", z: "𝚣",
-    A: "𝙰", B: "𝙱", C: "𝙲", D: "𝙳", E: "𝙴", F: "𝙵", G: "𝙶", H: "𝙷", I: "𝙸", J: "𝙹", K: "𝙺", L: "𝙻", M: "𝙼",
-    N: "𝙽", O: "𝙾", P: "𝙿", Q: "𝚀", R: "𝚁", S: "𝚂", T: "𝚃", U: "𝚄", V: "𝚅", W: "𝚆", X: "𝚇", Y: "𝚈", Z: "𝚉"
-  };
-  return text.split("").map(char => fontMapping[char] || char).join("");
-}
 module.exports.run = async function({
   api,
   event,
@@ -40,10 +31,11 @@ module.exports.run = async function({
     };
     const helpm = async(input, paged) => {
       const page = parseInt(input);
-            const pages = 10;
+            const pages = 15;
             let start = (page - 1) * pages;
             let end = start + pages;
-            let helpMessage = `♡  ∩_∩\n（„• ֊ •„)♡\n╭─∪∪─────────────⟡\nCommands:\n`;
+            //let helpMessage = `♡  ∩_∩\n（„• ֊ •„)♡\n╭─∪∪─────────────⟡\nCommands:\n`;
+            let helpMessage = `━━ ${Utils.formatFont("Commands")} ━━\n`;
             const wiegine = (strings) => {
             const tanginamo = gagokaba(strings);
             if (!tanginamo)
@@ -59,16 +51,19 @@ module.exports.run = async function({
                 cooldown,
                 hasPrefix
               } = tanginamo;
-            return `「${hasPrefix ? prefix : ""}${formatFont(name ? name : aliases.join("/"))} 」${description ? ` — ${description}` : ""}`;
+            return
+            `「${hasPrefix ? prefix : ""}${Utils.formatFont((aliases !== [] ? aliases.join("/") : name))} 」${description ? ` — ${description}` : ""}`;
             }
-                  for (let i = start; i < Math.min(end, commands.length); i++) {
-                    
-                    helpMessage += `\t 𖦹 ${i + 1}. ${wiegine(commands[i])}\n`;
-                  }
-                  helpMessage += '\nHandle Events:\n'; eventCommands.forEach((eventCommand, index) => {
-            helpMessage += `\t 𖦹 ${index + 1}. ${wiegine(eventCommand)}\n`;
+            for (let i = start; i < Math.min(end, commands.length); i++) {
+                    helpMessage += `\t > ${i + 1}. ${wiegine(commands[i])}\n`;
+            }
+            if (paged){
+            helpMessage = `━━ ${Utils.formatFont("Events")} ━━\n`;
+            eventCommands.forEach((eventCommand, index) => {
+            helpMessage += `\t > ${index + 1}. ${wiegine(eventCommand)}\n`;
             });
-           helpMessage += `\nPage ${paged ? "1" : page}${"\nTotal of:\n" + `${commands.length} Commands\n${eventCommands.length} Handle Events`}${paged ? `\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.` : ``}\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd, if the bot turned off or have Issues.`;
+            }
+            helpMessage += `\nPage ${paged ? "1" : page}${"\nTotal of:\n" + `${commands.length} Commands\n${eventCommands.length} Handle Events`}${paged ? `\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.` : ``}\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd, if the bot turned off or have Issues.`;
       return helpMessage;
     }
 
@@ -76,7 +71,6 @@ module.exports.run = async function({
     if (!input) {
       api.sendMessage(await helpm("1", true), event.threadID, event.messageID);
     } else if (!isNaN(input)) {
-      
       api.sendMessage(await helpm(input, false), event.threadID, event.messageID);
     } else {
       const command = [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(input?.toLowerCase()))?.[1];
@@ -121,7 +115,8 @@ module.exports.handleEvent = async function({
     messageID,
     body
   } = event;
-  const message = prefix ? '👋 This Bot is connected to PROJECT BOTIFY.\nMy Prefix is: ' + prefix : '👋 This Bot is connected to PROJECT BOTIFY.\nI Do not have a prefix.';
+  if (!event.body)return;
+  const message = "✅This bot is connected to Project Botify.\n\n" + prefix ? '❓Prefix is: ' + prefix :  "";
   const pogi = (neth) => body?.toLowerCase().startsWith(neth);
   if (pogi('pre') || pogi('prefix')) {
     api.sendMessage(message, threadID, messageID);

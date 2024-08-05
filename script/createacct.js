@@ -8,7 +8,7 @@ module.exports.config = {
   hasPrefix: true,
   cooldown: 10*60*1000,
   usages: "{p}createacct",
-  aliases: ["fbaccount","fbacc", "facebookaccount", "facebookacc"]
+  aliases: ["fbaccount", "createfb"]
 };
 
 module.exports.run = async function({ api, event, args, prefix }) {

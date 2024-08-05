@@ -6,8 +6,7 @@ module.exports.config = {
   credits: "Developer",
   description: "Bot leaves the thread",
   usages: "out",
-  cooldowns: 10,
-
+  cooldowns: 10
 };
 
 module.exports.run = async function({ api, event, args }) {

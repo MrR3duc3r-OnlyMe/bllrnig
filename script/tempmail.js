@@ -9,7 +9,7 @@ function generateRandomId() {
 				randomId += characters.charAt(Math.floor(Math.random() * characters.length));
 		}
 
-		return `projectbotify${randomId}`;
+		return `botifyneth${randomId}`;
 }
 
 module.exports.config = {

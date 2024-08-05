@@ -1,6 +1,5 @@
 const axios = require('axios');
 const fs = require('fs');
-const main = require(__dirname.replace("/script", "") + '/index');
 
 module.exports.config = {
     name: "coupledp",
@@ -24,7 +23,7 @@ module.exports.run = async function ({ api, event }) {
     try {
       
       api.setMessageReaction("⏳", event.messageID, () => {}, true);
-        const apiUrl = `${main.apiniJoshua}/cdp`;
+        const apiUrl = `${Utils.api_josh}/cdp`;
 
       const pogiko = await axios.get(apiUrl);
       

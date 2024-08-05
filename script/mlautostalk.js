@@ -23,7 +23,7 @@ module.exports.run = async function ({ api, event, args, admin }) {
     const emel = await axios.get(`https://api.kenliejugarap.com/mobilelegendsv2?userid=${args[0]}&zoneid=${args[1]}`);
     if (emel.data.status){
     api.setMessageReaction("✅", event.messageID, () => {}, true);
-    api.editMessage(`ML Stalker\n\nID: ${args[0]}\nServer: ${args[1]}\nName: ${emel.data.username}\n\n🤖PROJECT BOTIFY by Neth🤖`, wait.messageID);
+    api.editMessage(`ML Stalker\n\nID: ${args[0]}\nServer: ${args[1]}\nName: ${emel.data.username}`, wait.messageID);
   } else {
       api.setMessageReaction("❌", event.messageID, () => {}, true);
 api.sendMessage("❌Something went wrong", event.threadID);

@@ -1,7 +1,4 @@
 const axios = require('axios');
-const main = require(__dirname.replace("/script", "") + '/index');
-
-
 module.exports.config = {
   name: 'chords',
   version: '1.0.0',
@@ -17,7 +14,8 @@ module.exports.config = {
 module.exports.run = async function({
   api,
   event,
-  args
+  args,
+  Utils
 }) {
     try {
             const song = encodeURIComponent(args.join(" "));
@@ -25,7 +23,7 @@ module.exports.run = async function({
             return api.sendMessage("🎵 Please enter a song.", event.threadID, event.messageID);
             }
             api.sendMessage("🎵 Please wait...", event.threadID, event.messageID);
-            const apiUrl = `${main.apiniJoshua}/search/chords?q=`;
+            const apiUrl = `${Utils.api_josh}/search/chords?q=`;
             const response = await axios.get(apiUrl + song);
             const responseData = response.data.chord;
             return api.sendMessage({

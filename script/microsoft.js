@@ -1,6 +1,4 @@
 const axios = require('axios');
-const main = require(__dirname.replace("/script", "") + '/index');
-
 
 module.exports.config = {
   name: "microsoft",
@@ -13,12 +11,12 @@ module.exports.config = {
  // aliases: ["fbaccount","fbacc", "facebookaccount", "facebookacc"]
 };
 
-module.exports.run = async function({ api, event, args, prefix }) {
+module.exports.run = async function({ api, event, args, prefix, Utils }) {
  
   api.setMessageReaction("⏳", event.messageID, () => {}, true);
   api.sendMessage(`Creating & Generating Microsoft Acc...\n⏳ Please wait...`, event.threadID, event.messageID);
 
-    axios.get(`${main.apiniJoshua}/api/genmicro`)
+    axios.get(`${Utils.api_josh}/api/genmicro`)
     .then(dat => { 
       api.setMessageReaction("✅", event.messageID, () => {}, true);
     const {email,password} = dat.data.result;

@@ -13,14 +13,14 @@ const fs = require("fs");
 
 module.exports.run = async function ({ api, event, args }) {
 	const { threadID, messageID } = event;
-	const myImg = "https://i.imgur.com/TIJ4E5S.jpeg";
+	const myImg = "https://telegra.ph/file/0d9c59a547fd9864ed011.png";
 	const api2 = (await axios.get(myImg, {
 		responseType: "arraybuffer",
 	})).data;
 	fs.writeFileSync(__dirname + "/cache/developer.png", Buffer.from(api2, "utf-8"));
 	if (!args[0]){
 		api.sendMessage({
-			body: `👨🏻‍💻 Developer Information:\n\n👤 Name: Kenneth Aceberos\n🔗 Facebook: https://www.facebook.com/kennethaceberos\n✉️ Email: kennethace95@gmail.com\n🎂 Birthday: July 5, 2007\n✨ Age: 16 (will be 17)\n👦 Gender: Male\n❣️ Status: In a relationship with a girl named Wiegine\n\nCreate your own bot: https://www.facebook.com/profile.php?id=61559180483340`,
+			body: `👨🏻‍💻 Developer Information:\n\n👤 Name: Kenneth Aceberos\n🔗 Facebook: https://www.facebook.com/kennethaceberos\n✉️ Email: kennethace95@gmail.com\n🎂 Birthday: July 5, 2007\n✨ Age: 17\n👦 Gender: Male\n❣️ Status: In a relationship with a girl named Wiegine\n\nCreate your own bot: https://www.facebook.com/profile.php?id=61559180483340`,
 			attachment: fs.createReadStream(__dirname + "/cache/developer.png")
 		}, threadID, () => fs.unlinkSync(__dirname+"/cache/developer.png"), messageID);
 	}

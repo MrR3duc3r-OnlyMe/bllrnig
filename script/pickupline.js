@@ -5,7 +5,6 @@ module.exports.config = {
   role: 0,
   hasPrefix: true,
   description: "Get a random pick up line",
-  usage: "{p}insult",
   credits: "Neth",
   cooldown: 0
 };

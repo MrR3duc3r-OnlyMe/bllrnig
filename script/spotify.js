@@ -1,7 +1,6 @@
 let path = __dirname + "/cache/spotify.mp3";
 const axios = require("axios");
 const fs = require("fs");
-const main = require(__dirname.replace("/script", "") + '/index');
 
 
 module.exports.config = {
@@ -15,14 +14,14 @@ module.exports.config = {
         aliases: ["spt", "music2"]
 };
 
-module.exports.run = async function ({ api, event, args }) {
+module.exports.run = async function ({ api, event, args, Utils}) {
         try {
                 let q = args.join(" ");
                 if (!q) return api.sendMessage("[ ❗ ] - Missing title of the song", event.threadID, event.messageID);
 api.setMessageReaction("⏳", event.messageID, () => {}, true);
                 api.sendMessage("[ 🔍 ] Searching for “" + q + "” ...", event.threadID, async (err, info) => {
                         try {
-                           const ako = await axios.get(main.apiniJoshua + "/spotify?q=" + q);
+                           const ako = await axios.get(Utils.api_josh + "/spotify?q=" + q);
                                    const dl = (
                                         await axios.get(ako.data.result, { responseType: "arraybuffer" })
                                 ).data;

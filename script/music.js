@@ -13,14 +13,16 @@ module.exports.config = {
 module.exports.run = async function({
   api,
   event,
-  args
+  args,
+  Utils,
+  prefix
 }) {
   const fs = require("fs-extra");
   const ytdl = require("ytdl-core");
   const yts = require("yt-search");
   const musicName = args.join(' ');
   if (!musicName) {
-    api.sendMessage(`To get started, type music and the title of the song you want.`, event.threadID, event.messageID);
+    api.sendMessage(`To get started, type ${prefix}music and the title of the song you want.`, event.threadID, event.messageID);
     return;
   }
   try {

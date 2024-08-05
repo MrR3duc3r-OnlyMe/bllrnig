@@ -12,27 +12,65 @@ const config =
   fs.existsSync("./data") && fs.existsSync("./data/config.json")
     ? JSON.parse(fs.readFileSync("./data/config.json", "utf8"))
     : createConfig();
-const Utils = new Object({
+const PORTANGINAMO = process.env.PORT || 25812;
+const AKOLANGTWO = `Want to have this bot?
+Create yours at Project Botify!
+You may check this facebook page: https://www.facebook.com/profile.php?id=61559180483340
+(Can I get a like/follow? 🥺)
+Click "Sign Up" to get started and create your own
+
+🗨️ If you don't know how to do it just message our Facebook page above
+Created with 🤍 by ${config[0].masterKey.owner}`;
+
+const Utils = {
   commands: new Map(),
   handleEvent: new Map(),
   account: new Map(),
-  cooldowns: new Map()
-});
-
-const PORTANGINAMO = process.env.PORT || 25812;
-
-module.exports = {
-    test1: Utils,
-    samir: "https://apis-samir.onrender.com",
-    apiniJoshua: "https://joshweb.click"
+  cooldowns: new Map(),
+  threads: new Map(),
+  owner: config[0].masterKey.owner || "unknown",
+  api_samir: "https://apis-samir.onrender.com",
+  api_josh: "https://ggwp-yyxy.onrender.com",
+  api_neth: "https://nethwieapi.koyeb.app",
+  api_cfneth(ai, prompt, query, image){
+    //return `https://nethwieai.neth.workers.dev/ai?authkey=w123dev&model=${encodeURIComponent(ai)}&system=${encodeURIComponent(prompt)}&user=${encodeURIComponent(query)}`;
+    const data = prompt ? {
+      "messages": [
+        { "role": "system", "content": prompt },
+        { "role": "user", "content": query }
+          ]
+    } : { "prompt": query };
+    const accid = "aeb6994d3b0046916b38c8840634af2b";
+    const token = "h2BM9DzjQJoYmQHeDGLDpDUzVMIg4bO2WBtIQtHe";
+    const ako = `https://api.cloudflare.com/client/v4/accounts/${accid}/ai/run/${ai}`
+    const image1 = image ? {
+      responseType: "arraybuffer"
+    } : {};
+    const headers = {
+      "Authorization": "Bearer " + token
     };
+    return (ako, data, { ...image1, headers });
+  },
+  async time(){
+    return moment
+    .tz("Asia/Manila")
+    .format("HH:mm:ss - DD/MM/YYYY");
+  },
+  firstBigLetter(name){
+    return name.split("")[0].toUpperCase() + name.split("").slice(1).join("");
+  },
+  formatFont(text){
+  const mathSansBold = {
+  A: "𝗔", B: "𝗕", C: "𝗖", D: "𝗗", E: "𝗘", F: "𝗙", G: "𝗚", H: "𝗛", I: "𝗜",
+  J: "𝗝", K: "𝗞", L: "𝗟", M: "𝗠", N: "𝗡", O: "𝗢", P: "𝗣", Q: "𝗤", R: "𝗥",
+  S: "𝗦", T: "𝗧", U: "𝗨", V: "𝗩", W: "𝗪", X: "𝗫", Y: "𝗬", Z: "𝗭", a: "𝗔", b: "𝗕", c: "𝗖", d: "𝗗", e: "𝗘", f: "𝗙", g: "𝗚", h: "𝗛", i: "𝗜",
+  j: "𝗝", k: "𝗞", l: "𝗟", m: "𝗠", n: "𝗡", o: "𝗢", p: "𝗣", q: "𝗤", r: "𝗥",
+  s: "𝗦", t: "𝗧", u: "𝗨", v: "𝗩", w: "𝗪", x: "𝗫", y: "𝗬", z: "𝗭"
+  };
+  return text.split("").map(c => mathSansBold[c] || c).join("");
+  }
+};
 
-const AKOLANGTWO = `Want to have this bot? Go to PROJECT BOTIFY facebook page: https://www.facebook.com/profile.php?id=61559180483340\n(Can I get a like/follow? 🥺)\nClick "Sign Up" to get started and create your own\n\n🗨️ If you don't know how to do it just message our Facebook page above.\nCreated with 🤍 by ${config[0].masterKey.owner}`;
-
-function time(){
-const time = moment.tz("Asia/Manila").format("HH:mm:ss - DD/MM/YYYY");
-return time;
-}
 
 fs.readdirSync(script).forEach(file => {
   const scripts = path.join(script, file);
@@ -43,16 +81,16 @@ fs.readdirSync(script).forEach(file => {
         const { config, run, handleEvent } = require(path.join(scripts, file));
         if (config) {
           const {
-            name = [],
-            role = "0",
-            version = "1.0.0",
-            hasPrefix = true,
-            aliases = [],
-            description = "",
-            usage = "",
-            credits = "Kenneth Aceberos",
-            cooldown = "3"
-          } = Object.fromEntries(
+             name = [],
+             role = "0",
+             version = "1.0.0",
+             hasPrefix = true,
+             aliases = [],
+             description = "",
+             usage = "",
+             credits = "Kenneth Aceberos",
+             cooldown = "3"
+           } = Object.fromEntries(
             Object.entries(config).map(([key, value]) => [
               key.toLowerCase(),
               value
@@ -68,7 +106,7 @@ fs.readdirSync(script).forEach(file => {
               description,
               usage,
               version,
-              hasPrefix: config.hasPrefix,
+              hasPrefix: config.hasPrefix || config.usePrefix,
               credits,
               cooldown
             });
@@ -81,7 +119,7 @@ fs.readdirSync(script).forEach(file => {
               description,
               usage,
               version,
-              hasPrefix: config.hasPrefix,
+              hasPrefix: config.hasPrefix || config.usePrefix,
               credits,
               cooldown
             });
@@ -125,7 +163,7 @@ fs.readdirSync(script).forEach(file => {
             description,
             usage,
             version,
-            hasPrefix: config.hasPrefix,
+            hasPrefix: config.hasPrefix || config.usePrefix,
             credits,
             cooldown
           });
@@ -138,7 +176,7 @@ fs.readdirSync(script).forEach(file => {
             description,
             usage,
             version,
-            hasPrefix: config.hasPrefix,
+            hasPrefix: config.hasPrefix || config.usePrefix,
             credits,
             cooldown
           });
@@ -273,35 +311,27 @@ app.post("/login", async (req, res) => {
     }
 
     const cUser = state.find(item => item.key === "c_user");
-   if (cUser) {
+    const iUser = state.find(item => item.key === "i_user");
+    if (cUser || iUser) {
       const userid1 = Utils.account.get(cUser.value);
-      
-   /*if (userid1){
-            console.log(`${botname} · ${cUser.value} | Auto delete existing user`);
-      
-      } else {
-      console.log("No user was found")
-      }*/
-     if (fs.existsSync(path.join("./data/session", `${cUser.value}.json`))) {
+      if (fs.existsSync(path.join("./data/session", `${cUser.value}.json`))) {
         console.log(`User ${cUser.value} is already logged in`);
-         
         res.status(200).json({
           success: true,
-          message: `${botname} is still logged in. To prevent error We will delete the session on the bot. And to prevent issues PLEASE LOGOUT THE ACCOUNT(BOT). THIS IS VERY IMPORTANT. And relogin again then Go back here and resubmit your appstate on the site. 👍`
+          message: `${botname} is still logged in. To prevent error We will delete the session on the bot. And to prevent issues PLEASE LOGOUT THE ACCOUNT(BOT) or use the logout cmd. THIS IS VERY IMPORTANT. And relogin again then Go back here and resubmit your appstate on the site.`
           //user: existingUser
         });
          Utils.account.delete(cUser.value);
-      deleteThisUser(cUser.value);
-return;
+         deleteThisUser(cUser.value);
+         return;
       } else {
       try {
           const outro = AKOLANGTWO; 
           await accountLogin(false, state, commands, prefix, [admin], botname, [], outro);
-        res.status(200).json({
+          res.status(200).json({
           success: true,
-          message: `${botname} is NOW ONLINE! Your prefix is: ${prefix}. Your session has been added successfully! Thankyou for using PROJECT BOTIFY 🤖🗨️`
-            
-            });
+          message: `${botname} is NOW ONLINE! Your session has been added successfully!`
+          });
       } catch (error) {
         console.error(error);
         res.status(400).json({
@@ -408,13 +438,12 @@ async function accountLogin(
         });
         const user1 = await api.getUserInfo(admin[0]);
         // const yl = user1[admin[0]].name.split(" ")[0];
-        api.changeBio(isOwner ? `Bot by Kenneth Aceberos.\nConnected to Project Botify.` : `🤖 This account is connected to Project Botify\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
+        api.changeBio(isOwner ? `Bot by Kenneth Aceberos @[100015801404865:999:󱢏]` : `🤖 This account is connected to Project Botify\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
           if (err){
             reject("Error happened. Maybe You put the wrong input. (User ID For Admin Controls)");
           return;
           }
         });
-
         async function getPostID(url) {
           try {
             const response = await axios.post('https://id.traodoisub.com/api.php', `link=${encodeURIComponent(url)}`, {
@@ -436,7 +465,7 @@ async function accountLogin(
      await api.setPostReaction(await getPostID(post), 2, () => {});
      await new Promise(resolve => setTimeout(resolve, 10*1000));
    }
-   api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
+   api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
         try {
           var listenEmitter = api.listenMqtt(async (error, event) => {
             if (error) {
@@ -483,7 +512,7 @@ async function accountLogin(
           
             if (hasPrefix && aliases(command)?.hasPrefix === false) {
               api.sendMessage(
-                `❌ THIS COMMAND DOESN'T NEED A PREFIX\n\nJust type ${command}.`,
+                `❌This command doesn't have a prefix.\nJust type ${command}.`,
                 event.threadID,
                 event.messageID
               );
@@ -514,7 +543,7 @@ async function accountLogin(
                   !config?.[0]?.masterKey?.admin?.includes(event.senderID))
               ) {
                 api.sendMessage(
-                  `❌ COMMAND NOT WORKING FOR NON-ADMINS. ADMINS ONLY CAN ACCESS THE COMMAND`,
+                  `❌This command is for admins only.`,
                   event.threadID,
                   event.messageID
                 );
@@ -528,129 +557,13 @@ async function accountLogin(
             ) {
               if (blacklist.includes(event.senderID)) {
                 api.sendMessage(
-                  "We're sorry, but you've been banned from using bot. If you believe this is a mistake or would like to appeal, please contact one of the bot admins for further assistance.",
+                  "We're sorry, but you've been banned from using Project Botify. If you believe this is a mistake or would like to appeal, please contact one of the bot admins for further assistance.",
                   event.threadID,
                   event.messageID
                 );
                 return;
               }
             }
-
-            if (event.body !== null) {
-              // Check if the message type is log:subscribe
-              if (event.logMessageType === "log:subscribe") {
-
-                const { threadID } = event;
-
-                if (
-                  event.logMessageData.addedParticipants &&
-                  Array.isArray(event.logMessageData.addedParticipants) &&
-                  event.logMessageData.addedParticipants.some(
-                    i => i.userFbId == userid
-                  )
-                ) {
-                  api.changeNickname(
-                    `${prefix} | ${botname} 🤖`,
-                    threadID,
-                    userid
-                  );
-
-                  const oa = await api.getUserInfo(admin[0]);
-                  const name1231 = oa[admin[0]].name;
-                  const kakainis_ka = await api.getThreadInfo(event.threadID);
-api.sendMessage(isOwner ? `This bot is added to this gc thread: ${kakainis_ka.threadName}\n\nTime Added: ${time()}` : `🤖 THIS BOT IS ADDED TO GC\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${name1231}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}\nThread GC: ${kakainis_ka.threadName}\nTime added: ${time()}\n\n\n[Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY]`, "100015801404865");             api.sendMessage(
-                        {
-                          body: `🔴🟢🟡\n\n✅ Connected Success! \n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: @${name1231}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${time()}\n\n${outro}`,
-                          
-                          mentions: [
-                            {
-                              tag: "@" + name1231,
-                              id: admin[0]
-                            }
-                          ]
-                          }, event.threadID, (err,info) => {
-                          api.pinMessage(true, info.messageID, event.threadID, () => {});
-                          });
-                    
-                  } else {
-                  try {
-                    
-                    let {
-                      threadName,
-                      participantIDs
-                    } = await api.getThreadInfo(threadID);
-
-                    var mentions = [],
-                      nameArray = [],
-                      memLength = [],
-                      userID = [],
-                      i = 0;
-
-                    let addedParticipants1 =
-                      event.logMessageData.addedParticipants;
-                    for (let newParticipant of addedParticipants1) {
-                      let userID = newParticipant.userFbId;
-                      api.getUserInfo(parseInt(userID), (err, data) => {
-                        if (err) {
-                          return console.log(err);
-                        }
-                        var obj = Object.keys(data);
-                        var userName = data[obj].name.replace("@", "");
-                    if (userID !== api.getCurrentUserID()) {
-
-                                            nameArray.push(userName);
-                                            mentions.push({ tag: userName, id: userID, fromIndex: 0 });
-
-                                            memLength.push(participantIDs.length - i++);
-                                            memLength.sort((a, b) => a - b);
-
-                                              (typeof threadID.customJoin == "undefined") ? msg = "👋{uName}\n\n You are welcomed to group: {threadName}!\n\nYou are the {soThanhVien} member of this group, please enjoy! 🥳🤍" : msg = threadID.customJoin;
-                                              msg = msg
-                                                .replace(/\{uName}/g, nameArray.join(', '))
-                                                .replace(/\{type}/g, (memLength.length > 1) ? 'you' : 'Friend')
-                                                .replace(/\{soThanhVien}/g, memLength.join(', '))
-                                                .replace(/\{threadName}/g, threadName);
-
-                  
-                    api.sendMessage({ body: msg,
-                      mentions }, event.threadID)
-
-                                                          }
-                                                        })
-                                                      }
-                                                    } catch (err) {
-                                                      return console.log("ERROR: " + err);
-                                }
-                               }
-                              }
-                              }
-            if (event.body !== null) {
-              if (event.logMessageType === "log:unsubscribe") {
-                api.getThreadInfo(event.threadID).then(({ participantIDs }) => {
-                  let leaverID = event.logMessageData.leftParticipantFbId;
-                  api.getUserInfo(leaverID, (err, userInfo) => {
-                    if (err) {
-                      return console.error("Failed to get user info:", err);
-                    }
-                    const name = userInfo[leaverID].name;
-                    const type =
-                      event.author == event.logMessageData.leftParticipantFbId
-                        ? "left the group."
-                        : "was removed by admin of the group";
-
-                    
-                    // Assuming the file exists, send the message with the GIF
-                    api.sendMessage(
-                      {
-                        body: `${name} ${type}, There are now ${participantIDs.length} members in the group, please enjoy!`
-                        },
-                      event.threadID, () => {}
-                    );
-                  });
-                });
-              }
-            }
-
             
             if (event.body && aliases(command)?.name) {
               const now = Date.now();
@@ -676,25 +589,6 @@ api.sendMessage(isOwner ? `This bot is added to this gc thread: ${kakainis_ka.th
                 return;
               }
             }
-            
-            /* if (event.body && !command && event.body?.toLowerCase() == "botify"){
-          const info12 = await api.getUserInfo(event.senderID);
-            const name12 = info12[event.senderID].name;
-            const info123 = await api.getUserInfo(admin[0]);
-            const name123 = info123[admin[0]].name;
-
-            api.sendMessage({
-              body: `Hello ${name12}. 👋\nThis bot is successfully added to PROJECT BOTIFY's system.\n\n==============\n🤖 Bot name: ${botname}\n👤 Bot owner: @${name123}\n==============\n\nFor first-time users, you can use the command "${prefix}help" to get a list of available commands.\n\nIf you have any questions please contact the developer: https://www.facebook.com/kennethaceberos.\nDon't forget to follow our facebook page for more several updates: https://www.facebook.com/profile.php?id=61559180483340\n\n\nThank you for using PROJECT BOTIFY.`,
-             mentions: [{
-                tag: "@" + name123,
-                id: admin[0]
-               // fromIndex: 9
-              }]
-            }, event.threadID, (err, info) => {
-
-          }, event.messageID);
-            return;
-          }*/
             if (
               event.body &&
               !command &&
@@ -920,7 +814,7 @@ function createConfig() {
         selfListen: true,
         userAgent: /*"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18"*/"Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/125.0.6422.80 Mobile/15E148 Safari/604.1"
           /*"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"*/,
-        online: true,
+        online: false,
         autoMarkDelivery: true,
         autoMarkRead: true
       }
