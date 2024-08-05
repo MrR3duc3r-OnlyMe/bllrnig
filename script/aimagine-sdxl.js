@@ -25,9 +25,9 @@ module.exports = {
     }
     try {
       const userInput = encodeURIComponent(prompt);
-      api.sendMessage(`${Utils.firstBigLetter(name)} is generating your prompt.\n💡: ${prompt}`, event.threadID, event.messageID);
+      api.sendMessage(`${Utils.firstBigLetter(name)} is generating your prompt...\n💡: ${prompt}`, event.threadID, event.messageID);
       const path = __dirname + '/cache/' + `${new Date().toISOString().replace(/[:.]/g, "-")+event.senderID+name}.png`;
-      const a = Utils.api_cfneth("@cf/bytedance/stable-diffusion-xl-lightning", "", userInput, true);
+      const a = Utils.api_cfneth("@cf/stabilityai/stable-diffusion-xl-base-1.0", "", userInput, true);
       const api1 = (await axios.post(a[0], a[1], a[2])).data;
       fs.writeFileSync(path, Buffer.from(api1, "utf-8"));
       api.sendMessage({

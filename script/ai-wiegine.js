@@ -16,13 +16,13 @@ module.exports = {
     const msg = args.join(' ').trim();
     const send = async(send_) => await api.sendMessage(send_, event.threadID, event.messageID);
     if (!msg) return send(`❓Please enter your question!`)
-    const send__ = await send(name.toUpperCase() + " is asking for your question...\n💬: " + msg);
+    const send__ = await send(Utils.firstBigLetter(name) + "AI is asking for your question...\n💬: " + msg);
     const a = Utils.api_cfneth("@cf/meta/llama-3.1-8b-instruct", "", msg)
     await axios.post(a[0], a[1], a[2]).then(async (response) => {
       if (!response) return send("An error occurred.");
        await api.editMessage(`👸WiegineAI ${config.conversational ? "(CONVERSATIONAL)" : ""}
 ━━━━━━━━━
-${response.data.msg}
+${response.data.result.response}
 ━━━━━━━━━`, send__.messageID);
     }).catch(error => {
       return send("Something went wrong.")
