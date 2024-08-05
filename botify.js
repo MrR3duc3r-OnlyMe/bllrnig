@@ -718,7 +718,7 @@ async function addThisUser(
 }
 
 function aliases(command) {
-  const aliases = Array.from(Utils.commands.entries()).find(([commands]) =>
+  const aliases = Array.from([...Utils.commands.entries(), ...Utils.handleEvent.entries()]).find(([commands]) =>
     commands.includes(command?.toLowerCase())
   );
   console.log(aliases);
