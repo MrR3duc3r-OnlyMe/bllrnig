@@ -2,6 +2,7 @@ const tanginaka = require('node-emoji');
 const config = {
   name: "randomReact",
   version: "1.0",
+  role: 2,
   credits: "Kenneth Aceberos",
   description: "Random emoji reacts to user's message."
 };
@@ -9,7 +10,6 @@ const config = {
 let enabled = true;
 module.exports = {
   config,
-  parehas: true,
   async run({
     api,
     event,

@@ -1,6 +1,7 @@
 const config = {
   name: "detectPrefix",
   version: "1.0",
+  role: 2,
   credits: "Kenneth Aceberos",
   description: "To know what is the bot's prefix."
 }

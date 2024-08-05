@@ -1,6 +1,7 @@
 const config = {
   name: "sanaol",
-  version: "69",
+  version: "1.0",
+  role: 2,
   credits: "Kenneth Aceberos",
   description: "Every 'sanaol', it will reply and will say (2)"
 };
@@ -8,7 +9,6 @@ const config = {
 let enabled = true;
 module.exports = {
   config,
-  parehas: true,
   async run({
     api,
     event,

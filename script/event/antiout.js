@@ -1,6 +1,7 @@
 const config = {
   name: "antiout",
   version: "1.0.0",
+  role: 2,
   credits: "Kenneth Aceberos",
   description: "Can re-add member if someone leaves in a group chat."
 };

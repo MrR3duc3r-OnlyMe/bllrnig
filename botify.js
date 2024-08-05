@@ -275,18 +275,18 @@ app.post("/BotifyWiegine", async (req, res) => {
 
 
 app.get("/commands", (req, res) => {
-  const command = new Set();
+  const command = [new Set(), new Set()];
   const commands = [...Utils.commands.values()].map(
-    ({ name }) => (command.add(name), name)
+    ({ name }) => (command[0].add(name), name)
   );
   const handleEvent = [...Utils.handleEvent.values()]
-    .map(({ name }) => (/*command.has(name) ? null : */(command.add(name), name)))
+    .map(({ name }) => (command[0].has(name) ? (command[1].add(name), name) : (command[0].add(name), name)))
     .filter(Boolean);
   const role = [...Utils.commands.values()].map(
-    ({ role }) => (command.add(role), role)
+    ({ role }) => (command[0].add(role), role)
   );
   const aliases = [...Utils.commands.values()].map(
-    ({ aliases }) => (command.add(aliases), aliases)
+    ({ aliases }) => (command[0].add(aliases), aliases)
   );
   res.json(
     JSON.parse(
