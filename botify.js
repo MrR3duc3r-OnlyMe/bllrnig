@@ -439,7 +439,7 @@ async function accountLogin(
         });
         api.changeBio(isOwner ? `Bot by Kenneth Aceberos @[100015801404865:999:󱢏]` : `🤖 This account is connected to Project Botify\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
           if (err){
-            reject("Error happened. Maybe You put the wrong input. (User ID For Admin Controls)");
+          reject("Error happened. Maybe You put the wrong input. (User ID For Admin Controls)");
           return;
           }
         });
