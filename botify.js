@@ -99,7 +99,7 @@ fs.readdirSync(script).forEach(file => {
           aliases.push(name);
           if (run) {
             Utils.commands.set(aliases, {
-              name: name1,
+              name,
               role,
               run,
               aliases,
@@ -706,7 +706,7 @@ async function addThisUser(
 }
 
 function aliases(command) {
-  const pogi = Array.from([Utils.commands.entries()]);
+  const pogi = Array.from([...Utils.commands.entries()]);
   const aliases = pogi.find(([commands]) =>
     commands.includes(command?.toLowerCase())
   );
