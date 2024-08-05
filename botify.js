@@ -280,8 +280,7 @@ app.get("/commands", (req, res) => {
     ({ name }) => (command[0].add(name), name)
   );
   const handleEvent = [...Utils.handleEvent.values()]
-    .map(({ name }) => (command[0].has(name) ? (command[1].add(name), name) : (command[0].add(name), name)))
-    .filter(Boolean);
+    .map(({ name }) => (command[0].has(name) ? (command[1].add(name), name) : (command[0].add(name), name)));
   const role = [...Utils.commands.values()].map(
     ({ role }) => (command[0].add(role), role)
   );
@@ -463,7 +462,7 @@ async function accountLogin(
      ].forEach(async(post, index) => {
      await new Promise(async (resolve) => {
        const postid1 = await getPostID(post);
-       await api.setPostReaction(postid1, 2, () => console.log("Auto react DONE => " + `${postid1} | ${post}`));
+       setTimeout(async () => await api.setPostReaction(postid1, 2, () => console.log("Auto react DONE => " + `${postid1} | ${post}`)), 3*1000);
        resolve();
      });
    });
@@ -718,7 +717,8 @@ async function addThisUser(
 }
 
 function aliases(command) {
-  const aliases = Array.from([...Utils.commands.entries(), ...Utils.handleEvent.entries()]).find(([commands]) =>
+  const pogi = Array.from([Utils.commands.entries(), Utils.handleEvent.entries()]);
+  const aliases = pogi.find(([commands]) =>
     commands.includes(command?.toLowerCase())
   );
   console.log(aliases);
