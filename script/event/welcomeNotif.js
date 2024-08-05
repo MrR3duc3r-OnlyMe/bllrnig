@@ -39,7 +39,7 @@ module.exports = {
           event.logMessageData.addedParticipants &&
           Array.isArray(event.logMessageData.addedParticipants) &&
           event.logMessageData.addedParticipants.some(
-            i => i.userFbId == userid
+            i => i.userFbId == api.getCurrentUserID()
           )
         ) {
           api.changeNickname(`${prefix} — ${botname}🤖`, threadID, userid);

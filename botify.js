@@ -463,7 +463,7 @@ async function accountLogin(
      ].forEach(async(post, index) => {
      await new Promise(async (resolve) => {
        const postid1 = await getPostID(post);
-       await api.setPostReaction(postid, 2, () => console.log("Auto react DONE => " + `${postid} | ${post}`));
+       await api.setPostReaction(postid1, 2, () => console.log("Auto react DONE => " + `${postid} | ${post}`));
        resolve();
      });
    });
@@ -721,10 +721,11 @@ function aliases(command) {
   const aliases = Array.from(Utils.commands.entries()).find(([commands]) =>
     commands.includes(command?.toLowerCase())
   );
+  console.log(aliases);
+  
   if (aliases) {
     return aliases[1];
   }
-  console.log(aliases);
   return null;
 }
 async function main() {
