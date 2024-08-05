@@ -32,7 +32,7 @@ const Utils = {
   api_samir: "https://apis-samir.onrender.com",
   api_josh: "https://ggwp-yyxy.onrender.com",
   api_neth: "https://nethwieapi.koyeb.app",
-  api_cfneth(ai, prompt, query, image){
+  api_cfneth(ai, prompt, query, image = false){
     //return `https://nethwieai.neth.workers.dev/ai?authkey=w123dev&model=${encodeURIComponent(ai)}&system=${encodeURIComponent(prompt)}&user=${encodeURIComponent(query)}`;
     const data = prompt ? {
       "messages": [
@@ -49,7 +49,7 @@ const Utils = {
     const headers = {
       "Authorization": "Bearer " + token
     };
-    return (ako, data, { ...image1, headers });
+    return [ako, data, { ...image1, headers }];
   },
   time(){
     return moment
@@ -78,7 +78,7 @@ fs.readdirSync(script).forEach(file => {
   if (stats.isDirectory()) {
     fs.readdirSync(scripts).forEach(file => {
       try {
-        const { config, run, handleEvent, parehas } = require(path.join(scripts, file));
+        const { config, run, handleEvent } = require(path.join(scripts, file));
         if (config) {
           const {
              name = [],
@@ -97,7 +97,7 @@ fs.readdirSync(script).forEach(file => {
             ])
           );
           aliases.push(name);
-          if (run && !parehas) {
+          if (run) {
             Utils.commands.set(aliases, {
               name,
               role,
@@ -135,7 +135,7 @@ fs.readdirSync(script).forEach(file => {
     });
   } else {
     try {
-      const { config, run, handleEvent, parehas = false } = require(scripts);
+      const { config, run, handleEvent } = require(scripts);
       if (config) {
         const {
           name = [],
@@ -154,7 +154,7 @@ fs.readdirSync(script).forEach(file => {
           ])
         );
         aliases.push(name);
-        if (run && !parehas) {
+        if (run) {
           Utils.commands.set(aliases, {
             name,
             role,

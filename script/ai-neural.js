@@ -17,7 +17,8 @@ module.exports = {
     const send = async(send_) => await api.sendMessage(send_, event.threadID, event.messageID);
     if (!msg) return send(`❓Please enter your question!`)
     const send__ = await send(name.toUpperCase() + " is asking for your question...\n💬: " + msg);
-    await axios.post(Utils.api_cfneth("@hf/thebloke/neural-chat-7b-v3-1-awq", "", msg)).then(async (response) => {
+    const a = Utils.api_cfneth("@hf/thebloke/neural-chat-7b-v3-1-awq", "", msg)
+    await axios.post(a[0], a[1], a[2]).then(async (response) => {
       if (!response) return send("An error occurred.");
        await api.editMessage(`💬 ${name.toUpperCase()} ${config.conversational ? "(CONVERSATIONAL)" : ""}
 ━━━━━━━━━

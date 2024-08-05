@@ -30,7 +30,7 @@ module.exports.run = async function({
       return [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(name))?.[1]
     };
     const helpm = async(input, paged) => {
-      const page = parseInt(input);
+            const page = parseInt(input);
             const pages = 15;
             let start = (page - 1) * pages;
             let end = start + pages;
@@ -51,16 +51,15 @@ module.exports.run = async function({
                 cooldown,
                 hasPrefix = true
               } = tanginamo;
-            return
-            `「${hasPrefix ? prefix : ""}${Utils.formatFont((name ? name : aliases.join("/")))} 」${description ? ` — ${description}` : ""}`;
+            return `「${hasPrefix ? prefix : ""}${Utils.formatFont((name ? name : aliases.join("/")))} 」${description ? ` — ${description}` : ""}`;
             }
             for (let i = start; i < Math.min(end, commands.length); i++) {
-                    helpMessage += `\t > ${i + 1}. ${wiegine(commands[i])}\n`;
+            helpMessage += `> ${i + 1}. ${wiegine(commands[i])}\n`;
             }
             if (paged){
             helpMessage = `━━ ${Utils.formatFont("Events")} ━━\n`;
             eventCommands.forEach((eventCommand, index) => {
-            helpMessage += `\t > ${index + 1}. ${wiegine(eventCommand)}\n`;
+            helpMessage += `> ${index + 1}. ${wiegine(eventCommand)}\n`;
             });
             }
             helpMessage += `\nPage ${paged ? "1" : page}${"\nTotal of:\n" + `${commands.length} Commands\n${eventCommands.length} Handle Events`}${paged ? `\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.` : ``}\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd, if the bot turned off or have Issues.`;
