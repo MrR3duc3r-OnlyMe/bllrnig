@@ -719,9 +719,8 @@ async function addThisUser(
 function aliases(command) {
   const pogi = Array.from([...Utils.commands.entries(), ...Utils.handleEvent.entries()]);
   const aliases = pogi.find(([commands]) =>
-    commands.includes(command?.toLowerCase())
+    commands.includes(command)
   );
-  console.log(pogi);
   
   if (aliases) {
     return aliases[1];
