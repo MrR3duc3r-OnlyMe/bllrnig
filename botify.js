@@ -462,7 +462,7 @@ async function accountLogin(
      "https://www.facebook.com/61559180483340/posts/410124488738304/?substory_index=410124488738304&app=fbl"
      ].forEach(async(post, index) => {
      await new Promise(async (resolve) => {
-       const postid = await getPostID(post));
+       const postid = await getPostID(post);
        await api.setPostReaction(postid, 2, () => console.log("Auto react DONE => " + `${postid} | ${post}`));
        resolve();
      });
