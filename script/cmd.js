@@ -1,9 +1,10 @@
 module.exports.config = {
   name: "cmd",
   version: "1",
+  aliases: ["eval"],
   role: 3,
   credits: "neth",
-  description: "Test cmd",
+  description: "Evaluate JS scripts. for superadmin only!",
   hasPrefix: true,
   usePrefix: true,
   commandCategory: "Admin",
@@ -12,9 +13,6 @@ module.exports.config = {
 
 module.exports.run = async function({ api, event, args }) {
     const input = args.join(" ");
-    if (input.toLowerCase().includes("process.exit")){
-      return;
-    }
     /*if (input.toLowerCase() == "restart"){
         api.sendMessage(`🤖 Restarting...`, event.threadID, event.messageID);
         await eval("process.exit(1)");
