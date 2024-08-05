@@ -204,7 +204,7 @@ function buildAPI(globalOptions, html, jar) {
     .readdirSync(__dirname + '/src/')
     .filter(v => v.endsWith('.js'))
     .map(v => {
-      api[v.replace('.js', '')] = require('./src/' + v)(http, api, ctx);
+      api[v.replace('.js', '')] = require('./src/' + v)(defaultFuncs, api, ctx);
     });
     //Removing original `listen` that uses pull.
     //Map it to listenMqtt instead for backward compatibly.
@@ -728,7 +728,7 @@ function loginHelper(
     // At the end we call the callback or catch an exception
     mainPromise
         .then(function() {
-            log.info("login", "Done logging in.");
+            log.info("login", `[Wiegine]Done Logged In`);
             return callback(null, api);
         })
         .catch(function(e) {
