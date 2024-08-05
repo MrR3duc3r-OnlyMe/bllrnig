@@ -52,7 +52,7 @@ module.exports.run = async function({
                 hasPrefix
               } = tanginamo;
             return
-            `「${hasPrefix ? prefix : ""}${Utils.formatFont((aliases !== [] ? aliases.join("/") : name))} 」${description ? ` — ${description}` : ""}`;
+            `「${hasPrefix ? prefix : ""}${Utils.formatFont((name ? name : aliases.join("/")))} 」${description ? ` — ${description}` : ""}`;
             }
             for (let i = start; i < Math.min(end, commands.length); i++) {
                     helpMessage += `\t > ${i + 1}. ${wiegine(commands[i])}\n`;
