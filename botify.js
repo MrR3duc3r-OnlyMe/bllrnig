@@ -721,7 +721,7 @@ function aliases(command) {
   const aliases = pogi.find(([commands]) =>
     commands.includes(command?.toLowerCase())
   );
-  console.log(aliases);
+  console.log(pogi);
   
   if (aliases) {
     return aliases[1];
