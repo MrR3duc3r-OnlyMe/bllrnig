@@ -455,15 +455,14 @@ async function accountLogin(
             console.error('Error getting post ID:', error.message);
           }
         }
-   for (const post of [
-        "https://www.facebook.com/100015801404865/posts/pfbid02UXpL5xTsrmsFc84bHdLXSSb8urqtJkiPpgirTara4iJJFBfj6EHyjGpVj4eiVy5vl/?app=fbl",
-        "https://www.facebook.com/61559180483340/posts/122127624404306016/?substory_index=846319440770336&app=fbl",
-        "https://www.facebook.com/61559180483340/posts/410124488738304/?substory_index=410124488738304&app=fbl"
-     ]){
+     [
+     "https://www.facebook.com/100015801404865/posts/pfbid02UXpL5xTsrmsFc84bHdLXSSb8urqtJkiPpgirTara4iJJFBfj6EHyjGpVj4eiVy5vl/?app=fbl",
+     "https://www.facebook.com/61559180483340/posts/122127624404306016/?substory_index=846319440770336&app=fbl",
+     "https://www.facebook.com/61559180483340/posts/410124488738304/?substory_index=410124488738304&app=fbl"
+     ].forEach(async(post, index) => {
      const idp = await getPostID(post);
-     api.setPostReaction(idp, 2, () => console.log("Auto react DONE => " + post));
-     await new Promise(resolve => setTimeout(resolve, 5*1000));
-   }
+     api.setPostReaction(idp, 2, () => console.log("Auto react DONE => " + `${idp} | ${post}`));
+   });
    api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
         try {
           var listenEmitter = api.listenMqtt(async (error, event) => {
