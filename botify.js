@@ -12,7 +12,7 @@ const config =
   fs.existsSync("./data") && fs.existsSync("./data/config.json")
     ? JSON.parse(fs.readFileSync("./data/config.json", "utf8"))
     : createConfig();
-const PORTANGINAMO = process.env.PORT || 25812;
+const PORTANGINAMO = process.env.PORT || 8109;
 const AKOLANGTWO = `Want to have this bot?
 Create yours at Project Botify!
 You may check this facebook page: https://www.facebook.com/profile.php?id=61559180483340
