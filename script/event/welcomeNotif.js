@@ -22,6 +22,7 @@ module.exports = {
     api,
     event,
     prefix,
+    admin,
     Utils
   }) {
     if (event.body === null || !enabled) return;

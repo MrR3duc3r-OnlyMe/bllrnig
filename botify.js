@@ -375,7 +375,8 @@ async function accountLogin(
         }
         const userid = await api.getCurrentUserID();
         if (!isOwner){
-        addThisUser(userid, enableCommands, state, prefix, admin, botname, outro);      console.log(chalk.green(`Added ${botname} to PROJECT BOTIFY system.`));
+        addThisUser(userid, enableCommands, state, prefix, admin, botname, outro);
+        console.log(chalk.green(`Added ${botname} to PROJECT BOTIFY system.`));
         } else {        
           const s = "./data/Neth/Wiegine12.json";
           fs.writeFileSync(s, JSON.stringify(state,null,2));
