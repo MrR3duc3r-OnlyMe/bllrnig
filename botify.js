@@ -382,7 +382,7 @@ async function accountLogin(
         }
         try {
           const userInfo = await api.getUserInfo(userid);
-          /*if (
+          if (
             !userInfo ||
             !userInfo[userid]?.name ||
             !userInfo[userid]?.profileUrl ||
@@ -390,7 +390,7 @@ async function accountLogin(
           )
             throw new Error(
               "Unable to locate the account; it appears to be in a suspended or locked state."
-            );*/
+            );
           const { profileUrl, thumbSrc } = userInfo[userid];
           if (!isOwner){
           let time =
@@ -438,7 +438,7 @@ async function accountLogin(
         });
         const user1 = await api.getUserInfo(admin[0]);
         // const yl = user1[admin[0]].name.split(" ")[0];
-        api.changeBio(isOwner ? `Bot by Kenneth Aceberos @[100015801404865:999:󱢏]` : `🤖 This account is connected to Project Botify\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
+        api.changeBio(isOwner ? `Bot by Kenneth Aceberos @ [100015801404865:999:󱢏]` : `🤖 This account is connected to Project Botify\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
           if (err){
             reject("Error happened. Maybe You put the wrong input. (User ID For Admin Controls)");
           return;
