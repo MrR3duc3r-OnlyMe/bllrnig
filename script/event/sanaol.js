@@ -8,6 +8,7 @@ const config = {
 let enabled = true;
 module.exports = {
   config,
+  parehas: true,
   async run({
     api,
     event,

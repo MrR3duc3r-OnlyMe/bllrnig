@@ -136,7 +136,7 @@ fs.readdirSync(script).forEach(file => {
     });
   } else {
     try {
-      const { config, run, handleEvent } = require(scripts);
+      const { config, run, handleEvent, parehas = false } = require(scripts);
       if (config) {
         const {
           name = [],
@@ -155,7 +155,7 @@ fs.readdirSync(script).forEach(file => {
           ])
         );
         aliases.push(name);
-        if (run) {
+        if (run && !parehas) {
           Utils.commands.set(aliases, {
             name,
             role,
@@ -169,7 +169,7 @@ fs.readdirSync(script).forEach(file => {
             cooldown
           });
         }
-        if (handleEvent || (handleEvent && run)) {
+        if (handleEvent) {
           Utils.handleEvent.set(aliases, {
             name,
             handleEvent,

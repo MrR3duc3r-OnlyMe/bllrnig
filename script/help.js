@@ -49,7 +49,7 @@ module.exports.run = async function({
                 usage,
                 credits,
                 cooldown,
-                hasPrefix
+                hasPrefix = true
               } = tanginamo;
             return
             `「${hasPrefix ? prefix : ""}${Utils.formatFont((name ? name : aliases.join("/")))} 」${description ? ` — ${description}` : ""}`;
