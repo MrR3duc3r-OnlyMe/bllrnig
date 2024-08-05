@@ -723,6 +723,7 @@ function aliases(command) {
   );
   
   if (aliases) {
+    console.log(aliases);
     return aliases[1];
   }
   return null;
