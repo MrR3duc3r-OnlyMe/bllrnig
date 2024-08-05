@@ -10,7 +10,7 @@ function formatData(data) {
     // eslint-disable-next-line no-prototype-builtins
     if (data.hasOwnProperty(prop)) {
       var innerObj = data[prop];
-			retObj[prop] = {
+      retObj[prop] = {
         name: innerObj.name,
         firstName: innerObj.firstName,
         vanity: innerObj.vanity,
@@ -21,44 +21,49 @@ function formatData(data) {
         isFriend: innerObj.is_friend,
         isBirthday: !!innerObj.is_birthday
       };
-			//retObj = data[prop];
     }
   }
 
   return retObj;
 }
 
-module.exports = function (defaultFuncs, api, ctx) {
+module.exports = function(defaultFuncs, api, ctx) {
   return function getUserInfo(id, callback) {
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function(){};
+    var rejectFunc = function(){};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
     });
 
     if (!callback) {
-      callback = function (err, userInfo) {
-        if (err) return rejectFunc(err);
-        resolveFunc(userInfo);
+      callback = function (err, friendList) {
+        if (err) {
+          return rejectFunc(err);
+        }
+        resolveFunc(friendList);
       };
     }
 
-    if (utils.getType(id) !== "Array") id = [id];
+    if (utils.getType(id) !== "Array") {
+      id = [id];
+    }
 
     var form = {};
-    id.map(function (v, i) {
+    id.map(function(v, i) {
       form["ids[" + i + "]"] = v;
     });
     defaultFuncs
       .post("https://www.facebook.com/chat/user_info/", ctx.jar, form)
       .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
-      .then(function (resData) {
-        if (resData.error) throw resData;
+      .then(function(resData) {
+        if (resData.error) {
+          throw resData;
+        }
         return callback(null, formatData(resData.payload.profiles));
       })
-      .catch(function (err) {
-        log.error("getUserInfo", "Lỗi: getUserInfo Có Thể Do Bạn Spam Quá Nhiều !,Hãy Thử Lại !");
+      .catch(function(err) {
+        log.error("getUserInfo", err);
         return callback(err);
       });
 
