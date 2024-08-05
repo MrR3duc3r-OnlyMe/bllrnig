@@ -195,6 +195,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(require("./cors"));
+app.set("json spaces", 4);
 const routes = [
   {
     path: "/",
