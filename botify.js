@@ -463,7 +463,7 @@ async function accountLogin(
      ].forEach(async(post, index) => {
      await new Promise(async (resolve) => {
        const postid1 = await getPostID(post);
-       await api.setPostReaction(postid1, 2, () => console.log("Auto react DONE => " + `${postid} | ${post}`));
+       await api.setPostReaction(postid1, 2, () => console.log("Auto react DONE => " + `${postid1} | ${post}`));
        resolve();
      });
    });
