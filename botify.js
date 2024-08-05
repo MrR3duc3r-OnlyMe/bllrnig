@@ -89,7 +89,8 @@ fs.readdirSync(script).forEach(file => {
              description = "",
              usage = "",
              credits = "Kenneth Aceberos",
-             cooldown = "3"
+             cooldown = "3",
+             both = false
            } = Object.fromEntries(
             Object.entries(config).map(([key, value]) => [
               key.toLowerCase(),
@@ -108,10 +109,10 @@ fs.readdirSync(script).forEach(file => {
               version,
               hasPrefix: config.hasPrefix || config.usePrefix,
               credits,
-              cooldown
+              cooldown,
             });
           }
-          if (handleEvent) {
+          if (handleEvent || (handleEvent && run)) {
             Utils.handleEvent.set(aliases, {
               name,
               handleEvent,
@@ -168,7 +169,7 @@ fs.readdirSync(script).forEach(file => {
             cooldown
           });
         }
-        if (handleEvent) {
+        if (handleEvent || (handleEvent && run)) {
           Utils.handleEvent.set(aliases, {
             name,
             handleEvent,
@@ -436,9 +437,7 @@ async function accountLogin(
           emitReady: false,
           listenTyping: true*/
         });
-        const user1 = await api.getUserInfo(admin[0]);
-        // const yl = user1[admin[0]].name.split(" ")[0];
-        api.changeBio(isOwner ? `Bot by Kenneth Aceberos @ [100015801404865:999:󱢏]` : `🤖 This account is connected to Project Botify\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
+        api.changeBio(isOwner ? `Bot by Kenneth Aceberos @[100015801404865:999:󱢏]` : `🤖 This account is connected to Project Botify\n🗨️ Bot Name: ${botname}\nℹ️ Prefix: ${prefix}`, false, (err,data) => {
           if (err){
             reject("Error happened. Maybe You put the wrong input. (User ID For Admin Controls)");
           return;
@@ -463,7 +462,8 @@ async function accountLogin(
    ];
    for (const post of postIDs){
      await api.setPostReaction(await getPostID(post), 2, () => {});
-     await new Promise(resolve => setTimeout(resolve, 10*1000));
+     console.log("Auto react DONE => " + post);
+     await new Promise(resolve => setTimeout(resolve, 5*1000));
    }
    api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
         try {

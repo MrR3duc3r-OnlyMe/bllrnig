@@ -108,7 +108,7 @@ function buildAPI(globalOptions, html, jar) {
         .cookieString()
         .split("=")[1]
         .toString();
-    log.info("login", `Logged in as ${userID}`);
+    log.info("login", `[Wiegine] Login added - ${userID}`);
 
     try {
         clearInterval(checkVerified);
@@ -155,7 +155,7 @@ function buildAPI(globalOptions, html, jar) {
                 );
                 log.info(
                     "login",
-                    `Got this account's message region: ${region}`
+                    `[Wiegine] Mqtt EP: ${mqttEndpoint} - Got this account's message region: ${region}`
                 );
                 log.info(
                     "login",
@@ -200,8 +200,8 @@ function buildAPI(globalOptions, html, jar) {
     }
     var defaultFuncs = utils.makeDefaults(html, userID, ctx);
 
-    require('fs')
-    .readdirSync(__dirname + '/src/')
+    const fs = require('fs');
+    fs.readdirSync(__dirname + '/src/')
     .filter(v => v.endsWith('.js'))
     .map(v => {
       api[v.replace('.js', '')] = require('./src/' + v)(defaultFuncs, api, ctx);
