@@ -96,7 +96,7 @@ fs.readdirSync(script).forEach(file => {
               value
             ])
           );
-          aliases.push(name);
+          aliases.push(name.toLowerCase());
           if (run) {
             Utils.commands.set(aliases, {
               name: name.toLowerCase(),
@@ -153,7 +153,7 @@ fs.readdirSync(script).forEach(file => {
             value
           ])
         );
-        aliases.push(name);
+        aliases.push(name.toLowerCase());
         if (run) {
           Utils.commands.set(aliases, {
             name: name.toLowerCase(),
@@ -708,7 +708,7 @@ async function addThisUser(
 function aliases(command) {
   const pogi = Array.from([Utils.commands.entries()]);
   const aliases = pogi.find(([commands]) =>
-    commands.includes(command)
+    commands.includes(command?.toLowerCase())
   );
   
   if (aliases) {
