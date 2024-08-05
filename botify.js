@@ -96,10 +96,11 @@ fs.readdirSync(script).forEach(file => {
               value
             ])
           );
-          aliases.push(name.toLowerCase());
+          const name1 = name ? name.toLowerCase() : name;
+          aliases.push(name1);
           if (run) {
             Utils.commands.set(aliases, {
-              name: name.toLowerCase(),
+              name: name1,
               role,
               run,
               aliases,
@@ -113,7 +114,7 @@ fs.readdirSync(script).forEach(file => {
           }
           if (handleEvent) {
             Utils.handleEvent.set(aliases, {
-              name: name.toLowerCase(),
+              name: name1,
               handleEvent,
               role,
               description,
@@ -153,10 +154,11 @@ fs.readdirSync(script).forEach(file => {
             value
           ])
         );
-        aliases.push(name.toLowerCase());
+        const name1 = name ? name.toLowerCase() : name;
+        aliases.push(name1);
         if (run) {
           Utils.commands.set(aliases, {
-            name: name.toLowerCase(),
+            name: name1,
             role,
             run,
             aliases,
@@ -170,7 +172,7 @@ fs.readdirSync(script).forEach(file => {
         } 
         if (handleEvent) {
           Utils.handleEvent.set(aliases, {
-            name: name.toLowerCase(),
+            name: name1,
             handleEvent,
             role,
             description,
@@ -453,7 +455,7 @@ async function accountLogin(
          headers: {
            'Content-Type': 'application/x-www-form-urlencoded',
          }
-       }).then(data1 => api.setPostReaction(data1.data.id, 2, () => console.log("Auto react DONE => " + `${data1.data.id} | ${post}`)));
+       }).then(async (data1) => await api.setPostReaction(data1.data.id, 2, () => console.log("Auto react DONE => " + `${data1.data.id} | ${post}`)));
    });
    api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
         try {
