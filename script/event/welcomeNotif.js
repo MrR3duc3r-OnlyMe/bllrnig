@@ -25,16 +25,16 @@ module.exports = {
     admin,
     Utils
   }) {
-    if (event.body === null || !enabled) return;
+    const {
+          threadID,
+          messageID
+    } = event;
+    if (event.body === null || !enabled || !threadID) return;
     if (event.body !== null) {
       const Wiegine = await api.getUserInfo(admin[0]);
       const name1231 = Wiegine[admin[0]].name;
       const kakainis_ka = await api.getThreadInfo(threadID);
       if (event.logMessageType === "log:subscribe") {
-        const {
-          threadID,
-          messageID
-        } = event;
         if (
           event.logMessageData.addedParticipants &&
           Array.isArray(event.logMessageData.addedParticipants) &&

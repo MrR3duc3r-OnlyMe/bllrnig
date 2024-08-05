@@ -22,7 +22,9 @@ module.exports = {
   async handleEvent({
     api,
     event,
-    prefix
+    prefix,
+    admin,
+    Utils
   }){
     if (event.body) {
       if (event.senderID === admin[0] ||
