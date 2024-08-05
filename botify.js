@@ -51,7 +51,7 @@ const Utils = {
     };
     return (ako, data, { ...image1, headers });
   },
-  async time(){
+  time(){
     return moment
     .tz("Asia/Manila")
     .format("HH:mm:ss - DD/MM/YYYY");
