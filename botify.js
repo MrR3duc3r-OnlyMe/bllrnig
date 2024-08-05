@@ -493,16 +493,16 @@ async function accountLogin(
               aliases(
                 (event.body || "")
                   ?.trim()
-                  /*.toLowerCase()
-                  */.split(/ +/)
+                  .toLowerCase()
+                  .split(/ +/)
                   .shift()
               )?.hasPrefix == false
                 ? ""
                 : prefix;
             let [command, ...args] = (event.body || "")
               .trim()
-              /*.toLowerCase()
-              */.startsWith(hasPrefix?.toLowerCase())
+              .toLowerCase()
+              .startsWith(hasPrefix?.toLowerCase())
               ? (event.body || "")
                   .trim()
                   .substring(hasPrefix?.length)
