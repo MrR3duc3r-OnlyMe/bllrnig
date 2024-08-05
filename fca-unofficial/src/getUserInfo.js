@@ -9,9 +9,8 @@ function formatData(data) {
   for (var prop in data) {
     // eslint-disable-next-line no-prototype-builtins
     if (data.hasOwnProperty(prop)) {
-      /*var innerObj = data[prop];
-			console.log(data)
-      retObj[prop] = {
+      var innerObj = data[prop];
+			retObj[prop] = {
         name: innerObj.name,
         firstName: innerObj.firstName,
         vanity: innerObj.vanity,
@@ -21,8 +20,8 @@ function formatData(data) {
         type: innerObj.type,
         isFriend: innerObj.is_friend,
         isBirthday: !!innerObj.is_birthday
-      };*/
-			retObj = data[prop];
+      };
+			//retObj = data[prop];
     }
   }
 
