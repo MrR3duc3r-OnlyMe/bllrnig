@@ -78,7 +78,7 @@ fs.readdirSync(script).forEach(file => {
   if (stats.isDirectory()) {
     fs.readdirSync(scripts).forEach(file => {
       try {
-        const { config, run, handleEvent } = require(path.join(scripts, file));
+        const { config, run, handleEvent, parehas } = require(path.join(scripts, file));
         if (config) {
           const {
              name = [],
@@ -89,8 +89,7 @@ fs.readdirSync(script).forEach(file => {
              description = "",
              usage = "",
              credits = "Kenneth Aceberos",
-             cooldown = "3",
-             both = false
+             cooldown = "3"
            } = Object.fromEntries(
             Object.entries(config).map(([key, value]) => [
               key.toLowerCase(),
@@ -98,7 +97,7 @@ fs.readdirSync(script).forEach(file => {
             ])
           );
           aliases.push(name);
-          if (run) {
+          if (run && !parehas) {
             Utils.commands.set(aliases, {
               name,
               role,
@@ -107,12 +106,12 @@ fs.readdirSync(script).forEach(file => {
               description,
               usage,
               version,
-              hasPrefix: config.hasPrefix || config.usePrefix,
+              hasPrefix,
               credits,
               cooldown,
             });
           }
-          if (handleEvent || (handleEvent && run)) {
+          if (handleEvent) {
             Utils.handleEvent.set(aliases, {
               name,
               handleEvent,
@@ -120,7 +119,7 @@ fs.readdirSync(script).forEach(file => {
               description,
               usage,
               version,
-              hasPrefix: config.hasPrefix || config.usePrefix,
+              hasPrefix,
               credits,
               cooldown
             });
@@ -164,7 +163,7 @@ fs.readdirSync(script).forEach(file => {
             description,
             usage,
             version,
-            hasPrefix: config.hasPrefix || config.usePrefix,
+            hasPrefix,
             credits,
             cooldown
           });
@@ -177,7 +176,7 @@ fs.readdirSync(script).forEach(file => {
             description,
             usage,
             version,
-            hasPrefix: config.hasPrefix || config.usePrefix,
+            hasPrefix,
             credits,
             cooldown
           });
