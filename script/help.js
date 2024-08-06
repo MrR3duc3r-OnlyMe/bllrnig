@@ -55,7 +55,7 @@ module.exports.run = async function({
             let aliases1 = aliases;
             if (aliases1 !== []) aliases1.pop();
             const namee = aliases1.join("/");
-            const named = name ? name : aliases.pop() + namee ? "/" + namee : "";
+            const named = (name ? name : aliases.pop()) + (namee ? "/" + namee : "");
             return `「${hasPrefix ? prefix : ""}${named} 」${description ? ` — ${description}` : ""}`;
             }
             for (let i = start; i < Math.min(end, commands.length); i++) {

@@ -22,10 +22,15 @@ module.exports = {
   }
   const editzz = await api.sendMessage(`⏳ Please wait...`, threadID, messageID);
   const attachment = [];
-  if (event.type === "message_reply" && event.messageReply.attachments.length >= 1) {
+  if (event.type === "message_reply" && event.messageReply.attachments.length !== 0) {
     const a = event.messageReply.attachments.filter(attachment => attachment.type === "photo");
     for (const { url } of a) {
-      attachment.push(url);
+      attachment.push({
+        photo:
+        {
+          url
+        }
+      });
     }
   }
   api.editMessage(`⏳Posting...`, editzz.messageID);
@@ -34,8 +39,8 @@ module.exports = {
     attachment,
     tags: [admin[0]],
     baseState: 0
-  }, (error, url) => {
-  api.editMessage(`✅Post created successfully!\n» Post link: ${url}`, editzz.messageID);
+  }, (e1, e2) => {
+  api.editMessage(`✅Post created successfully!\n» Post link: ${e1} | ${e2}`, editzz.messageID);
   });
 }
 };

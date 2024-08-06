@@ -20,7 +20,7 @@ module.exports.handleEvent = async ({ api, event, Utils }) => {
   const { threadID, messageID, senderID } = event;
 
   const loadWords = () => {
-    const wordFile = path.join(__dirname, `/fuckedWords/${threadID}.json`);
+    const wordFile = path.join(__dirname, `/cache/Fucked${threadID}.json`);
     if (fs.existsSync(wordFile)) {
       const words = fs.readFileSync(wordFile, "utf8");
       bannedWords[threadID] = JSON.parse(words);
@@ -62,7 +62,7 @@ module.exports.run = async ({ api, event, args, Utils }) => {
     return api.sendMessage("Please specify an action (add, remove, list, on, off) and appropriate data.", threadID, messageID);
   }
 
-  const wordFile = path.join(__dirname, `/fuckedWords/${threadID}.json`);
+  const wordFile = path.join(__dirname, `/cache/Fucked${threadID}.json`);
   if (fs.existsSync(wordFile)) {
     const words = fs.readFileSync(wordFile, "utf8");
     bannedWords[threadID] = JSON.parse(words);
