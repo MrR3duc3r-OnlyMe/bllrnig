@@ -30,8 +30,6 @@ module.exports = {
     const searchResults = await axios.get(`https://api.flvto.site/@api/search/YouTube/${encodeURIComponent(musicName)}`, {
         headers: {
           "user-agent": `Mozilla/5.0 (Linux; Android 12; SM-A315G) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/200 Edge Mobile Safari/537.36`,
-          "origin": "https://w2.mp3juices.click",
-          "referer": "https://w2.mp3juices.click",
           "accept": "*/*",
           "accept-encoding": "gzip, deflate, br",
           "accept-language": "en-PH,en-US;q=0.9,en;q=0.8",

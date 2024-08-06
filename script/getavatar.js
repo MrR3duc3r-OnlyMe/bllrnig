@@ -14,7 +14,8 @@ module.exports = {
   async run({
     api,
     event,
-    args
+    args,
+    Utils
   }){
     const id = args[0];
     if (!id || isNaN(id)) return api.sendMessage(`Provide an ID. (id must be number)`, event.threadID, event.messageID);

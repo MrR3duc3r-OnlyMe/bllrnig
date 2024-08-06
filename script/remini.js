@@ -3,15 +3,12 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports.config = {
-  name: "4k",
+  name: "remini",
   version: "1.0.0",
   role: 0,
   credits: "chill",
   description: "Enhance an image",
-  hasPrefix: true,
-  aliases: ["remini"],
-  usage: "[4k]",
-  cooldown: 5
+  hasPrefix: true
 };
 
 module.exports.run = async function({ api, event, Utils }) {
@@ -35,7 +32,7 @@ module.exports.run = async function({ api, event, Utils }) {
     
     const response = await axios.get(apiUrl);
     const response1 = await axios.get(response.data.image_data, { responseType: 'arraybuffer' });
-    const enhancedImagePath = path.join(__dirname, "enhancedImage.png");
+    const enhancedImagePath = path.join(__dirname, "cache", "enhancedImage.png");
 
     fs.writeFileSync(enhancedImagePath, response.data);
 
