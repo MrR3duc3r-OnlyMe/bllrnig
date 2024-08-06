@@ -29,8 +29,8 @@ module.exports.run = async function({ api, event }) {
         api.sendMessage("Starting filtering...\n\n", event.threadID, async () => {
           for (const userID of filteredUsers) {
             try {
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              await api.removeUserFromGroup(parseInt(userID), event.threadID, event.messageID);
+              await new Promise(resolve => setTimeout(resolve, 1*1000));
+              await api.removeUserFromGroup(parseInt(userID), event.threadID);
               successCount++;
             } catch (error) {
               failCount++;
