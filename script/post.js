@@ -23,11 +23,12 @@ module.exports = {
     return;
   }
   const editzz = await api.sendMessage(`⏳ Please wait...`, threadID, messageID);
-  const attachment = [],paths = [];
+  const attachment = [];
+  const paths = [];
   if (event.type === "message_reply" && event.messageReply.attachments.length !== 0) {
     const a = event.messageReply.attachments.filter(attachment => attachment.type === "photo");
     for (const { url } of a) {
-      const path = `${__dirname}/cache/${url}.png`;
+      const path = `${__dirname}/cache/${Date.now()}.png`;
       const img = await axios.get(url, {
         responseType: "arraybuffer"
       });
