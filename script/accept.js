@@ -23,12 +23,12 @@ module.exports = {
       return api.sendMessage(`Please enter a valid UID.`, event.threadID, event.messageID);
     if (type.toLowerCase() === "friend")
       api.handleFriendRequest(uid, true, async (err, info) => {
-        if (err) return api.sendMessage(`❌ An error occured.`, event.threadID);
+        //if (err) return api.sendMessage(`❌ An error occured.`, event.threadID);
         return api.sendMessage(`${uid} accepted successful.`, event.threadID, event.messageID);
       });
     if (type.toLowerCase() === "message")
       api.handleMessageRequest(uid, true, async (err, info) => {
-        if (err) return api.sendMessage(`❌ An error occured.`, event.threadID);
+        //if (err) return api.sendMessage(`❌ An error occured.`, event.threadID);
         return api.sendMessage(`${uid} accepted successful.`, event.threadID, event.messageID);
       });
   }
