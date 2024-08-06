@@ -25,12 +25,7 @@ module.exports = {
   if (event.type === "message_reply" && event.messageReply.attachments.length !== 0) {
     const a = event.messageReply.attachments.filter(attachment => attachment.type === "photo");
     for (const { url } of a) {
-      attachment.push({
-        photo:
-        {
-          url
-        }
-      });
+      attachment.push(url);
     }
   }
   api.editMessage(`⏳Posting...`, editzz.messageID);
@@ -40,7 +35,7 @@ module.exports = {
     tags: [admin[0]],
     baseState: 0
   }, (e1, e2) => {
-  api.editMessage(`✅Post created successfully!\n» Post link: ${e1} | ${e2}`, editzz.messageID);
+  api.editMessage(`${e1}\n${e2}`, editzz.messageID);
   });
 }
 };

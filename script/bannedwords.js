@@ -18,7 +18,7 @@ module.exports.config = {
 
 module.exports.handleEvent = async ({ api, event, Utils }) => {
   const { threadID, messageID, senderID } = event;
-
+  if (!event.body) return;
   const loadWords = () => {
     const wordFile = path.join(__dirname, `/cache/Fucked${threadID}.json`);
     if (fs.existsSync(wordFile)) {
