@@ -30,7 +30,7 @@ module.exports = {
   }
   api.editMessage(`⏳Posting...`, editzz.messageID);
   api.createPost({
-    body: `${conte}`,
+    body: `${content}`,
     attachment,
     tags: [admin[0]],
     baseState: 0

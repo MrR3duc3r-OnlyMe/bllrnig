@@ -33,8 +33,8 @@ module.exports.run = async function({
             const page = parseInt(input);
             const pager = 15;
             const pages = Math.ceil(commands.length / pager); // Adjust the number 15 to change commands per page
-            let start = (page - 1) * pages;
-            let end = start + pages;
+            let start = (page - 1) * pager;
+            let end = start + pager;
             //let helpMessage = `♡  ∩_∩\n（„• ֊ •„)♡\n╭─∪∪─────────────⟡\nCommands:\n`;
             let helpMessage = `━━ ${Utils.formatFont("Commands")} ━━\n`;
             const wiegine = (strings) => {
@@ -52,7 +52,11 @@ module.exports.run = async function({
                 cooldown,
                 hasPrefix = true
               } = tanginamo;
-            return `「${hasPrefix ? prefix : ""}${/*Utils.formatFont(*/aliases.join("/")/*)*/} 」${description ? ` — ${description}` : ""}`;
+            let aliases1 = aliases;
+            if (aliases1 !== []) aliases1.pop();
+            const namee = aliases1.join("/");
+            const named = name ? name : aliases.pop() + namee ? "/" + namee : "";
+            return `「${hasPrefix ? prefix : ""}${named} 」${description ? ` — ${description}` : ""}`;
             }
             for (let i = start; i < Math.min(end, commands.length); i++) {
             helpMessage += `> ${i + 1}. ${wiegine(commands[i])}\n`;
