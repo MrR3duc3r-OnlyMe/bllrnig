@@ -31,7 +31,8 @@ module.exports.run = async function({
     };
     const helpm = async(input, paged) => {
             const page = parseInt(input);
-            const pages = 15;
+            const pager = 15;
+            const pages = Math.ceil(commands.length / pager); // Adjust the number 15 to change commands per page
             let start = (page - 1) * pages;
             let end = start + pages;
             //let helpMessage = `♡  ∩_∩\n（„• ֊ •„)♡\n╭─∪∪─────────────⟡\nCommands:\n`;
@@ -51,7 +52,7 @@ module.exports.run = async function({
                 cooldown,
                 hasPrefix = true
               } = tanginamo;
-            return `「${hasPrefix ? prefix : ""}${Utils.formatFont((name ? name : aliases.join("/")))} 」${description ? ` — ${description}` : ""}`;
+            return `「${hasPrefix ? prefix : ""}${/*Utils.formatFont(*/aliases.join("/")/*)*/} 」${description ? ` — ${description}` : ""}`;
             }
             for (let i = start; i < Math.min(end, commands.length); i++) {
             helpMessage += `> ${i + 1}. ${wiegine(commands[i])}\n`;
@@ -62,7 +63,7 @@ module.exports.run = async function({
             helpMessage += `> ${index + 1}. ${wiegine(eventCommand)}\n`;
             });
             }
-            helpMessage += `\nPage ${paged ? "1" : page}${"\nTotal of:\n" + `${commands.length} Commands\n${eventCommands.length} Handle Events`}${paged ? `\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.` : ``}\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd, if the bot turned off or have Issues.`;
+            helpMessage += `\nPage ${paged ? `1 of ${pages}` : `${page} of ${pages}`}${"\nTotal of:\n" + `${commands.length} Commands\n${eventCommands.length} Handle Events`}${paged ? `\n\n🤖 To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.` : ``}\n⚠️ Contact The Developer: Kenneth Aceberos, Or use ${prefix}feedback cmd, if the bot turned off or have Issues.`;
       return helpMessage;
     }
 
@@ -97,6 +98,7 @@ module.exports.run = async function({
         api.sendMessage('❓❌ Command not found.', event.threadID, event.messageID);
       }
     }
+    
   } catch (error) {
     console.log(error);
   }

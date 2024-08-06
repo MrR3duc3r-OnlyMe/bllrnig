@@ -205,7 +205,7 @@ module.exports = function (http, api, ctx) {
           ranges: [],
           text: msg.body ? typeof msg.body == 'object' ? JSON.stringify(msg.body, null, 2) : msg.body : '' 
         },
-        with_tags_ids: [],
+        with_tags_ids: msg.tags ? msg.tags : [],
         inline_activities: [],
         explicit_place_id: 0,
         text_format_preset_id: 0,

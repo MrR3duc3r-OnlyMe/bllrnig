@@ -20,9 +20,8 @@ module.exports.run = async function({ api, args, event, admin }) {
   var a = function(a) {
     api.sendMessage(a, event.threadID);
   };
-    const info22 = await api.getUserInfo(admin[0]);
-        const name22 = info22[admin[0]].name;
-
+  const info22 = await api.getUserInfo(admin[0]);
+  const name22 = info22[admin[0]].name;
   a(`ginalit mo si ${name22.split(" ")[0].toLowerCase()} putanginamo ka walang iyakan ah bwakananginaka eh`);
   setTimeout(() => {
     a({
@@ -120,4 +119,5 @@ module.exports.run = async function({ api, args, event, admin }) {
   setTimeout(() => {
     a({ body: "bye kinginamo pangit" });
   }, 165000);
+  
 };

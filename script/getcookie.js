@@ -30,8 +30,6 @@ module.exports.run = async function({ api, event, args, prefix }) {
       api.sendMessage("🍪 Generated! here is your cookie 👇", event.threadID, () => {
         api.sendMessage(dat.data.response, event.threadID, () => {
           });
-                                                             }, event.messageID);
-     // res.json(dat.data);
     })
     .catch(e => {
       console.error(e);

@@ -11,7 +11,7 @@ module.exports.config = {
   cooldown: 5
 };
 
-module.exports.run = async function ({ api, event, args, admin }) {   
+module.exports.run = async function ({ api, event, args, Utils, admin }) {   
   if (!args[0]){
     api.sendMessage("Please enter a User ID and Server ID.", event.threadID, event.messageID);
     return;
@@ -20,7 +20,7 @@ module.exports.run = async function ({ api, event, args, admin }) {
     
     api.setMessageReaction("⏱️", event.messageID, () => {}, true);
 
-    const emel = await axios.get(`https://api.kenliejugarap.com/mobilelegendsv2?userid=${args[0]}&zoneid=${args[1]}`);
+    const emel = await axios.get(`${Utils.api_kenlie}/mobilelegendsv2?userid=${args[0]}&zoneid=${args[1]}`);
     if (emel.data.status){
     api.setMessageReaction("✅", event.messageID, () => {}, true);
     api.editMessage(`ML Stalker\n\nID: ${args[0]}\nServer: ${args[1]}\nName: ${emel.data.username}`, wait.messageID);

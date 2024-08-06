@@ -16,7 +16,8 @@ module.exports.config = {
 module.exports.run = async function({
   api,
   event,
-  args
+  args,
+  Utils
 }) {
     try {
             const song = encodeURIComponent(args.join(" "));
@@ -24,7 +25,7 @@ module.exports.run = async function({
             return api.sendMessage("🎵 Please enter a song.", event.threadID, event.messageID);
             }
             api.sendMessage("🎵 Please wait...", event.threadID, event.messageID);
-            const apiUrl = "https://api.popcat.xyz/lyrics?song=";
+            const apiUrl = `${Utils.api_pc}/lyrics?song=`;
             const response = await axios.get(apiUrl + song);
             const responseData = response.data;
             const timestamp = new Date().toISOString().replace(/[:.]/g, "-");

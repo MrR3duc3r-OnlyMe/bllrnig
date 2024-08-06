@@ -18,12 +18,11 @@ module.exports.run = async ({
     messageID
   } = event;
   try {
-    const response = await axios.get('https://api.quotable.io/random');
+    const response = await axios.get('https://zenquotes.io/api/quotes');
     const {
-      content,
-      author
-    } = response.data;
-    api.sendMessage(`"${content}" - ${author}`, threadID, messageID);
+      q,a
+    } = response.data[0];
+    api.sendMessage(`"${q}" - ${a}`, threadID, messageID);
   } catch (error) {
     api.sendMessage("Sorry, I couldn't fetch a quote at the moment. Please try again later.", threadID, messageID);
   }

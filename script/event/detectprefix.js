@@ -13,7 +13,8 @@ module.exports = {
   botname,
   admin,
   outro,
-  prefix
+  prefix,
+  Utils
 }) {
   const {
     threadID,
@@ -21,7 +22,7 @@ module.exports = {
     body
   } = event;
   if (!event.body)return;
-  const message = "✅This bot is connected to Project Botify." + prefix ? '\n\n❓Prefix is: ' + prefix :  "";
+  const message = "✅This bot is connected to Project Botify." + (prefix ? '\n\n❓Prefix is: ' + prefix :  "");
   const pogi = (neth) => body?.toLowerCase().startsWith(neth);
   if (pogi('pre') || pogi('prefix')) {
     api.sendMessage(message, threadID, messageID);

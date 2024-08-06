@@ -51,6 +51,10 @@ const Utils = {
     };
     return [ako, data, { ...image1, headers }];
   },
+  api_mark69: "https://markdevs-last-api-as2j.onrender.com",
+  api_hiroshi: "https://hiroshi-rest-api.replit.app",
+  api_kenlie: "https://api.kenliejugarap.com",
+  api_pc: "https://api.popcat.xyz",
   time(){
     return moment
     .tz("Asia/Manila")

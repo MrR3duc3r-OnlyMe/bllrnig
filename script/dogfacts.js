@@ -1,6 +1,4 @@
 const axios = require('axios');
-const main = require(__dirname.replace("/script", "") + '/index');
-
 
 module.exports.config = {
   name: "dogfacts",
@@ -8,16 +6,14 @@ module.exports.config = {
   credits: "Neth",
   description: "Random dog facts",
   hasPrefix: true,
-  cooldown: 1*1000,
+  cooldown: 1,
   usages: "{p}dogfacts"
 };
 
-module.exports.run = async function({ api, event, args, prefix }) {
+module.exports.run = async function({ api, event, args, prefix, Utils }) {
  
   api.setMessageReaction("⏳", event.messageID, () => {}, true);
-  //api.sendMessage(`Creating & Generating Microsoft Acc...\n⏳ Please wait...`, event.threadID, event.messageID);
-
-    axios.get(`${main.apiniJoshua}/dogfact`)
+    axios.get(`${Utils.api_josh}/dogfact`)
     .then(dat => { 
       api.setMessageReaction("✅", event.messageID, () => {}, true);
     const { fact } = dat.data;
