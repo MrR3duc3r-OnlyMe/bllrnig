@@ -27,23 +27,12 @@ module.exports = {
   }
   try {
     const f = await api.sendMessage(`Searching for "${musicName}"...`, event.threadID, event.messageID);
-    const searchResults = await axios.get(`https://me0xn4hy3i.execute-api.us-east-1.amazonaws.com/staging/api/resolve/resolveYoutubeSearch?search=${encodeURIComponent(musicName)}`, {
-        headers: {
-          "accept": "*/*",
-          "accept-encoding": "gzip, deflate, br",
-          "accept-language": "en-PH,en-US;q=0.9,en;q=0.8",
-          "sec-ch-ua": `"Chromium";v="107", "Not=A?Brand";v="24"`,
-          "sec-fetch-site": "cross-site",
-          "sec-fetch-mode": "cors",
-          "sec-fetch-dest": "empty",
-          "sec-ch-ua-platform": `"Android"`,
-        }
-      });
+    const searchResults = await axios.get(`https://me0xn4hy3i.execute-api.us-east-1.amazonaws.com/staging/api/resolve/resolveYoutubeSearch?search=${encodeURIComponent(musicName)}`);
     api.unsendMessage(f.messageID);
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
     const path = path.join(__dirname, 'cache', `${timestamp}_music.mp3`);
     const path_ = path.join(__dirname, 'cache', `${timestamp}.png`);
-    if (!searchResults.data.items.length) {
+    if (!searchResults.data.data.length) {
       return api.sendMessage("Can't find the search.", event.threadID, event.messageID);
     } else {
       const {
