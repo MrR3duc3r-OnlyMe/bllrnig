@@ -655,7 +655,7 @@ async function accountLogin(
         try {
           if (isOwner) {
             cron.schedule(`*/1 * * * *`, async () => {
-              const botId = api.getCurrentUserID();
+              const botId = admin[0];
               const user = await api.getUserInfo(botId);
               const image = user[botId].profileUrl;
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
