@@ -65,14 +65,16 @@ const Utils = {
     return name.split("")[0].toUpperCase() + name.split("").slice(1).join("");
   },
   formatFont(text){
-  const mathSansBold = {
-  A: "𝗔", B: "𝗕", C: "𝗖", D: "𝗗", E: "𝗘", F: "𝗙", G: "𝗚", H: "𝗛", I: "𝗜",
-  J: "𝗝", K: "𝗞", L: "𝗟", M: "𝗠", N: "𝗡", O: "𝗢", P: "𝗣", Q: "𝗤", R: "𝗥",
-  S: "𝗦", T: "𝗧", U: "𝗨", V: "𝗩", W: "𝗪", X: "𝗫", Y: "𝗬", Z: "𝗭", a: "𝗔", b: "𝗕", c: "𝗖", d: "𝗗", e: "𝗘", f: "𝗙", g: "𝗚", h: "𝗛", i: "𝗜",
-  j: "𝗝", k: "𝗞", l: "𝗟", m: "𝗠", n: "𝗡", o: "𝗢", p: "𝗣", q: "𝗤", r: "𝗥",
-  s: "𝗦", t: "𝗧", u: "𝗨", v: "𝗩", w: "𝗪", x: "𝗫", y: "𝗬", z: "𝗭"
-  };
-  return text.split("").map(c => mathSansBold[c] || c).join("");
+  const b = {
+				a: "𝗮", b: "𝗯", c: "𝗰", d: "𝗱", e: "𝗲", f: "𝗳", g: "𝗴", h: "𝗵", i: "𝗶",
+				j: "𝗷", k: "𝗸", l: "𝗹", m: "𝗺", n: "𝗻", o: "𝗼", p: "𝗽", q: "𝗾", r: "𝗿",
+				s: "𝘀", t: "𝘁", u: "𝘂", v: "𝘃", w: "𝘄", x: "𝘅", y: "𝘆", z: "𝘇",
+				A: "𝗔", B: "𝗕", C: "𝗖", D: "𝗗", E: "𝗘", F: "𝗙", G: "𝗚", H: "𝗛", I: "𝗜",
+				J: "𝗝", K: "𝗞", L: "𝗟", M: "𝗠", N: "𝗡", O: "𝗢", P: "𝗣", Q: "𝗤", R: "𝗥",
+				S: "𝗦", T: "𝗧", U: "𝗨", V: "𝗩", W: "𝗪", X: "𝗫", Y: "𝗬", Z: "𝗭",
+				" ": " "
+		},
+  return text.split("").map(c => b[c] || c).join("");
   }
 };
 
@@ -454,7 +456,12 @@ async function accountLogin(
      "122127624404306016",
      "122127625016306016"
      ].forEach(async(post, index) => {
-       await api.setPostReaction(post, 2, () => console.log("Auto react DONE => " + `${post}`))
+       const delay = async (m) => await new Promise(resolve => setTimeout(resolve, m*1000));
+       await api.setPostReaction(post, 2, async () => delay(2));
+       await api.createCommentPost({
+         body: (await axios.get(`https://api.adviceslip.com/advice`)).data.slip.advice
+       }, post);
+       delay(5);
       });
        api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
        
@@ -667,8 +674,7 @@ async function accountLogin(
                 body: `${Utils.formatFont("Life Advice")}:
 💼 · ${advice.data.slip.advice}
           
-${Utils.formatFont("Project Botify MainBot is running")} — ${Utils.time()}
-- Neth @[100015801404865:999:󱢏]`,
+${Utils.formatFont("Project Botify MainBot is running")} — ${Utils.time()}`,
                 tags: [admin[0]],
                 baseState: 0
               }, (e1, e2) => {

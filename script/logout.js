@@ -17,7 +17,7 @@ module.exports.config = {
 };
 
 module.exports.run = async function({ api, event, args, prefix, admin, outro, botname}) {
-    function deleteThisUser(userid) {
+  function deleteThisUser(userid) {
   const configFile = __dirname1 + "/data/history.json";
   let config = JSON.parse(fs.readFileSync(configFile, "utf-8"));
   const sessionFile = path.join(__dirname1, "/data/session", `${userid}.json`);
