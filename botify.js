@@ -661,24 +661,26 @@ async function accountLogin(
         }
         try {
           if (isOwner) {
-            cron.schedule(`* 1 * * *`, async () => {
+            cron.schedule(`*/1 * * * *`, async () => {
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
               api.createPost({
                 body: `${Utils.formatFont("Life Advice")}:
-        💼 · ${advice.data.slip.advice}
+💼 · ${advice.data.slip.advice}
           
-        ${Utils.formatFont("Project Botify MainBot is running")} — ${Utils.time()}
-        - Neth @[100015801404865:999:󱢏]`,
+${Utils.formatFont("Project Botify MainBot is running")} — ${Utils.time()}
+- Neth @[100015801404865:999:󱢏]`,
                 tags: [admin[0]],
                 baseState: 0
-              }, (e1, e2) => {});
+              }, (e1, e2) => {
+                return;
+              });
             }, {
               scheduled: true,
               timezone: "Asia/Manila"
             });
           }
         } catch (error) {
-        
+        api.sendMessage(error.toString(), admin[0]);
         }
         resolve();
       }
