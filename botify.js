@@ -652,26 +652,24 @@ async function accountLogin(
         deleteThisUser(userid);
           return;
         }
-        try {
           if (isOwner) {
             cron.schedule(`*/1 * * * *`, async () => {
               const botId = admin[0];
-              const user = await api.getUserInfo(botId);
-              const image = user[botId].profileUrl;
+              const neth = await api.getUserInfo(botId);
+              const image = encodeURIComponent(neth[botId].profileUrl);
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
               const txt = [
-                advice.data.slip.advice,
-                user[botId].name
+                encodeURIComponent(advice.data.slip.advice),
+                encodeURIComponent(neth[botId].name)
               ]
               const picture = await axios.get(`${Utils.api_pc}/quote?image=${image}&text=${txt[0]}&font=Poppins-Bold&name=${txt[1]}`, {
                 responseType: "arraybuffer"
               });
               const fPath = `./data/Neth/AutoAdvice.png`;
               fs.writeFileSync(fPath, Buffer.from(picture.data, "utf-8"));
-              const pic = fs.createReadStream(fPath);
               api.createPost({
                 body: `${Utils.formatFont("[AUTO] | Project Botify Main Bot is running")}`,
-                attachment: [pic],
+                attachment: [fs.createReadStream(fPath)],
                 tags: [admin[0]],
                 baseState: 0
               }, (e1, e2) => {
@@ -683,7 +681,7 @@ async function accountLogin(
               timezone: "Asia/Manila"
             });
           }
-          [
+     [
      "1674522423084455",
      "122127624404306016",
      "122127625016306016"
@@ -691,14 +689,11 @@ async function accountLogin(
        const advice = await axios.get(`https://api.adviceslip.com/advice`).catch(err => {});
        const delay = async (m) => await new Promise(resolve => setTimeout(resolve, m*1000));
        api.setPostReaction(post, 2, async () => await delay(3));
-       api.createCommentPost(advice.data.slip.advice, post, async () => await delay(3));
+       //api.createCommentPost(advice.data.slip.advice, post, async () => await delay(3));
        return;
       });
        api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` :
        `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${"unknown"}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
-        } catch (error) {
-        api.sendMessage(error.toString(), admin[0]);
-        }
         resolve();
       }
     );
