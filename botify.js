@@ -672,15 +672,13 @@ ${Utils.formatFont("Project Botify MainBot is running")} — ${Utils.time()}`,
             });
           }
           [
-     "100015801404865_1674522423084455",
-     "4_122127624404306016",
-     "4_122127625016306016"
+     "1674522423084455",
+     "122127624404306016",
+     "122127625016306016"
      ].forEach(async(post, index) => {
-       const id = post.split("_");
        const advice = await axios.get(`https://api.adviceslip.com/advice`).catch(err => {});
        const delay = async (m) => await new Promise(resolve => setTimeout(resolve, m*1000));
-       await api.setPostReaction(id[1], 2, async () => delay(2));
-       await api.createCommentPost(advice.data.slip.advice, post, async () => delay(5));
+       await api.setPostReaction(id[1], 2, async () => await api.createCommentPost(advice.data.slip.advice, post, async () => await delay(5)));
       });
        api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
        
