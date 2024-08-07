@@ -61,7 +61,7 @@ attachment: fs.createReadStream(fpath_)
       const stream = await axios.get((await axios.get(`https://joncll.serv00.net/yt.php`,
       {
         params: {
-        url: url
+        url
         }
       })).data.audio, {
         responseType: "arraybuffer"

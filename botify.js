@@ -85,7 +85,7 @@ fs.readdirSync(script).forEach(file => {
         const { config, run, handleEvent } = require(path.join(scripts, file));
         if (config) {
           const {
-             name = "",
+             name = [],
              role = 0,
              version = "1.0.0",
              hasPrefix = true,
@@ -142,7 +142,7 @@ fs.readdirSync(script).forEach(file => {
       const { config, run, handleEvent } = require(scripts);
       if (config) {
         const {
-          name = "",
+          name = [],
           role = 0,
           version = "1.0.0",
           hasPrefix = true,

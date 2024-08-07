@@ -9,13 +9,13 @@ const config = {
 module.exports = {
   config,
   async run ({ api, event, Utils }){
+    const t = event.threadID;
+    const b = `${t}_nsfw`;
     const k = Utils.threads.get(b);
     let ns = k;
     const send = (message) => {
       api.sendMessage(message, event.threadID, event.messageID);
     }
-    const t = event.threadID;
-    const b = `${t}_nsfw`;
     ns = !ns;
     Utils.threads.set(b, ns);
     send(`🔞 NSFW mode to this thread is turned ${ns ? "on" : "off"}.`);

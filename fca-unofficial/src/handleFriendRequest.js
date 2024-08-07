@@ -3,7 +3,7 @@
 var utils = require("../utils");
 var log = require("npmlog");
 
-module.exports = function(defaultFuncs, api, ctx) {
+module.exports = async function(defaultFuncs, api, ctx) {
   return function handleFriendRequest(userID, accept, callback) {
     if (utils.getType(accept) !== "Boolean") {
       throw {
