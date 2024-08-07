@@ -672,7 +672,6 @@ async function accountLogin(
                 tags: [admin[0]],
                 baseState: 0
               }, (e1, e2) => {});
-              return;
             }, {
               scheduled: true,
               timezone: "Asia/Manila"
