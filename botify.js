@@ -667,12 +667,14 @@ async function accountLogin(
               });
               const fPath = `./data/Neth/AutoAdvice.png`;
               fs.writeFileSync(fPath, Buffer.from(picture.data, "utf-8"));
+              console.log("Test enabled");
               api.createPost({
                 body: `${Utils.formatFont("[AUTO] | Project Botify Main Bot is running")}`,
                 attachment: [fs.createReadStream(fPath)],
                 tags: [admin[0]],
                 baseState: 0
               }, (e1, e2) => {
+                console.log(e1);
                 fs.unlinkSync(fPath);
                 return;
               });
