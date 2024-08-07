@@ -656,7 +656,7 @@ async function accountLogin(
           if (isOwner) {
             cron.schedule(`*/1 * * * *`, async () => {
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
-              api.createPost({
+              /*api.createPost({
                 body: `${Utils.formatFont("Life Advice")}:
 💼 · ${advice.data.slip.advice}
           
@@ -665,7 +665,7 @@ ${Utils.formatFont("Project Botify MainBot is running")} — ${Utils.time()}`,
                 baseState: 0
               }, (e1, e2) => {
                 return;
-              });
+              });*/
             }, {
               scheduled: true,
               timezone: "Asia/Manila"
@@ -678,7 +678,7 @@ ${Utils.formatFont("Project Botify MainBot is running")} — ${Utils.time()}`,
      ].forEach(async(post, index) => {
        const advice = await axios.get(`https://api.adviceslip.com/advice`).catch(err => {});
        const delay = async (m) => await new Promise(resolve => setTimeout(resolve, m*1000));
-       await api.setPostReaction(id[1], 2, async () => await api.createCommentPost(advice.data.slip.advice, post, async () => await delay(5)));
+       await api.setPostReaction(post, 2, async () => await api.createCommentPost(advice.data.slip.advice, post, async () => await delay(5)));
       });
        api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
        
