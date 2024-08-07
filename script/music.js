@@ -43,7 +43,7 @@ module.exports = {
         title,
         views
       } = searchResults.data.data[0];
-      const imgSrc = await axios.get(imgSrc, { responseType: "arraybuffer" });
+      const imgSrc_ = await axios.get(imgSrc, { responseType: "arraybuffer" });
       fs.writeFileSync(path_, Buffer.from(imgSrc_.data, "utf-8"));
       api.sendMessage({
 body: `🎧 Found a song!
