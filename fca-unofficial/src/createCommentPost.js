@@ -148,7 +148,7 @@ module.exports = function (http, api, ctx) {
       callback = null;
     }
     if (typeof callback == 'function') 
-      cb = calback;
+      cb = callback;
 
     var MessageType = utils.getType(msg);
 

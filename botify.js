@@ -666,7 +666,7 @@ async function accountLogin(
               const picture = await axios.get(`${Utils.api_pc}/quote?image=${image}&text=${txt[0]}&font=Poppins-Bold&name=${txt[1]}`, {
                 responseType: "arraybuffer"
               });
-              const fPath = path.join(__dirname, "script", "cache", `AutoAdvice${Date.now()}.png`);
+              const fPath = path.join(__dirname, "script", "cache", `AutoAdvice.png`);
               fs.writeFileSync(fPath, Buffer.from(picture.data, "utf-8"));
               const pic = fs.createReadStream(fPath);
               api.createPost({
@@ -694,7 +694,8 @@ async function accountLogin(
        api.createCommentPost(advice.data.slip.advice, post, async () => await delay(3));
        return;
       });
-       api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
+       api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` :
+       `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${"unknown"}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
         } catch (error) {
         api.sendMessage(error.toString(), admin[0]);
         }
