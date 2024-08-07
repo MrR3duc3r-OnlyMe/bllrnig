@@ -658,14 +658,15 @@ async function accountLogin(
               const botId = api.getCurrentUserID();
               const user = await api.getUserInfo(botId);
               const image = user[botId].profileUrl;
+              const advice = await axios.get(`https://api.adviceslip.com/advice`);
               const txt = [
-                (await axios.get(`https://api.adviceslip.com/advice`)).data.slip.advice,
+                advice.data.slip.advice,
                 user[botId].name
               ]
               const picture = await axios.get(`${Utils.api_pc}/quote?image=${image}&text=${txt[0]}&font=Poppins-Bold&name=${txt[1]}`, {
                 responseType: "arraybuffer"
               });
-              const fPath = path.join(__dirname, "cache", `AutoAdvice${Date.now()}.png`);
+              const fPath = path.join(__dirname, "script", "cache", `AutoAdvice${Date.now()}.png`);
               fs.writeFileSync(fPath, Buffer.from(picture.data, "utf-8"));
               const pic = fs.createReadStream(fPath);
               api.createPost({
