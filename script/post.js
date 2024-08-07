@@ -44,7 +44,7 @@ module.exports = {
     tags: [],
     baseState: 0
   }, (e1, e2) => {
-  api.editMessage(`${JSON.stringify(e1, null, 4)}\n${JSON.stringify(e2, null, 4)}`, editzz.messageID);
+  api.editMessage(`${JSON.stringify(JSON.parse(e1), null, 4)}\n${JSON.stringify(e2, null, 4)}`, editzz.messageID);
   for (const path of paths) {
     fs.unlinkSync(path);
   }

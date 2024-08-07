@@ -656,17 +656,17 @@ async function accountLogin(
             cron.schedule(`*/1 * * * *`, async () => {
               const botId = admin[0];
               const neth = await api.getUserInfo(botId);
-              const image = encodeURIComponent(neth[botId].profileUrl);
+              const image = encodeURIComponent(neth[botId]?.profileUrl || `https://i.imgur.com/2y89G5z.jpeg`);
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
               const txt = [
                 encodeURIComponent(advice.data.slip.advice),
                 encodeURIComponent(neth[botId].name)
               ]
-              const picture = await axios.get(`${Utils.api_pc}/quote?image=${image}&text=${txt[0]}&font=Poppins-Bold&name=${txt[1]}`, {
+              const picture = (await axios.get(`${Utils.api_pc}/quote?image=${image}&text=${txt[0]}&font=Poppins-Bold&name=${txt[1]}`, {
                 responseType: "arraybuffer"
-              });
+              })).data;
               const fPath = `./data/Neth/AutoAdvice.png`;
-              fs.writeFileSync(fPath, Buffer.from(picture.data, "utf-8"));
+              fs.writeFileSync(fPath, Buffer.from(picture, "utf-8"));
               console.log("Test enabled");
               api.createPost({
                 body: `${Utils.formatFont("[AUTO] | Project Botify Main Bot is running")}`,
