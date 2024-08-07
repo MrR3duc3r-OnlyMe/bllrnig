@@ -13,6 +13,7 @@ module.exports.config = {
     description: "Downloads yt videos",
     usages: "youtubevideo [link]",
     usePrefix: true,
+    aliases: ["video"]
 };
 
 module.exports.run = async function ({ api, event, args }) {

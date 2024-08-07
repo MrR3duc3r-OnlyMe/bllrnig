@@ -36,17 +36,9 @@ module.exports = {
     if (groupName.length > 25) groupName = groupName.substring(0, 25 - 3) + '...';
     
     try {
-      const { data } = await axios.get(`${Utils.api_pc}/welcomecard`, {
-        params: {
-          background: groupInfo.imageSrc || "https://i.ibb.co/4YBNyvP/images-76.jpg",
-          text1: `Hi ${name}`,
-          text2: `Welcome to ${groupName}`,
-          text3: `The ${memberCount_} member of the group!`,
-          avatar: Idavatar || `https://btch.pages.dev/file/365fde0bdb9699be80746.jpg`
-        }}, {
-        responseType: 'arraybuffer' });
+      const { data } = await axios.get(`${Utils.api_pc}/welcomecard?background=${encodeURIComponent(groupInfo.imageSrc || "https://i.ibb.co/4YBNyvP/images-76.jpg")}&text1=${encodeURIComponent(`Hi ${name}`)}&text2=${encodeURIComponent(`Welcome to ${groupName}`)}&text3=${encodeURIComponent(`The ${memberCount_} member of the group!`)}&avatar=${encodeURIComponent(Idavatar || `https://btch.pages.dev/file/365fde0bdb9699be80746.jpg`)}`, { responseType: 'arraybuffer' });
       const filePath = './script/cache/welcome_image.jpg';
-      fs.writeFileSync(filePath, Buffer.from(data));
+      fs.writeFileSync(filePath, Buffer.from(data, "utf-8"));
       api.sendMessage({
         body: `Everyone welcome the new member ${name} to ${groupName}!`,
         attachment: fs.createReadStream(filePath)
