@@ -30,8 +30,8 @@ module.exports = {
     const searchResults = await axios.get(`https://me0xn4hy3i.execute-api.us-east-1.amazonaws.com/staging/api/resolve/resolveYoutubeSearch?search=${encodeURIComponent(musicName)}`);
     api.unsendMessage(f.messageID);
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const path = path.join(__dirname, 'cache', `${timestamp}_music.mp3`);
-    const path_ = path.join(__dirname, 'cache', `${timestamp}.png`);
+    const fpath = path.join(__dirname, 'cache', `${timestamp}_music.mp3`);
+    const fpath_ = path.join(__dirname, 'cache', `${timestamp}.png`);
     if (!searchResults.data.data.length) {
       return api.sendMessage("Can't find the search.", event.threadID, event.messageID);
     } else {
@@ -44,7 +44,7 @@ module.exports = {
         views
       } = searchResults.data.data[0];
       const imgSrc_ = await axios.get(imgSrc, { responseType: "arraybuffer" });
-      fs.writeFileSync(path_, Buffer.from(imgSrc_.data, "utf-8"));
+      fs.writeFileSync(fpath_, Buffer.from(imgSrc_.data, "utf-8"));
       api.sendMessage({
 body: `🎧 Found a song!
 ━━━━━━━━━
@@ -56,8 +56,8 @@ Duration: ${duration}
 ━━━━━━━━━
 
 ⌛ Now downloading...`,
-attachment: fs.createReadStream(path_)
-}, event.threadID, () => fs.unlinkSync(path__), event.messageID);
+attachment: fs.createReadStream(fpath_)
+}, event.threadID, () => fs.unlinkSync(fpath__), event.messageID);
       const stream = await axios.get((await axios.get(`https://joncll.serv00.net/yt.php`,
       {
         params: {
@@ -66,12 +66,12 @@ attachment: fs.createReadStream(path_)
       })).data.audio, {
         responseType: "arraybuffer"
       });
-      fs.writeFileSync(path, Buffer.from(stream.data, "utf-8"));
+      fs.writeFileSync(fpath, Buffer.from(stream.data, "utf-8"));
       api.sendMessage({
             body: `🎧 ${title}`,
-            attachment: fs.createReadStream(path)
+            attachment: fs.createReadStream(fpath)
           }, event.threadID, () => {
-          fs.unlinkSync(path);
+          fs.unlinkSync(fpath);
         }, event.messageID);
     }
   } catch (error) {
