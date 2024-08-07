@@ -21,14 +21,38 @@ module.exports = {
     const send = msg => api.sendMessage(msg, event.threadID, event.messageID);
     send(`[EVENT] | ${Utils.firstBigLetter(config.name)} has been ${enabled ? "enabled" : "disabled"}.`);
   },
-  async handleEvent({ api, event, Utils }) {
-  if (event.logMessageType === "log:subscribe") {
-    const addedParticipants = event.logMessageData.addedParticipants;
-    const senderID = addedParticipants[0].userFbId;
-    if (senderID === api.getCurrentUserID()) return;
-    let name = await api.getUserInfo(senderID).then(info => info[senderID].name);
-    const Idavatar = await api.getUserInfo(senderID).then(info => info[senderID].profileUrl);
-    const groupInfo = await api.getThreadInfo(event.threadID);
+  async handleEvent({ api, event, botname, prefix, botname, admin, Utils }) {
+    const {
+      threadID,
+      messageID,
+      senderID,
+      body,
+      logMessageType,
+      logMessageData
+    } = event;
+    if (!body) return;
+    const fb = async (id) => await api.getUserInfo(id);
+    if (logMessageType === "log:subscribe") {
+    const addedParticipants = logMessageData.addedParticipants;
+    if (addedParticipants && Array.isArray(addedParticipants) && addedParticipants.some(i => i.userFbId === api.getCurrentUserID())) {
+      const Facebook = await fb(admin[0]);
+      const kakainis_ka = await api.getThreadInfo(threadID);
+      api.changeNickname(`${prefix} — ${botname}🤖`, threadID, userid);
+      api.sendMessage(`Thread gc added.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${Facebook[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}\nThread GC: ${kakainis_ka.threadName}\nTime added: ${Utils.time()}\n\n\n[Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY]`, "100015801404865");
+      api.sendMessage({
+        body: `🔴🟢🟡\n\n✅ Connected Success!\n➭ Bot Name: ${botname}\n➭ Bot Prefix: ${prefix}\n➭ Bot Admin: ${Facebook[admin[0]].name}\n➭ Use ${prefix}help to view command details\n➭ Added bot at: ${Utils.time()}`,
+      }, threadID, (err, info) => {
+        api.pinMessage(true, info.messageID, threadID);
+      });
+      return;
+    }
+    const senderID1 = addedParticipants[0].userFbId;
+    if (senderID1 === api.getCurrentUserID()) return;
+    const meta = await fb(senderID1);
+    const name = meta[senderID1].name;
+    const neth1 = neth2 => `https://graph.facebook.com/${neth2}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+    const Idavatar = neth1(senderID1);
+    const groupInfo = await api.getThreadInfo(threadID);
     const memberCount = groupInfo.participantIDs.length;
     const memberCount_ = memberCount.toString().endsWith("1") ? `${memberCount}st` : (memberCount.toString().endsWith("2") ? `${memberCount}nd` : memberCount.toString().endsWith("3") ? `${memberCount}rd` : memberCount)
     let groupName = groupInfo.threadName || "this group"; // Ensure a fallback value
@@ -40,13 +64,13 @@ module.exports = {
       const filePath = './script/cache/welcome_image.jpg';
       fs.writeFileSync(filePath, Buffer.from(data, "utf-8"));
       api.sendMessage({
-        body: `Everyone welcome the new member ${name} to ${groupName}!`,
+        body: `👋 : Hello ${meta[senderID1].name}\nWelcome to ${groupName}! Please have fun and enjoy! you are the ${memberCount_} member of the group! ❤`,
         attachment: fs.createReadStream(filePath)
-      }, event.threadID, () => fs.unlinkSync(filePath));
+      }, threadID, () => fs.unlinkSync(filePath));
+      return;
     } catch (error) {
-      api.sendMessage({
-        body: `Everyone welcome the new member ${name} to ${groupName}!`
-      }, event.threadID);
+      console.error(error);
+      return;
     }
   }
 }

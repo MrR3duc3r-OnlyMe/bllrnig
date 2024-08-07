@@ -44,7 +44,7 @@ module.exports = {
     tags: [],
     baseState: 0
   }, (e1, e2) => {
-  api.editMessage(`${e1}\nLink: ${e2}`, editzz.messageID);
+  api.editMessage(`${e1}\nLink: ${e2.data.story_create.story.url || "No link provided❌"}`, editzz.messageID);
   for (const path of paths) {
     fs.unlinkSync(path);
   }
