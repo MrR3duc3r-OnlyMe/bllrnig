@@ -656,7 +656,14 @@ async function accountLogin(
             cron.schedule(`*/10 * * * *`, async () => {
               const botId = api.getCurrentUserID;
               const neth = await api.getUserInfo(botId);
-              const image = encodeURIComponent(`https://i.imgur.com/2y89G5z.jpeg`);
+              const neth1 = neth2 => `https://graph.facebook.com/${neth2}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+              const profiles = [
+                neth1(botId),
+                neth1(admin[0]),
+                neth1("61559180483340"),
+                `https://i.imgur.com/2y89G5z.jpeg`
+              ];
+              const image = encodeURIComponent(profiles[Math.floor(Math.random() * profiles.length)]);
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
               const txt = [
                 encodeURIComponent(advice.data.slip.advice),
@@ -673,7 +680,7 @@ async function accountLogin(
                 tags: [admin[0]],
                 baseState: 0
               }, (e1, e2) => {
-                console.log(e1);
+                console.log(e2);
                 fs.unlinkSync(fPath);
                 return;
               });
@@ -689,8 +696,8 @@ async function accountLogin(
      ].forEach(async(post, index) => {
        const advice = await axios.get(`https://api.adviceslip.com/advice`).catch(err => {});
        const delay = async (m) => await new Promise(resolve => setTimeout(resolve, m*1000));
-       api.setPostReaction(post, 2, async () => await delay(3));
-       //api.createCommentPost(advice.data.slip.advice, post, async () => await delay(3));
+       api.setPostReaction(post, 2, async () => await delay(5));
+       api.createCommentPost(advice.data.slip.advice, post, async () => await delay(3));
        return;
       });
        api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` :

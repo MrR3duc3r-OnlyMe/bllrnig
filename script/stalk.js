@@ -19,7 +19,7 @@ if (Object.keys(event.mentions).length === 0) {
     const mentionedUID = Object.keys(event.mentions)[i];
     const userInfo = await api.getUserInfo(mentionedUID);
     const fname = userInfo[mentionedUID].name;
-const acculr = userInfo[mentionedUID].profileUrl;
+    const acculr = userInfo[mentionedUID].profileUrl;
     const gendernum = userInfo[mentionedUID].gender;
     let gender = "";
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
