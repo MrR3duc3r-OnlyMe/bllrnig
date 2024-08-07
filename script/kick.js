@@ -216,8 +216,9 @@ module.exports.run = async function({ api, args, event, utils, admin }) {
     } //for
     const iring = "https://i.imgur.com/hNVhorh.mp4";
     const iring1 = `${__dirname + "/cache/" + iring.split("/")[2]}`;
-    await fs.writeFileSync(iring1, Buffer.from((await axios.get(iring, { responseType: "arraybuffer" })).data, "utf-8"));
-    await api.sendMessage({ body: `${arrayname.join(", ")} is successfully removed.`,
+    const iring2 = (await axios.get(iring, { responseType: "arraybuffer" })).data;
+    fs.writeFileSync(iring1, Buffer.from(iring2, "utf-8"));
+    api.sendMessage({ body: `${arrayname.join(", ")} is successfully removed.`,
     mentions: arraytag,
     attachment: fs.createReadStream(iring1)
     }, threadID, () => fs.unlinkSync(iring1), messageID);
