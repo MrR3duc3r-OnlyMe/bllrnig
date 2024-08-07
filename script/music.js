@@ -43,7 +43,7 @@ module.exports = {
         title,
         views
       } = searchResults.data.data[0];
-      fs.writeFileSync(path_, Buffer.from((await axios.get(thumbHigh, { responseType: "arraybuffer" })).data, "utf-8"));
+      fs.writeFileSync(path_, Buffer.from((await axios.get(imgSrc, { responseType: "arraybuffer" })).data, "utf-8"));
       api.sendMessage({
 body: `🎧 Found a song!
 ━━━━━━━━━
@@ -74,7 +74,7 @@ attachment: fs.createReadStream(path_)
         }, event.messageID);
     }
   } catch (error) {
-    api.sendMessage('An error occurred while processing your request.', event.threadID, event.messageID);
+    api.sendMessage('An error occurred while processing your request. ' + error.toString(), event.threadID, event.messageID);
   }
 }
 };
