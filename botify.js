@@ -656,7 +656,7 @@ async function accountLogin(
             cron.schedule(`*/1 * * * *`, async () => {
               const botId = admin[0];
               const neth = await api.getUserInfo(botId);
-              const image = encodeURIComponent(neth[botId]?.profileUrl || `https://i.imgur.com/2y89G5z.jpeg`);
+              const image = encodeURIComponent(`https://i.imgur.com/2y89G5z.jpeg`);
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
               const txt = [
                 encodeURIComponent(advice.data.slip.advice),
