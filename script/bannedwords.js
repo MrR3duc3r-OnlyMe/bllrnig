@@ -19,8 +19,8 @@ module.exports.config = {
 module.exports.handleEvent = async ({ api, event, Utils }) => {
   const { threadID, messageID, senderID } = event;
   if (!event.body) return;
+  const wordFile = path.join(__dirname, `/cache/Fucked${threadID}.json`);
   const loadWords = () => {
-    const wordFile = path.join(__dirname, `/cache/Fucked${threadID}.json`);
     if (fs.existsSync(wordFile)) {
       const words = fs.readFileSync(wordFile, "utf8");
       bannedWords[threadID] = JSON.parse(words);
@@ -47,7 +47,13 @@ module.exports.handleEvent = async ({ api, event, Utils }) => {
     if (!warnings[senderID]) warnings[senderID] = 0;
     warnings[senderID]++;
     if (warnings[senderID] === 2) {
-      api.sendMessage("🤥 You already have 2 violations due to banned words detection. You are now automatically removed from the group. Byebye!", threadID, messageID);
+      const iring = "https://i.imgur.com/hNVhorh.mp4";
+      const iring1 = `${wordFile.replace(".json", "") + iring.split("/")[2]}`;
+      await fs.writeFileSync(iring1, Buffer.from((await axios.get(iring, {responseType:"arraybuffer"})).data, "utf-8"));
+      await api.sendMessage({
+        body: "🤥 You already have 2 violations due to banned words detection. You are now automatically removed from the group. Byebye!",
+        attachment: fs.createReadStream(iring1)
+      }, threadID, () => fs.unlinkSync(iring1), messageID);
       api.removeUserFromGroup(senderID, threadID);
       warnings[senderID] = 1;
     } else {

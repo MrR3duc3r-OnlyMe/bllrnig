@@ -51,8 +51,8 @@ module.exports.run = async function({
                 credits,
                 cooldown,
                 hasPrefix = true
-              } = tanginamo;
-            const named = aliases.length > 2 ? aliases.join("/") : aliases[aliases.length - 1];
+              } = tanginamo; 
+            const named = aliases.length > 2 ? aliases[aliases.length - 1] + "/" + aliases.slice(0, -1).join("/") : aliases[aliases.length - 1] || name;
             return `「${hasPrefix ? prefix : ""}${named} 」${description ? ` — ${description}` : ""}`;
             }
             for (let i = start; i < Math.min(end, commands.length); i++) {

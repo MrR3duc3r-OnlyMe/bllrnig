@@ -40,6 +40,7 @@ module.exports.run = async function ({ api, event }) {
     return api.sendMessage("Please reply with the photo/video/gif that you need to upload", event.threadID, event.messageID);
   }
 
+  api.sendMessage("Uploading...", event.threadID, event.messageID)
   for (const { url } of event.messageReply.attachments) {
     try {
       const res = await imgur.uploadImage(url);

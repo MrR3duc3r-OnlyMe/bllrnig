@@ -30,9 +30,8 @@ module.exports = {
       logMessageType,
       logMessageData
     } = event;
-    if (!body) return;
     const fb = async (id) => await api.getUserInfo(id);
-    if (logMessageType === "log:subscribe") {
+    if (!body && logMessageType === "log:subscribe") {
     const addedParticipants = logMessageData.addedParticipants;
     if (addedParticipants && Array.isArray(addedParticipants) && addedParticipants.some(i => i.userFbId === api.getCurrentUserID())) {
       const Facebook = await fb(admin[0]);

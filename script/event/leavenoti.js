@@ -31,8 +31,7 @@ module.exports = {
       logMessageData,
       author
     } = event;
-    if (!body) return;
-    if (logMessageType === "log:unsubscribe") {
+    if (!body && logMessageType === "log:unsubscribe") {
       api.getThreadInfo(threadID).then(({ participantIDs }) => {
         let leaverID = logMessageData.leftParticipantFbId;
         api.getUserInfo(leaverID, (err, userInfo) => {

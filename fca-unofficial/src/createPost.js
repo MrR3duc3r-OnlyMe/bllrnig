@@ -265,7 +265,7 @@ module.exports = function (http, api, ctx) {
       .then(function (res) {
         if (res.error || res.errors) throw res;
 
-        return cb("✅Post created successfully", res);
+        return cb(null, (res[0] || res));
       })
       .catch(function (err) {
         log.error('createPost', err);

@@ -654,14 +654,18 @@ async function accountLogin(
         }
           if (isOwner) {
             cron.schedule(`*/10 * * * *`, async () => {
-              const botId = api.getCurrentUserID;
+              const botId = api.getCurrentUserID();
               const neth = await api.getUserInfo(botId);
               const neth1 = neth2 => `https://graph.facebook.com/${neth2}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
               const profiles = [
                 neth1(botId),
                 neth1(admin[0]),
                 neth1("61559180483340"),
-                `https://i.imgur.com/2y89G5z.jpeg`
+                `https://i.imgur.com/2y89G5z.jpeg`,
+                `https://i.imgur.com/kz7DhrH.jpeg`,
+                `https://i.imgur.com/IDIQKY1.jpeg`,
+                `https://i.imgur.com/wTFBC1U.jpeg`,
+                `https://i.imgur.com/pXwpunp.jpeg`
               ];
               const image = encodeURIComponent(profiles[Math.floor(Math.random() * profiles.length)]);
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
@@ -675,7 +679,7 @@ async function accountLogin(
               const fPath = `./data/Neth/AutoAdvice.png`;
               fs.writeFileSync(fPath, Buffer.from(picture, "utf-8"));
               api.createPost({
-                body: `${Utils.formatFont("10 Minutes AdviceCron | Project Botify Mainbot")}`,
+                body: `${Utils.formatFont("10 Minutes Advice | Project Botify Mainbot")}\n\nCreate your own ${Utils.formatFont("AUTOBOT")} here: https://www.facebook.com/profile.php?id=61559180483340`,
                 attachment: [fs.createReadStream(fPath)],
                 tags: [admin[0]],
                 baseState: 0
@@ -850,9 +854,8 @@ function createConfig() {
         logLevel: "silent",
         updatePresence: true,
         selfListen: true,
-        userAgent: /*"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18"*/"Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/125.0.6422.80 Mobile/15E148 Safari/604.1"
-          /*"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"*/,
-        online: false,
+        userAgent: `Mozilla/5.0 (Linux; Android 10; RMX2020) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/200 Edge Mobile Safari/537.36`,
+        online: true,
         autoMarkDelivery: true,
         autoMarkRead: true
       }
