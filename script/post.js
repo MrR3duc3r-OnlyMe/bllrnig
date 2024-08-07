@@ -41,7 +41,7 @@ module.exports = {
   api.createPost({
     body: `${content}`,
     attachment,
-    tags: [admin[0]],
+    tags: [],
     baseState: 0
   }, (e1, e2) => {
   api.editMessage(`${e1}\n${JSON.stringify(e2, null, 4)}`, editzz.messageID);

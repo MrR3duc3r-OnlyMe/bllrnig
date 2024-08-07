@@ -4,8 +4,8 @@ const name = "ai";
 const ais = [];
 const fs = require("fs");
 fs.readdirSync(__dirname).forEach(name => {
-  if (!name.startsWith("ai-")) return;
-  ais.push((name.replace("ai-", "").replace(".js", "")).toLowerCase());
+  if (!name.startsWith("ai_")) return;
+  ais.push((name.replace("ai_", "").replace(".js", "")).toLowerCase());
 })
 const config = {
   name,
