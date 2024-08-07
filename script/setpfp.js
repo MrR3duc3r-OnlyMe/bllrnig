@@ -29,7 +29,7 @@ module.exports = {
   fs.writeFileSync(path, Buffer.from(img.data, "utf-8"));
   api.editMessage(`⏳ Changing profile picture..`, editzz.messageID);
   api.changeAvatar(fs.createReadStream(path), `${args.join(" ")}`, null, (e1, e2) => {
-  api.editMessage(`${e1}\n${e2}`, editzz.messageID);
+  api.editMessage(`${e1}\n${JSON.stringify(e2, null, 4)}`, editzz.messageID);
   fs.unlinkSync(path);
   });
 }

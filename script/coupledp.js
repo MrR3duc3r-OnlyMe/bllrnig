@@ -19,7 +19,7 @@ const path1 = __dirname + '/cache/' + `${timestamp}_Cdp1.png`;
 const path2 = __dirname + '/cache/' + `${timestamp}_Cdp2.png`;
 
 
-module.exports.run = async function ({ api, event }) {
+module.exports.run = async function ({ api, event, Utils }) {
     try {
       
       api.setMessageReaction("⏳", event.messageID, () => {}, true);
