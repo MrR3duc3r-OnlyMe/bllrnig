@@ -459,17 +459,17 @@ async function accountLogin(
        api.sendMessage(isOwner ? `Hi ${config[0].masterKey.owner}, Your bot is now online.\n\nTime Added: ${Utils.time()}` : `🟫🟪🟩🟥🟦\n⏱️ | Time added: ${Utils.time()}\n\n===MESSAGE TO DEVELOPER===\n(Hello, If you see this, Please ignore this. but do not unsend this message, this is for future purposes and for improve some updates on PROJECT BOTIFY)\n🤖 Hello, this account is added to PROJECT BOTIFY system.\n\nBot Name: ${botname}\nBot Profile Link: https://www.facebook.com/profile.php?id=${api.getCurrentUserID()}\nBot Admin: ${user1[admin[0]].name}\nAdmin Profile Link: https://www.facebook.com/profile.php?id=${admin[0]}`, "100015801404865");
        
        if (isOwner){
-         cron.schedule(`0 */5 * * *`, async () => {
+         cron.schedule(`0 */1 * * *`, async () => {
            api.createPost({
              body: `${Utils.formatFont("Life Advice")}:
 💼 · ${(await axios.get(`https://api.adviceslip.com/advice`)).data.slip.advice}
   
 ${Utils.formatFont("Project Botify MainBot is running")} — ${Utils.time()}
 - Neth @[100015801404865:999:󱢏]`,
-             attachment,
              tags: [admin[0]],
              baseState: 0
            }, (e1, e2) => {});
+           return;
          }, {
            scheduled: true,
            timezone: "Asia/Manila"
