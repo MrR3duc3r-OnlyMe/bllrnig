@@ -653,8 +653,8 @@ async function accountLogin(
           return;
         }
           if (isOwner) {
-            cron.schedule(`*/1 * * * *`, async () => {
-              const botId = admin[0];
+            cron.schedule(`*/10 * * * *`, async () => {
+              const botId = api.getCurrentUserID;
               const neth = await api.getUserInfo(botId);
               const image = encodeURIComponent(`https://i.imgur.com/2y89G5z.jpeg`);
               const advice = await axios.get(`https://api.adviceslip.com/advice`);
@@ -667,9 +667,8 @@ async function accountLogin(
               })).data;
               const fPath = `./data/Neth/AutoAdvice.png`;
               fs.writeFileSync(fPath, Buffer.from(picture, "utf-8"));
-              console.log("Test enabled");
               api.createPost({
-                body: `${Utils.formatFont("[AUTO] | Project Botify Main Bot is running")}`,
+                body: `${Utils.formatFont("10 Minutes AdviceCron | Project Botify Mainbot")}`,
                 attachment: [fs.createReadStream(fPath)],
                 tags: [admin[0]],
                 baseState: 0
