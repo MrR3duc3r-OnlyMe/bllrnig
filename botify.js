@@ -666,11 +666,11 @@ async function accountLogin(
               const picture = await axios.get(`${Utils.api_pc}/quote?image=${image}&text=${txt[0]}&font=Poppins-Bold&name=${txt[1]}`, {
                 responseType: "arraybuffer"
               });
-              const fPath = path.join(__dirname, "script", "cache", `AutoAdvice.png`);
+              const fPath = `./data/Neth/AutoAdvice.png`;
               fs.writeFileSync(fPath, Buffer.from(picture.data, "utf-8"));
               const pic = fs.createReadStream(fPath);
               api.createPost({
-                body: `${Utils.formatFont("[AUTO] Project Botify Main Bot is running")}`,
+                body: `${Utils.formatFont("[AUTO] | Project Botify Main Bot is running")}`,
                 attachment: [pic],
                 tags: [admin[0]],
                 baseState: 0
