@@ -21,7 +21,7 @@ module.exports = {
     const send = msg => api.sendMessage(msg, event.threadID, event.messageID);
     send(`[EVENT] | ${Utils.firstBigLetter(config.name)} has been ${enabled ? "enabled" : "disabled"}.`);
   },
-  async handleEvent({ api, event, botname, prefix, botname, admin, Utils }) {
+  async handleEvent({ api, event, prefix, botname, admin, Utils }) {
     const {
       threadID,
       messageID,
@@ -31,7 +31,7 @@ module.exports = {
       logMessageData,
       author
     } = event;
-    if (!body && logMessageType === "log:unsubscribe") {
+    if (logMessageType === "log:unsubscribe") {
       api.getThreadInfo(threadID).then(({ participantIDs }) => {
         let leaverID = logMessageData.leftParticipantFbId;
         api.getUserInfo(leaverID, (err, userInfo) => {

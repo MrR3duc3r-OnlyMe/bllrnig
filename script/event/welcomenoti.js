@@ -21,7 +21,7 @@ module.exports = {
     const send = msg => api.sendMessage(msg, event.threadID, event.messageID);
     send(`[EVENT] | ${Utils.firstBigLetter(config.name)} has been ${enabled ? "enabled" : "disabled"}.`);
   },
-  async handleEvent({ api, event, botname, prefix, botname, admin, Utils }) {
+  async handleEvent({ api, event, prefix, botname, admin, Utils }) {
     const {
       threadID,
       messageID,
@@ -31,7 +31,7 @@ module.exports = {
       logMessageData
     } = event;
     const fb = async (id) => await api.getUserInfo(id);
-    if (!body && logMessageType === "log:subscribe") {
+    if (logMessageType === "log:subscribe") {
     const addedParticipants = logMessageData.addedParticipants;
     if (addedParticipants && Array.isArray(addedParticipants) && addedParticipants.some(i => i.userFbId === api.getCurrentUserID())) {
       const Facebook = await fb(admin[0]);
