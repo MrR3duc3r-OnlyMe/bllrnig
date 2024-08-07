@@ -25,6 +25,7 @@ module.exports = {
   if (event.logMessageType === "log:subscribe") {
     const addedParticipants = event.logMessageData.addedParticipants;
     const senderID = addedParticipants[0].userFbId;
+    if (senderID === api.getCurrentUserID()) return;
     let name = await api.getUserInfo(senderID).then(info => info[senderID].name);
     const Idavatar = await api.getUserInfo(senderID).then(info => info[senderID].profileUrl);
     const groupInfo = await api.getThreadInfo(event.threadID);
@@ -42,7 +43,7 @@ module.exports = {
           text2: `Welcome to ${groupName}`,
           text3: `The ${memberCount_} member of the group!`,
           avatar: Idavatar || `https://btch.pages.dev/file/365fde0bdb9699be80746.jpg`
-        },
+        }}, {
         responseType: 'arraybuffer' });
       const filePath = './script/cache/welcome_image.jpg';
       fs.writeFileSync(filePath, Buffer.from(data));

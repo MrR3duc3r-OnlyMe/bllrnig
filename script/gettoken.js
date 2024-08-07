@@ -12,10 +12,8 @@ module.exports.config = {
 };
 
 module.exports.run = async function({ api, event, args, prefix }) {
-  const query = args.join(' ');
-  const split = query.split(' ');
-  const user = split[0];
-  const pass = split[1];
+  const user = args[0];
+  const pass = args[1];
 
   if (!user || !pass){
     return api.sendMessage(`Invalid. Enter email/number/uid and password. Example: ${prefix}gettoken [Email/Number/UID] [Password]`, event.threadID, event.messageID);
@@ -26,7 +24,7 @@ module.exports.run = async function({ api, event, args, prefix }) {
   try {
   const g = await fb.getKey(user, pass);
     api.setMessageReaction("✅", event.messageID, () => {}, true);
-    api.sendMessage(`✨ Access Token | FB\n\nEAAG: ${g.EAAG}\nEAAAAU: ${g.EAAAAU}\nEAAD6V7: ${g.EAAD6V7}\nEAAAAAY: ${g.EAAAAAY}\n\nUID: ${g.uid}`, event.threadID, event.messageID);
+    api.sendMessage(`✨ Access Token | FB\n\nEAAAAU: ${g.EAAAAU}\nEAAD6V7: ${g.EAAD6V7}\nEAAAAAY: ${g.EAAAAAY}\n\nUID: ${g.uid}`, event.threadID, event.messageID);
   } catch (e){
     console.error(e);
     api.setMessageReaction("🤷", event.messageID, () => {}, true);

@@ -27,9 +27,8 @@ module.exports = {
   }
   try {
     const f = await api.sendMessage(`Searching for "${musicName}"...`, event.threadID, event.messageID);
-    const searchResults = await axios.get(`https://api.flvto.site/@api/search/YouTube/${encodeURIComponent(musicName)}`, {
+    const searchResults = await axios.get(`https://me0xn4hy3i.execute-api.us-east-1.amazonaws.com/staging/api/resolve/resolveYoutubeSearch?search=${encodeURIComponent(musicName)}`, {
         headers: {
-          "user-agent": `Mozilla/5.0 (Linux; Android 12; SM-A315G) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/200 Edge Mobile Safari/537.36`,
           "accept": "*/*",
           "accept-encoding": "gzip, deflate, br",
           "accept-language": "en-PH,en-US;q=0.9,en;q=0.8",
@@ -48,24 +47,20 @@ module.exports = {
       return api.sendMessage("Can't find the search.", event.threadID, event.messageID);
     } else {
       const {
-        channelId,
-        channelTitle,
+        videoId,
+        url,
         duration,
-        id,
-        publishedAt,
-        thumbHigh,
+        imgSrc,
         title,
-        viewCount
-      } = searchResults.data.items[0];
+        views
+      } = searchResults.data.data[0];
       fs.writeFileSync(path_, Buffer.from((await axios.get(thumbHigh, { responseType: "arraybuffer" })).data, "utf-8"));
       api.sendMessage({
 body: `🎧 Found a song!
 ━━━━━━━━━
 Title: ${title}
 ━━━━━━━━━
-Views: ${viewCount}
-━━━━━━━━━
-Publish at: ${viewCount} by ${channelTitle}
+Views: ${views}
 ━━━━━━━━━
 Duration: ${duration}
 ━━━━━━━━━
@@ -76,14 +71,14 @@ attachment: fs.createReadStream(path_)
       const stream = await axios.get((await axios.get(`https://joncll.serv00.net/yt.php`,
       {
         params: {
-        url: `https://youtube.com/watch?v=${id}`
+        url: url
         }
       })).data.audio, {
         responseType: "arraybuffer"
       });
       fs.writeFileSync(path, Buffer.from(stream.data, "utf-8"));
       api.sendMessage({
-            body: `${music.title}`,
+            body: `🎧 ${title}`,
             attachment: fs.createReadStream(path)
           }, event.threadID, () => {
           fs.unlinkSync(path);

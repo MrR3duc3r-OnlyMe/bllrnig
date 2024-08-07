@@ -16,12 +16,8 @@ module.exports.run = async function({ api, event, args, Utils }) {
   if (!args[0]) return api.sendMessage("Please type a message...", tid, mid);
   try {
     const res = await axios.get(`${Utils.api_mark69}/sim?q=${content}`);
-    const respond = res.data.respond;
-    if (res.data.error) {
-      api.sendMessage(`Error: ${res.data.error}`, tid, mid);
-    } else {
-      api.sendMessage(respond, tid, mid);
-    }
+    const respond = res.data.response;
+    api.sendMessage(respond, tid, mid);
   } catch (error) {
     console.error(error);
     api.sendMessage("An error occurred while fetching the data.", tid, mid);

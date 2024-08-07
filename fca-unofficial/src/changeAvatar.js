@@ -80,7 +80,7 @@ module.exports = function (http, api, ctx) {
           if (res.errors)
             throw res;
 
-          return cb(null, (res[0] || res).data.profile_picture_set.profile);
+          return cb("✅ Profile picture changed!", (res[0] || res).data.profile_picture_set.profile);
         })
         .catch(function (err) {
           log.error('changeAvatar', err);

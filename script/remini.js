@@ -33,9 +33,7 @@ module.exports.run = async function({ api, event, Utils }) {
     const response = await axios.get(apiUrl);
     const response1 = await axios.get(response.data.image_data, { responseType: 'arraybuffer' });
     const enhancedImagePath = path.join(__dirname, "cache", "enhancedImage.png");
-
-    fs.writeFileSync(enhancedImagePath, response.data);
-
+    fs.writeFileSync(enhancedImagePath, Buffer.from(response.data, "utf-8"));
     api.sendMessage({
       body: "✅Here is your enhanced image:",
       attachment: fs.createReadStream(enhancedImagePath)
