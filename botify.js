@@ -617,7 +617,8 @@ async function accountLogin(
                   botname,
                   prefix,
                   blacklist,
-                  outro
+                  outro,
+                  Utils
                 });
               }
             }
