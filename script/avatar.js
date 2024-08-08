@@ -19,17 +19,18 @@ module.exports = {
     prefix
   }){
     const [id, bgname, signature, color] = args;
-    if (!id || !bgname || !signature || !color)
-    return api.sendMessage(`Usage: ${prefix}avatar [character id] [name] [signature] [color]\nIf you don't know about [character id], you can choose your own character by typing: ${prefix}getavatar [id]`, event.threadID, event.messageID);
+    if (!id || !bgname || !signature || !color) return api.sendMessage(`Usage: ${prefix}avatar [character id] [name] [signature] [color]\nIf you don't know about [character id], you can choose your own character by typing: ${prefix}getavatar [id]`, event.threadID, event.messageID);
     if (!id || isNaN(id)) return api.sendMessage(`Character ID must be a number`, event.threadID, event.messageID);
     try {
+      api.sendMessage(`Creating your avatar, please wait...`, event.threadID, event.messageID);
       const response = (await axios.get(`${Utils.api_josh}/canvas/avatar`, {
         params: {
           id,
           bgname,
           signature,
           color
-        }
+        },
+        responseType: "arraybuffer"
       }, {
         responseType: "arraybuffer"
       })).data;

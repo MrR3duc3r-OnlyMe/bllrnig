@@ -13,12 +13,13 @@ const config = {
 module.exports = {
     config,
     async run({ api, event }) {
+      const attachments = event.messageReply.attachments.filter(attachment => attachment.type === "photo");
       if (event.type !== "message_reply" || !attachments.length >= 2) {
         return api.sendMessage(`❌Please reply to the 2 images you want to swap with.`, event.threadID, event.messageID);
       }
-      const attachments = event.messageReply.attachments.filter(attachment => attachment.type === "photo");
       const [sourceUrl, targetUrl] = attachments.map(attachment => attachment.url);
       const path = __dirname + `/cache/${event.senderID}-faceswap.png`;
+      api.sendMessage(`🔮 Faceswapping your image...`, event.threadID, event.messageID);
         modules[0]
           .post(`https://api.prodia.com/v1/faceswap`,
           { sourceUrl,targetUrl }, {

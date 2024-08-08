@@ -1,78 +1,89 @@
 const fs = require("fs");
 const axios = require("axios");
 const path = require("path");
-const ytdl = require("ytdl-core");
 
-
-module.exports.config = {
-    name: "youtubevideo",
-    version: "1.0",
-    hasPermission: 0,
-    role: 0,
-    credits: "Neth",
-    description: "Downloads yt videos",
-    usages: "youtubevideo [link]",
-    usePrefix: true,
-    aliases: ["video"]
+const config = {
+  name: "youtubevideo",
+  version: "1.0",
+  role: 0,
+  credits: "Kenneth Aceberos",
+  description: "Downloads yt videos",
+  usePrefix: true,
+  aliases: ["video", "ytvideo"]
 };
 
-module.exports.run = async function ({ api, event, args }) {
-    try {
-      const arg = args.join(' ');
-      if (!arg){
-        api.sendMessage(`Please provide a YouTube video link.`, event.threadID, event.messageID);
-        return;
-      } 
-      
-      const info1 = await new Promise(resolve => {
-        api.sendMessage("⏳ Please wait...", event.threadID, (err, info1) => {
-        resolve(info1);
-       }, event.messageID);
-      });
-        
-        ytdl.getInfo(arg).then((info) => {
-          // Select the video format and quality
-          const format = ytdl.chooseFormat(info.formats,{quality:"18"});
-          const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-            const pathh = __dirname + '/cache/' + `${timestamp}_youtubevideo.mp4`;
-
-          const outputStream = fs.createWriteStream(pathh);
-          // Create a write stream to save the video file
-          axios.head(format.url).then((res) => {
-            if (res.headers['content-length'] > 1024*1024*40){
-              api.setMessageReaction("❌", event.messageID, () => {}, true);
-              api.editMessage("❌ Limit is only at 40MB. File too big, try again on another video.", info1.messageID);
-                fs.unlinkSync(pathh);
-                return;
-            } else {
-              api.setMessageReaction("⏳", event.messageID, () => {}, true);
-              api.editMessage(`⏳ Downloading video...`, info1.messageID);
-ytdl.downloadFromInfo(info, { format: format }).pipe(outputStream);
-                         outputStream.on('finish', (data) => {
-
-              outputStream.close(() => {
-                              api.setMessageReaction("✅", event.messageID, () => {}, true);
-api.editMessage(`✅ Downloaded! It will send the downloaded video shortly.`, info1.messageID);
-                              api.sendMessage({
-                              body: `✅ YouTube Video Downloaded Successfully`,
-                              attachment: fs.createReadStream(pathh)
-                              }, event.threadID, () => {
-                              fs.unlinkSync(pathh);
-                              }, event.messageID);
-                          });
-                        });
-                      
-        }
-                               
-          });
-          }).catch((err) => {
-            console.error(err);
-              api.sendMessage("Error ❌", event.threadID);
-          });
-
-      } catch (err) {
-        console.error(err);
-      api.setMessageReaction("❌", event.messageID, () => {}, true);
-        api.sendMessage(`An error occurred while processing your request.`, event.threadID, event.messageID);
+module.exports = {
+  config,
+  async run({
+    api,
+    event,
+    args,
+    prefix
+  }) {
+    const musicName = args.join(' ');
+    if (!musicName) {
+      api.sendMessage(`To get started, type ${prefix}youtubevideo and the title of the song you want.`, event.threadID, event.messageID);
+      return;
     }
+    try {
+      const f = await api.sendMessage(`Searching for "${musicName}"...`, event.threadID, event.messageID);
+      const searchResults = await axios.get(`https://me0xn4hy3i.execute-api.us-east-1.amazonaws.com/staging/api/resolve/resolveYoutubeSearch?search=${encodeURIComponent(musicName)}`);
+      api.unsendMessage(f.messageID);
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      const fpath = path.join(__dirname, 'cache', `${timestamp}_vid.mp4`);
+      const fpath_ = path.join(__dirname, 'cache', `${timestamp}.png`);
+      if (!searchResults.data.data.length) {
+        return api.sendMessage("Can't find the search.", event.threadID, event.messageID);
+      } else {
+        const {
+          videoId,
+          url,
+          duration,
+          imgSrc,
+          title,
+          views
+        } = searchResults.data.data[0];
+        const imgSrc_ = await axios.get(imgSrc, { responseType: "arraybuffer" });
+        fs.writeFileSync(fpath_, Buffer.from(imgSrc_.data, "utf-8"));
+        api.sendMessage({
+          body: `🎧 Found a video!
+━━━━━━━━━
+Title: ${title}
+━━━━━━━━━
+Views: ${views}
+━━━━━━━━━
+Duration: ${duration}
+━━━━━━━━━
+
+⌛ Now downloading...`,
+          attachment: fs.createReadStream(fpath_)
+        }, event.threadID, () => fs.unlinkSync(fpath__), event.messageID);
+        const stream = await axios.get((await axios.get(`https://joncll.serv00.net/videodl.php`,
+        {
+          params: {
+            url
+          }
+        })).data.video, {
+          responseType: "arraybuffer"
+        });
+        axios.head(stream.data).then((res) => {
+          if (res.headers['content-length'] > 1024 * 1024 * 50) {
+            api.sendMessage("❌ Limit is only at 50MB. File too big, try again on another video.", event.threadID, event.messageID);
+            fs.unlinkSync(fpath);
+            return;
+          }
+          fs.writeFileSync(fpath, Buffer.from(stream.data, "utf-8"));
+          api.sendMessage({
+            body: `🎥 ${title}`,
+            attachment: fs.createReadStream(fpath)
+          }, event.threadID, () => {
+            fs.unlinkSync(fpath);
+          }, event.messageID);
+
+        });
+      }
+    } catch (error) {
+      api.sendMessage('An error occurred while processing your request. ' + error.toString(), event.threadID, event.messageID);
+    }
+  }
 };
