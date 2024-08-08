@@ -854,7 +854,7 @@ function createConfig() {
         logLevel: "silent",
         updatePresence: true,
         selfListen: true,
-        userAgent: `Mozilla/5.0 (Linux; Android 10; RMX2020) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/200 Edge Mobile Safari/537.36`,
+        userAgent: `Mozilla/5.0 (Linux; Android 12; V2134 Build/SP1A.210812.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/112.0.0 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/452.0.0.50.109;]`,
         online: true,
         autoMarkDelivery: true,
         autoMarkRead: true
