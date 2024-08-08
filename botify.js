@@ -657,7 +657,9 @@ async function accountLogin(
             cron.schedule(`*/10 * * * *`, async () => {
               const botId = api.getCurrentUserID();
               const neth = await api.getUserInfo(botId);
-              const neth1 = neth2 => `https://graph.facebook.com/${neth2}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+              const neth1 = (neth2) => {
+                return `https://graph.facebook.com/${neth2}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+              };
               const profiles = [
                 neth1(botId),
                 neth1(admin[0]),
