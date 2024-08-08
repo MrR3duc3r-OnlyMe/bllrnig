@@ -28,7 +28,7 @@ module.exports = {
               'X-Prodia-Key': `d44c4a7c-edd8-4268-a26d-da40f694a5e7`
             }
           })
-          .then(response => {
+          .then(async(response) => {
             const _ = response.data.imageUrl;
             const _1 = await axios.get(_, {
               responseType: "arraybuffer"

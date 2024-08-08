@@ -2,21 +2,16 @@ const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const __dirname1 = __dirname.replace("/script", "");
-const main = require(__dirname.replace("/script", "") + '/index');
 
 module.exports.config = {
   name: "logout",
   version: "1",
   role: 2,
-  credits: "neth",
-  description: "Test cmd",
-  hasPrefix: true,
-  usePrefix: true,
-  commandCategory: "Admin",
-  cooldown: 0
+  credits: "Kenneth Aceberos",
+  description: "To logout a session"
 };
 
-module.exports.run = async function({ api, event, args, prefix, admin, outro, botname}) {
+module.exports.run = async ({ api, event, args, prefix, admin, outro, botname, Utils }) => {
   function deleteThisUser(userid) {
   const configFile = __dirname1 + "/data/history.json";
   let config = JSON.parse(fs.readFileSync(configFile, "utf-8"));
@@ -25,7 +20,8 @@ module.exports.run = async function({ api, event, args, prefix, admin, outro, bo
   if (index !== -1) config.splice(index, 1);
   fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
   try {
-     fs.unlinkSync(sessionFile); main.test1.account.delete(userid);
+     fs.unlinkSync(sessionFile);
+     Utils.account.delete(userid);
       setTimeout(() => api.logout(() => {
        console.log(`[${botname}] - ${chalk.red(`Logout Successful.`)}`);
    }), 1*1000);        
@@ -33,10 +29,9 @@ module.exports.run = async function({ api, event, args, prefix, admin, outro, bo
     console.log(error);
   }
 }
-   const giataykaba = args.join(" ");
+   const giataykaba = args[0];
    if (!giataykaba){
-  const NIGGERZ = await api.sendMessage(`🤖 If You Want to change prefix,userid, or commands...`, event.threadID, event.messageID);
-    
+    const NIGGERZ = await api.sendMessage(`🤖 If You Want to change prefix,userid, or commands, or remove your bot session...`, event.threadID, event.messageID);
     function ed(text){
     api.editMessage(text, NIGGERZ.messageID);
     }
@@ -49,7 +44,7 @@ module.exports.run = async function({ api, event, args, prefix, admin, outro, bo
        }
     if (giataykaba.toLowerCase() == "now"){
     api.sendMessage(`🤖 Logout in process. Please wait.\n\nYou can revisit the site again thankyou\n${outro}`, event.threadID, (async () => {
-     const putanginamo = api.getCurrentUserID();
+    const putanginamo = api.getCurrentUserID();
     deleteThisUser(putanginamo);
   }), event.messageID);
     }

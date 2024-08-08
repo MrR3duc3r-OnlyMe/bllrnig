@@ -15,9 +15,10 @@ module.exports = {
     api,
     event,
     args,
-    Utils
+    Utils,
+    prefix
   }){
-    const [id, bgname, signature, color] = [args[0], args[1], args[2], args[3]];
+    const [id, bgname, signature, color] = args;
     if (!id || !bgname || !signature || !color)
     return api.sendMessage(`Usage: ${prefix}avatar [character id] [name] [signature] [color]\nIf you don't know about [character id], you can choose your own character by typing: ${prefix}getavatar [id]`, event.threadID, event.messageID);
     if (!id || isNaN(id)) return api.sendMessage(`Character ID must be a number`, event.threadID, event.messageID);
